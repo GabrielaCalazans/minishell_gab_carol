@@ -6,24 +6,11 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/03 22:17:44 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:19:56 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	word_len(char *str)
-{
-	int	len;
-
-	len = 0;
-	while (*str && find_type(str) == 10)
-	{
-		len++;
-		str++;
-	}
-	return (len);
-}
 
 t_token	*create_word_token(char *str, int len)
 {
@@ -52,7 +39,7 @@ t_token	*create_token(char *str)
 	if (find_type(&str[i]) == 12 || find_type(&str[i]) == 13)
 		len += 1;
 	token = ft_substr(str, 0, len);
-	type = define_type(&str[i]);
+	type = find_type(&str[i]);
 	newnode = createnode(token, type);
 	return (newnode);
 }
@@ -80,7 +67,11 @@ void	sub_start_tokens(t_data *data, t_token *newnode, int check)
 			if (!newnode)
 				break ;
 			ft_add_back(&data->tokens, newnode);
-			i++;
+			if (find_type(&data->prompt_in[i]) == 13
+				|| find_type(&data->prompt_in[i]) == 12)
+				i += 2;
+			else
+				i++;
 		}
 	}
 }

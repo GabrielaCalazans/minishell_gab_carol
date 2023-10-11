@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 21:59:35 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/03 16:15:56 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:31:57 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,39 @@
 int	is_dollar(char c)
 {
 	if (c == '$')
-		return (7);
+		return (DOLLAR);
 	return (0);
 }
 
 int	is_quote(char c)
 {
 	if (c == '\"')
-		return (8);
+		return (QUOTE_DOUBLE);
 	if (c == '\'')
-		return (9);
+		return (QUOTE_SINGLE);
 	return (0);
 }
 
 int	is_space(char c)
 {
 	if (c == ' ')
-		return (11);
+		return (SPACE);
 	return (0);
 }
+
+int	is_
 
 int	is_heredoc(char *str, int check)
 {
 	if (check == 1)
 	{
 		if (str[0] == str[1])
-			return (12);
+			return (APPEND);
 	}
 	if (check == 2)
 	{
 		if (str[0] == str[1])
-			return (13);
+			return (HEREDOC);
 	}
 	return (check);
 }
@@ -69,5 +71,5 @@ int	find_type(char *str)
 	if (0 < is_space(*str))
 		return (is_space(*str));
 	else
-		return (10);
+		return (WORD);
 }

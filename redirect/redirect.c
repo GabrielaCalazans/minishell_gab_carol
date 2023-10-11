@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexical.c                                          :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 17:04:43 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/10 16:58:01 by gacalaza         ###   ########.fr       */
+/*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
+/*   Updated: 2023/10/11 17:05:31 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
-int	lexer(t_data *data)
+void	find_file_name(t_token *tokens)
 {
-	if (ft_strncmp(data->tokens->type, "pipe", 5) == 0)
-		printf("heya\n");
-	return (1);
+	t_token	*temp;
+
+	temp = tokens;
+	while(temp)
+	{
+		if (ft_strncmp(temp->type, "space", 6) == 0)
+			temp = temp->next;
+		
+	}
 }
 
-int	is_valid_redirect(t_token tokens, char )
+int	is_syntax_error(int type, int type_next)
 {
-	while (/* condition */)
-	{
-		/* code */
-	}
+	if (type == 1 || type == 2)
+		return (1);
+	if (type == 3 || type == 5)
+}
+
+void	redirect_lst(t_token *tokens)
+{
 	
 }

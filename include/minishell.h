@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/03 22:11:48 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:43:06 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,25 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-# define PROMPT	"CHORA> "
+# define PROMPT	"CHORA $> "
 
-// # define REDIRECT_IN		1
-// # define REDIRECT_OUT	2
-// # define PIPE			3
-// # define FLAG			4
-// # define SLASH			5
-// # define QUESTION		6
-// # define DOLLAR			7
-// # define QUOTE_DOUBLE	8
-// # define QUOTE_SINGLE	9
-// # define SPACE			11
-// # define APPEND			12
-// # define HEREDOC			13
+# define REDIRECT_IN	1
+# define REDIRECT_OUT	2
+# define PIPE			3
+# define FLAG			4
+# define SLASH			5
+# define QUESTION		6
+# define DOLLAR			7
+# define QUOTE_DOUBLE	8
+# define QUOTE_SINGLE	9
+# define WORD			10
+# define SPACE			11
+# define APPEND			12
+# define HEREDOC		13
+# define AMPERSAND		14
+# define ASTERISK		15
+# define R_BRACKET_O	16
+# define R_BRACKET_C	17
 
 // **cmd; // aqui comando e flags
 // **cmd_args; // aqui str
@@ -53,7 +58,7 @@
 typedef struct s_token
 {
 	char			*token;
-	char			*type;
+	int				type;
 	struct s_token	*next;
 }				t_token;
 
@@ -75,7 +80,6 @@ typedef struct s_rdct
 	char			*file;
 	struct s_rdct	*next;
 }				t_rdct;
-
 
 typedef struct s_prompt
 {
@@ -101,6 +105,7 @@ int		find_type(char *str);
 int		is_redirect(char c);
 int		find_type(char *str);
 char	*define_type(char *str);
+int		word_len(char *str);
 
 // DEALING LIST
 t_token	*createnode(char *token, char *type);
@@ -108,11 +113,13 @@ void	ft_add_back(t_token **lst, t_token *new);
 int		ft_size(t_token *lst);
 void	ft_clear(t_token **lst);
 
-
-int	lexer(t_data *data);
+// LEXER
+int		lexer(t_data *data);
 
 // PRINT LIST
 void	printlist(t_token *head);
 
+// CLEAR DATA
+void	ft_clear_data(t_data *data)
 
 #endif

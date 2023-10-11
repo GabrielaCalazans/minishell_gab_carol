@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 21:58:55 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/03 16:15:50 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:24:27 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	is_redirect(char c)
 {
 	if (c == '<')
-		return (1);
+		return (REDIRECT_IN);
 	if (c == '>')
-		return (2);
+		return (REDIRECT_OUT);
 	else
 		return (0);
 }
@@ -25,27 +25,27 @@ int	is_redirect(char c)
 int	is_pipe(char c)
 {
 	if (c == '|')
-		return (3);
+		return (PIPE);
 	return (0);
 }
 
 int	is_flag(char c)
 {
 	if (c == '-')
-		return (4);
+		return (FLAG);
 	return (0);
 }
 
 int	is_slash(char c)
 {
 	if (c == '/')
-		return (5);
+		return (SLASH);
 	return (0);
 }
 
 int	is_questionmark(char c)
 {
 	if (c == '?')
-		return (6);
+		return (QUESTION);
 	return (0);
 }

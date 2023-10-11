@@ -6,7 +6,7 @@
 #    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/10/05 17:29:00 by gacalaza         ###   ########.fr        #
+#    Updated: 2023/10/10 13:28:24 by gacalaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ valgrind:	all
 norminette:	all
 			norminette
 
-bonus: comp_libf $(BONUS)
+bonus: comp_libf $(BONUS)pu
 
 re: fclean all
 

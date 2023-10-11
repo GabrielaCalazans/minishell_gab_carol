@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:11:09 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/03 22:16:38 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:14:44 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,17 @@ char	*define_type(char *str)
 	if (i > 7 && i < 14)
 		return (cont_def_type(i));
 	return ("error");
+}
+
+int	word_len(char *str)
+{
+	int	len;
+
+	len = 0;
+	while (*str && find_type(str) == 10)
+	{
+		len++;
+		str++;
+	}
+	return (len);
 }
