@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/11 16:43:06 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:01:30 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define QUOTE_DOUBLE	8
 # define QUOTE_SINGLE	9
 # define WORD			10
-# define SPACE			11
+# define M_SPACE		11
 # define APPEND			12
 # define HEREDOC		13
 # define AMPERSAND		14
@@ -108,7 +108,7 @@ char	*define_type(char *str);
 int		word_len(char *str);
 
 // DEALING LIST
-t_token	*createnode(char *token, char *type);
+t_token	*createnode(char *token, int type);
 void	ft_add_back(t_token **lst, t_token *new);
 int		ft_size(t_token *lst);
 void	ft_clear(t_token **lst);
@@ -120,6 +120,6 @@ int		lexer(t_data *data);
 void	printlist(t_token *head);
 
 // CLEAR DATA
-void	ft_clear_data(t_data *data)
+void	ft_clear_data(t_data *data);
 
 #endif

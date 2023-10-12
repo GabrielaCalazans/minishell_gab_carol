@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:58:59 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/03 16:15:28 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:06:12 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	ft_clear(t_token **lst)
 	{
 		free(temp->token);
 		temp->token = NULL;
-		free(temp->type);
-		temp->type = NULL;
 		next = temp->next;
 		free (temp);
 		temp = next;

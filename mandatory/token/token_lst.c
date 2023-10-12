@@ -6,14 +6,14 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:12:33 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/03 20:41:00 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:05:23 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // Func to create a new node
-t_token	*createnode(char *token, char *type)
+t_token	*createnode(char *token, int type)
 {
 	t_token	*newnode;
 
@@ -21,7 +21,7 @@ t_token	*createnode(char *token, char *type)
 	if (!newnode)
 		perror("malloc");
 	newnode->token = ft_strdup(token);
-	newnode->type = ft_strdup(type);
+	newnode->type = type;
 	if (!newnode->token || !newnode->type)
 	{
 		perror("strdup");

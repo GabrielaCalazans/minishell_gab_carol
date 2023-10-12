@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/10 14:19:03 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:59:30 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	printlist(t_token *head)
 	temp = head;
 	while (temp != NULL)
 	{
-		printf("NODE - token: %s type: %s\n", temp->token, temp->type);
+		printf("NODE - token: %s type: %d\n", temp->token, temp->type);
 		temp = temp->next;
 	}
 	printf("\n");

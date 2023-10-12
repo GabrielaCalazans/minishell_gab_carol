@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/10 19:19:56 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:02:02 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ t_token	*create_word_token(char *str, int len)
 {
 	t_token	*newnode;
 	char	*token;
-	char	*type;
+	int		type;
 	int		i;
 
 	i = 0;
 	token = ft_substr(str, 0, len);
-	type = define_type(&str[i]);
+	type = find_type(&str[i]);
 	newnode = createnode(token, type);
 	return (newnode);
 }
@@ -30,7 +30,7 @@ t_token	*create_token(char *str)
 {
 	t_token	*newnode;
 	char	*token;
-	char	*type;
+	int		type;
 	int		i;
 	int		len;
 
