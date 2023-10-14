@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/12 15:59:30 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:39:49 by carolinekun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 // Function to print the linked list
+/*
 void	printlist(t_token *head)
 {
 	t_token	*temp;
@@ -32,19 +33,20 @@ void	set_data(t_data *data)
 {
 	data->tokens = NULL;
 }
-
+*/
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_data	*data;
 
-	data = malloc(sizeof(t_data));
+	data->prompt_in = readline(PROMPT);
+	data = get_data();
 	(void)argv;
 	(void)envp;
 	(void)argc;
 	if (argc != 1)
 		return (1);
-	set_data(data);
 	prompt(data);
+	
 	return (0);
 }
 

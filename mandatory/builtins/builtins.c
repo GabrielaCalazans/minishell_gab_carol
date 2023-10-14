@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:03:30 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/09/22 21:39:06 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:46:26 by carolinekun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	is_builtins(char *check)
 {
+	printf("is_builtins");
 	if (ft_strncmp(check, "echo", 5) == 0)
 		return (1);
 	if (ft_strncmp(check, "cd", 3) == 0)
@@ -32,14 +33,15 @@ int	is_builtins(char *check)
 		return (0);
 }
 
-// void	call_builtins(t_data *ptr)
-// {
+void	call_builtins(t_data *ptr)
+{
+	printf("call_builtins");
 // 	if (is_builtins(ptr->cmd[0]) == 1)
 // 		ft_echo(ptr);
 // 	if (is_builtins(ptr->cmd[0]) == 2)
 // 		ft_cd(ptr);
-// 	if (is_builtins(ptr->cmd[0]) == 3)
-// 		ft_pwd(ptr);
+ 	if (is_builtins(ptr->cmd[0]) == 3)
+ 		ft_pwd();
 // 	if (is_builtins(ptr->cmd[0]) == 4)
 // 		ft_export(ptr);
 // 	if (is_builtins(ptr->cmd[0]) == 5)
@@ -48,6 +50,6 @@ int	is_builtins(char *check)
 // 		ft_env(ptr);
 // 	if (is_builtins(ptr->cmd[0]) == 7)
 // 		ft_exit(ptr);
-// 	else
-// 		printf("Them, all, eventually, went to shit");
-// }
+ 	else
+ 		printf("Them, all, eventually, went to shit");
+}

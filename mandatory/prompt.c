@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/03 22:07:06 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/13 11:44:43 by carolinekun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	prompt(t_data *data)
 {
 	while (1)
 	{
-		data->prompt_in = readline(PROMPT);
 		if (data->prompt_in[0] != '\0')
 		{
 			add_history(data->prompt_in);
 			printf("prompt %s\n", data->prompt_in);
+			exec_check(data->prompt_in);
 		}
 		if (data->prompt_in[0] != '\0')
 			start_token(data);

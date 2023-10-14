@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/12 16:01:30 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:39:56 by carolinekun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_data
 	struct s_data	*next;
 }			t_data;
 
+extern struct s_data t_data;
+
 typedef struct s_rdct
 {
 	char			*redirect;
@@ -87,8 +89,17 @@ typedef struct s_prompt
 }				t_prompt;
 
 void	prompt(t_data *data);
+
+// builtins
+void	ft_pwd(void);
 int		is_builtins(char *check);
-//void	call_builtins(t_data *ptr);
+void	call_builtins(t_data *ptr);
+
+//utils
+t_data	*get_data(void);
+
+//execution
+void	exec_check(t_data *ptr);
 
 // TOKENS
 void	start_token(t_data *data);

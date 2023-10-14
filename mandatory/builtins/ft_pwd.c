@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/13 11:32:49 by carolinekun      ###   ########.fr       */
+/*   Created: 2023/10/12 12:49:36 by carolinekun       #+#    #+#             */
+/*   Updated: 2023/10/12 17:36:03 by carolinekun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// void	exec_cmd(t_data *ptr)
-// {
-// 	char	*path;
-// 	char	**cmd_args;
-// 	char	*env_var;
-// 	pid_t	child_pid;
-
-// 	path = find_path(ptr->cmd);
-// 	cmd_args = find_args(ptr->cmd_args);
-// }
-
-void	exec_check(t_data *data)
+void ft_pwd(void)
 {
- 	if (is_builtins(data->prompt_in))
- 		return (call_builtins(data->prompt_in));
- 	else
- 		printf("Se foda.");
+	printf("ft_pwd");
+	char *pwd;
+	
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		printf("error: \"!pwd\"");
+	else
+		ft_putstr_fd(pwd, 1); 
 }
