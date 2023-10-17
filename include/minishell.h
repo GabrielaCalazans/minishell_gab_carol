@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/13 16:39:56 by carolinekun      ###   ########.fr       */
+/*   Updated: 2023/10/17 15:57:59 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+# include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -30,7 +31,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-# define PROMPT	"CHORA $> "
+# define PROMPT_MSG	"CHORA $> "
 
 # define REDIRECT_IN	1
 # define REDIRECT_OUT	2
@@ -49,6 +50,12 @@
 # define ASTERISK		15
 # define R_BRACKET_O	16
 # define R_BRACKET_C	17
+# define INIT			18
+# define PROMPT			19
+# define PARSER			20
+# define BUILTINS		21
+# define EXECUTE		22
+# define EXIT			23
 
 // **cmd; // aqui comando e flags
 // **cmd_args; // aqui str
@@ -64,6 +71,7 @@ typedef struct s_token
 
 typedef struct s_data
 {
+	int				state;
 	char			*prompt_in;
 	char			**cmd;
 	char			**cmd_args;
@@ -74,7 +82,7 @@ typedef struct s_data
 	struct s_data	*next;
 }			t_data;
 
-extern struct s_data t_data;
+extern t_data	s_data;
 
 typedef struct s_rdct
 {
@@ -88,12 +96,16 @@ typedef struct s_prompt
 	char			*prompt_input;
 }				t_prompt;
 
-void	prompt(t_data *data);
+//prompt
+void		prompt();
+int			check_only_space(char *str);
+void		validate_prompt(t_data *data);
+int			check_quotes(char *line);
 
 // builtins
 void	ft_pwd(void);
-int		is_builtins(char *check);
-void	call_builtins(t_data *ptr);
+int		is_builtins(t_data *data);
+void	call_builtins();
 
 //utils
 t_data	*get_data(void);

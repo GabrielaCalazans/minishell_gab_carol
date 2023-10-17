@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/12 16:02:02 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:06:25 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	start_token(t_data *data)
 	}
 	sub_start_tokens(data, newnode, check);
 	lexer(data);
-	printlist(data->tokens);
+//	printlist(data->tokens);
 	ft_clear(&data->tokens);
 }
 

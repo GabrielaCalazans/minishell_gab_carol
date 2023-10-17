@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/13 16:39:49 by carolinekun      ###   ########.fr       */
+/*   Updated: 2023/10/17 15:51:26 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,29 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_data	*data;
 
-	data->prompt_in = readline(PROMPT);
-	data = get_data();
-	(void)argv;
 	(void)envp;
-	(void)argc;
+	data = get_data();
+	data->state = PROMPT; // deve se mudada para INIT quando estiver pronto
+	data->prompt_in = argv[1];
 	if (argc != 1)
 		return (1);
-	prompt(data);
-	
+	while (1)
+	{
+//		if (data->state == INIT)
+//			init(envp);
+		if (data->state == PROMPT)
+			prompt();
+//		if (data->state == PARSER)
+//			parser();
+		if (data->state == BUILTINS)
+			call_builtins();
+//		if (data->state == EXIT)
+//			printf("Cabô\n");
+//		if (data->state == EXECUTE)
+//			execute(envp);
+//		if (data->state == EXIT)
+//			exit_program(0);
+}
 	return (0);
 }
 

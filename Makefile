@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+         #
+#    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/10/13 11:35:47 by carolinekun      ###   ########.fr        #
+#    Updated: 2023/10/17 16:06:00 by ckunimur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,14 @@
 NAME =	minishell
 
 # ======= Sources ========
-SRCS = minishell.c prompt.c execution.c
+SRCS = minishell.c execution.c
 
 TOKEN = token.c token_utils_one.c token_utils_two.c token_utils_three.c
 TOKEN += token_lst.c token_lst_utils.c
 
 LEXER = lexical.c
+
+PROMPT = prompt.c
 
 PARSE = parse.c
 
@@ -37,14 +39,16 @@ TOKEN_DIR	= $(addprefix ./token/, $(TOKEN))
 TOKEN_F		= $(addprefix ./mandatory/, $(TOKEN_DIR))
 LEXER_DIR	= $(addprefix ./lexer/, $(LEXER))
 LEXER_F		= $(addprefix ./mandatory/, $(LEXER_DIR))
+PROMPT_DIR	= $(addprefix ./prompt/, $(PROMPT))
+PROMPT_F	= $(addprefix ./mandatory/, $(PROMPT_DIR))
 PARSE_DIR	= $(addprefix ./parse/, $(PARSE))
 PARSE_F		= $(addprefix ./mandatory/, $(PARSE_DIR))
 BUILTINS_DIR	= $(addprefix ./builtins/, $(BUILTINS))
 BUILTINS_F		= $(addprefix ./mandatory/, $(BUILTINS_DIR))
 UTILS_DIR	= $(addprefix ./utils/, $(UTILS))
-UTILS		= = $(addprefix ./mandatory/, $(UTILS_DIR))
+UTILS_F		= $(addprefix ./mandatory/, $(UTILS_DIR))
 
-MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(BUILTINS_F)
+MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(BUILTINS_F) $(PROMPT_F) $(UTILS_F)
 
 # ========== OBJS ============
 OBJS = $(MANDATORY:.c=.o)

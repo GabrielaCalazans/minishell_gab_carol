@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/13 11:32:49 by carolinekun      ###   ########.fr       */
+/*   Updated: 2023/10/17 15:59:20 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 void	exec_check(t_data *data)
 {
- 	if (is_builtins(data->prompt_in))
+ 	if (is_builtins(data))
  		return (call_builtins(data->prompt_in));
  	else
  		printf("Se foda.");

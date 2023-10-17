@@ -3,44 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:03:30 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/12 17:46:26 by carolinekun      ###   ########.fr       */
+/*   Updated: 2023/10/17 15:59:41 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_builtins(char *check)
+int	is_builtins(t_data *data)
 {
 	printf("is_builtins");
-	if (ft_strncmp(check, "echo", 5) == 0)
+	if (ft_strncmp(&data->prompt_in[1], "echo", 5) == 0)
 		return (1);
-	if (ft_strncmp(check, "cd", 3) == 0)
+	if (ft_strncmp(&data->prompt_in[1], "cd", 3) == 0)
 		return (2);
-	if (ft_strncmp(check, "pwd", 4) == 0)
+	if (ft_strncmp(&data->prompt_in[1], "pwd", 4) == 0)
 		return (3);
-	if (ft_strncmp(check, "export", 7) == 0)
+	if (ft_strncmp(&data->prompt_in[1], "export", 7) == 0)
 		return (4);
-	if (ft_strncmp(check, "unset", 6) == 0)
+	if (ft_strncmp(&data->prompt_in[1], "unset", 6) == 0)
 		return (5);
-	if (ft_strncmp(check, "env", 4) == 0)
+	if (ft_strncmp(&data->prompt_in[1], "env", 4) == 0)
 		return (6);
-	if (ft_strncmp(check, "exit", 5) == 0)
+	if (ft_strncmp(&data->prompt_in[1], "exit", 5) == 0)
 		return (7);
 	else
 		return (0);
 }
 
-void	call_builtins(t_data *ptr)
+void	call_builtins()
 {
+	t_data	*data;
+
+	data = get_data();
 	printf("call_builtins");
 // 	if (is_builtins(ptr->cmd[0]) == 1)
 // 		ft_echo(ptr);
 // 	if (is_builtins(ptr->cmd[0]) == 2)
 // 		ft_cd(ptr);
- 	if (is_builtins(ptr->cmd[0]) == 3)
+ 	if (is_builtins(data) == 3)
  		ft_pwd();
 // 	if (is_builtins(ptr->cmd[0]) == 4)
 // 		ft_export(ptr);
