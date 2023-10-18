@@ -6,7 +6,7 @@
 #    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/10/17 21:18:07 by ckunimur         ###   ########.fr        #
+#    Updated: 2023/10/18 12:00:46 by ckunimur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ PARSE = parse.c
 
 BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c ft_cd.c ft_exit.c ft_unset.c
 
-UTILS = utils.c
+UTILS = utils.c env.c
 
 # ====== Folders and Paths ========
 LIBFT_DIR	= ./libft/

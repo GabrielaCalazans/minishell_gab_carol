@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/12 15:59:30 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:02:52 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	printlist(t_token *head)
 void	set_data(t_data *data)
 {
 	data->tokens = NULL;
+	data->env_node = NULL;
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -39,12 +40,12 @@ int	main(int argc, char *argv[], char *envp[])
 
 	data = malloc(sizeof(t_data));
 	(void)argv;
-	(void)envp;
 	(void)argc;
 	if (argc != 1)
 		return (1);
 	set_data(data);
-	prompt(data);
+	create_env(&data, envp);
+	// prompt(data);
 	return (0);
 }
 

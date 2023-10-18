@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 20:37:10 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/17 20:40:50 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/18 11:39:28 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,4 @@ void	ft_clean_lst(char **lst)
 	}
 	free(lst);
 }
+
