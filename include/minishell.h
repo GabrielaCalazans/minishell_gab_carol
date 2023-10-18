@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/12 16:01:30 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/17 21:16:27 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_data
 	char			**heredoc;
 	struct s_rdct	**rdct;
 	char			**env;
+	char			*path;
 	t_token			*tokens;
 	struct s_data	*next;
 }			t_data;
@@ -89,6 +90,24 @@ typedef struct s_prompt
 void	prompt(t_data *data);
 int		is_builtins(char *check);
 //void	call_builtins(t_data *ptr);
+
+//utils
+
+void	ft_clean_lst(char **lst);
+
+//builtins
+int		exec_builtin(t_data *data);
+void	ft_cd(t_data *data);
+void	ft_echo(t_data *data);
+void	ft_env(t_data *data);
+void	ft_exit(t_data *data);
+void	ft_export(t_data *data);
+void	ft_pwd(t_data *data);
+void	ft_unset(t_data *data);
+
+//EXECUTION
+void	execution(t_data *data);
+void	set_path_command(t_data *data);
 
 // TOKENS
 void	start_token(t_data *data);

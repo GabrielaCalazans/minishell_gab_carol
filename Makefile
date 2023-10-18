@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/10/10 13:28:24 by gacalaza         ###   ########.fr        #
+#    Updated: 2023/10/17 21:18:07 by ckunimur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ LEXER = lexical.c
 
 PARSE = parse.c
 
-BUILTINS = builtins.c
+BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c ft_cd.c ft_exit.c ft_unset.c
+
+UTILS = utils.c
 
 # ====== Folders and Paths ========
 LIBFT_DIR	= ./libft/
@@ -39,8 +41,10 @@ PARSE_DIR	= $(addprefix ./parse/, $(PARSE))
 PARSE_F		= $(addprefix ./mandatory/, $(PARSE_DIR))
 BUILTINS_DIR	= $(addprefix ./builtins/, $(BUILTINS))
 BUILTINS_F		= $(addprefix ./mandatory/, $(BUILTINS_DIR))
+UTILS_DIR	= $(addprefix ./utils/, $(UTILS))
+UTILS_F		= $(addprefix ./mandatory/, $(UTILS_DIR))
 
-MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F)
+MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(UTILS_F) $(BUILTINS_F)
 
 # ========== OBJS ============
 OBJS = $(MANDATORY:.c=.o)
