@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/10/18 12:00:46 by ckunimur         ###   ########.fr        #
+#    Updated: 2023/10/20 17:17:21 by gacalaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,15 @@ SRCS = minishell.c prompt.c execution.c
 TOKEN = token.c token_utils_one.c token_utils_two.c token_utils_three.c
 TOKEN += token_lst.c token_lst_utils.c
 
+REDIRECT = redirect.c redirect_utils_two.c redirect_utils.c redirect_lst.c
+REDIRECT += redirect_lst_utils.c error_redirect.c error_redirect_utils.c
+
 LEXER = lexical.c
 
 PARSE = parse.c
 
-BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c ft_cd.c ft_exit.c ft_unset.c
+BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c
+BUILTINS += ft_cd.c ft_exit.c ft_unset.c
 
 UTILS = utils.c env.c
 
@@ -41,10 +45,14 @@ PARSE_DIR	= $(addprefix ./parse/, $(PARSE))
 PARSE_F		= $(addprefix ./mandatory/, $(PARSE_DIR))
 BUILTINS_DIR	= $(addprefix ./builtins/, $(BUILTINS))
 BUILTINS_F		= $(addprefix ./mandatory/, $(BUILTINS_DIR))
+REDIRECT_DIR	= $(addprefix ./redirect/, $(REDIRECT))
+REDIRECT_F		= $(addprefix ./mandatory/, $(REDIRECT_DIR))
+CLEAR_DATA_F	= $(addprefix ./mandatory/, $(CLEAR_DATA))
 UTILS_DIR	= $(addprefix ./utils/, $(UTILS))
 UTILS_F		= $(addprefix ./mandatory/, $(UTILS_DIR))
 
-MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(UTILS_F) $(BUILTINS_F)
+MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(UTILS_F)
+MANDATORY	+= $(BUILTINS_F) $(REDIRECT_F) $(CLEAR_DATA_F)
 
 # ========== OBJS ============
 OBJS = $(MANDATORY:.c=.o)
@@ -58,7 +66,6 @@ OBJS = $(MANDATORY:.c=.o)
 # 	$(CC) $(FLAGS) -I $(INCL_DIR) -c $< -o $@
 
 # ====== Flags ========
-
 FLAGS = -Wall -Wextra -Werror -g3
 LIBS = -lreadline
 VALGRIND		=	valgrind \
@@ -81,7 +88,6 @@ $(OBJS): $(HEADERM)
 
 $(NAME): $(OBJS)
 	cc $(FLAGS) -I $(INCL_DIR) $^ $(LIBFT) $(LIBS) -o $@
-
 
 comp_libft:
 	@make -C $(LIBFT_DIR) --no-print-directory

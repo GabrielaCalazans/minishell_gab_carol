@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/18 12:15:26 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:01:54 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,5 @@ void	start_token(t_data *data)
 		return ;
 	}
 	sub_start_tokens(data, newnode, check);
-	lexer(data);
-	printlist(data->tokens);
-	ft_clear(&data->tokens);
+	printlist(data->tokens, 1);
 }
-
-// t_token	create_lst(char *str, t_token	**tokens)
-// {
-// 	int		check;
-// 	int		i;
-// }
