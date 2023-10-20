@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 17:06:28 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:32:48 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
-typedef	struct s_env
+typedef struct s_env
 {
 	char			*var;
 	char			*value;
@@ -103,6 +103,11 @@ typedef struct s_prompt
 	char			*prompt_input;
 }				t_prompt;
 
+typedef struct s_builtins {
+	char	*name;
+	void	(*built_in)(t_data *);
+}	t_builtins;
+
 void	prompt(t_data *data);
 int		is_builtins(char *check);
 //void	call_builtins(t_data *ptr);
@@ -122,13 +127,11 @@ void	ft_pwd(t_data *data);
 void	ft_unset(t_data *data);
 
 //env
-
 t_env	*create_list(char *str);
 t_env	*node_last(t_env *list);
 void	linkar(t_env **lista, t_env *current);
 void	link_end(t_env **list, t_env *current);
 void	create_env(t_data **data, char **envp);
-
 
 //EXECUTION
 void	execution(t_data *data);

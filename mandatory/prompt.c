@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 17:20:04 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:34:19 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	set_path_command(t_data *data)
 	char	**path;
 	char	*tmp1;
 	char	*tmp2;
-	int		i = 0;
-	
+	int		i;
+
+	i = 0;
 	path = ft_split(data->path, ':');
-	while(path[i])
+	while (path[i])
 	{
 		tmp1 = ft_strjoin(path[i], "/");
 		tmp2 = ft_strjoin(tmp1, data->cmd[0]);
@@ -32,13 +33,13 @@ void	set_path_command(t_data *data)
 			free(tmp1);
 		if (!access(tmp2, F_OK))
 		{
-			if(!access(tmp2, X_OK))
+			if (!access(tmp2, X_OK))
 			{
 				if (data->cmd[0])
 					free(data->cmd[0]);
 				data->cmd[0] = tmp2;
 				ft_clean_lst(path);
-				return;
+				return ;
 			}
 		}
 		if (tmp2)
@@ -46,6 +47,7 @@ void	set_path_command(t_data *data)
 		i++;
 	}
 }
+
 /*
 [] pipe
 [] exit code
@@ -56,7 +58,7 @@ void	execution(t_data *data)
 {
 	int	pid;
 	int	status;
-	
+
 	pid = fork();
 	if (pid == 0)
 	{
@@ -70,7 +72,8 @@ void	execution(t_data *data)
 
 void	prompt(t_data *data)
 {
-	extern char **environ;
+	extern char	**environ;
+
 	while (1)
 	{
 		data->prompt_in = readline(PROMPT);
@@ -83,15 +86,12 @@ void	prompt(t_data *data)
 		data->path = "/nfs/homes/ckunimur/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/nfs/homes/ckunimur/.local/bin";
 		if (data->prompt_in[0] != '\0')
 			start_token(data);
-		//printf("%s\n", data->cmd[0]);
 		if (has_redirect(data->tokens))
 			create_redirect_lst(data);
 		data->env = environ;
 		if (!exec_builtin(data))
 			execution(data);
-		free(data->prompt_in);
-		data->prompt_in = NULL;
-		// ft_clear(&data->tokens);
+		ft_clear_data(data);
 	}
 	rl_clear_history();
 }

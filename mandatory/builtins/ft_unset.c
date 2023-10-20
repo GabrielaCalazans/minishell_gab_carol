@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:06:15 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/17 21:19:22 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:19:50 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_unset()
+void	ft_unset(t_data *data)
 {
 	printf("ft_unset\n");
 }

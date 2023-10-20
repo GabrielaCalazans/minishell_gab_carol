@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 17:01:54 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:17:49 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@ t_token	*create_token(char *str)
 	return (newnode);
 }
 
+int	sub_creating_token(t_data *data, t_token *newnode, int check, int i)
+{
+	if (check == 10)
+	{
+		newnode = create_word_token(&data->prompt_in[i],
+				word_len(&data->prompt_in[i]));
+		if (!newnode)
+			return (C_ERROR);
+		ft_add_back(&data->tokens, newnode);
+	}
+	if (check > 0 && check != 10)
+	{
+		newnode = create_token(&data->prompt_in[i]);
+		if (!newnode)
+			return (C_ERROR);
+		ft_add_back(&data->tokens, newnode);
+	}
+	return (C_SUCCESS);
+}
+
 void	sub_start_tokens(t_data *data, t_token *newnode, int check)
 {
 	int	i;
@@ -54,21 +74,15 @@ void	sub_start_tokens(t_data *data, t_token *newnode, int check)
 		check = find_type(&data->prompt_in[i]);
 		if (check == 10)
 		{
-			newnode = create_word_token(&data->prompt_in[i],
-					word_len(&data->prompt_in[i]));
-			if (!newnode)
+			if (sub_creating_token(data, newnode, check, i))
 				break ;
-			ft_add_back(&data->tokens, newnode);
 			i += word_len(&data->prompt_in[i]);
 		}
 		if (check > 0 && check != 10)
 		{
-			newnode = create_token(&data->prompt_in[i]);
-			if (!newnode)
+			if (sub_creating_token(data, newnode, check, i))
 				break ;
-			ft_add_back(&data->tokens, newnode);
-			if (find_type(&data->prompt_in[i]) == 13
-				|| find_type(&data->prompt_in[i]) == 12)
+			if (is_heredoc_case(data, i))
 				i += 2;
 			else
 				i++;
