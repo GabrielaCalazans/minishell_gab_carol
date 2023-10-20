@@ -3,27 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/18 16:02:52 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:19:09 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 // Function to print the linked list
-void	printlist(t_token *head)
+void	printlist(void *head, int check)
 {
-	t_token	*temp;
+	t_token	*temp1;
+	t_rdct	*temp2;
 
 	if (!head)
 		printf("EMPTY");
-	temp = head;
-	while (temp != NULL)
+	if (check == 1)
 	{
-		printf("NODE - token: %s type: %d\n", temp->token, temp->type);
-		temp = temp->next;
+		temp1 = (t_token *) head;
+		while (temp1 != NULL)
+		{
+			printf("NODE - token: %s type: %d\n", temp1->token, temp1->type);
+			temp1 = temp1->next;
+		}
+	}
+	else
+	{
+		temp2 = (t_rdct *) head;
+		while (temp2 != NULL)
+		{
+			printf("NODE - redirect: %i file_name: %s, size str:%zu\n",
+				temp2->redirect, temp2->file, ft_strlen(temp2->file));
+			temp2 = temp2->next;
+		}
 	}
 	printf("\n");
 }
@@ -31,6 +45,7 @@ void	printlist(t_token *head)
 void	set_data(t_data *data)
 {
 	data->tokens = NULL;
+	data->rdct = NULL;
 	data->env_node = NULL;
 }
 
@@ -45,7 +60,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	set_data(data);
 	create_env(&data, envp);
-	// prompt(data);
+	prompt(data);
 	return (0);
 }
 
