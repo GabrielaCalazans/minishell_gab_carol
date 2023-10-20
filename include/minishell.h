@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 19:32:48 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:45:51 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 # define H_TAB			22
 # define C_ERROR		1
 # define C_SUCCESS		0
+# define TEST_PATH		"/nfs/homes/ckunimur/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/nfs/homes/ckunimur/.local/bin"
 
 // **cmd; // aqui comando e flags
 // **cmd_args; // aqui str

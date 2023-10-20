@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 19:34:19 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/20 20:07:48 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 // add_history(tmp->prompt_input);
 // Agora 'input' contém o comando digitado pelo usuário
 // VERIFICAR LEAK DE MEMORIA??
+
+void	sub_set_path_command(t_data *data, char *tmp1, char **path, char *tmp2)
+{
+		if (data->cmd[0])
+			free(data->cmd[0]);
+		data->cmd[0] = tmp2;
+		ft_clean_lst(path);
+		return ;
+}
+
 void	set_path_command(t_data *data)
 {
 	char	**path;
@@ -83,7 +93,7 @@ void	prompt(t_data *data)
 			printf("prompt %s\n", data->prompt_in);
 		}
 		data->cmd = ft_split(data->prompt_in, ' ');
-		data->path = "/nfs/homes/ckunimur/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/nfs/homes/ckunimur/.local/bin";
+		data->path = TEST_PATH;
 		if (data->prompt_in[0] != '\0')
 			start_token(data);
 		if (has_redirect(data->tokens))
