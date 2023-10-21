@@ -6,7 +6,7 @@
 #    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/10/20 17:17:21 by gacalaza         ###   ########.fr        #
+#    Updated: 2023/10/21 15:47:53 by gacalaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME =	minishell
 SRCS = minishell.c prompt.c execution.c
 
 TOKEN = token.c token_utils_one.c token_utils_two.c token_utils_three.c
-TOKEN += token_lst.c token_lst_utils.c
+TOKEN += token_lst.c token_lst_utils.c token_utils_four.c
 
 REDIRECT = redirect.c redirect_utils_two.c redirect_utils.c redirect_lst.c
 REDIRECT += redirect_lst_utils.c error_redirect.c error_redirect_utils.c
@@ -28,6 +28,8 @@ PARSE = parse.c
 
 BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c
 BUILTINS += ft_cd.c ft_exit.c ft_unset.c
+
+CLEAR_DATA = clear_data.c
 
 UTILS = utils.c env.c
 

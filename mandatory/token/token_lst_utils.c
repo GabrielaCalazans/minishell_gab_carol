@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:58:59 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/12 16:06:12 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:51:16 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_size(t_token *lst)
 }
 
 // Func to free the the lst
-void	ft_clear(t_token **lst)
+void	ft_clear_token(t_token **lst)
 {
 	t_token	*temp;
 	t_token	*next;

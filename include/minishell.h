@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 19:45:51 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:51:22 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ int		is_dollar(char c);
 int		is_quote(char c);
 int		is_space(char c);
 int		is_heredoc(char *str, int check);
+int		is_heredoc_case(t_data *data, int i);
 int		find_type(char *str);
 int		is_redirect(char c);
 int		find_type(char *str);
@@ -159,7 +160,7 @@ int		word_len(char *str);
 t_token	*createnode(char *token, int type);
 void	ft_add_back(t_token **lst, t_token *new);
 int		ft_size(t_token *lst);
-void	ft_clear(t_token **lst);
+void	ft_clear_token(t_token **lst);
 
 // REDIRECT
 void	create_redirect_lst(t_data *data);

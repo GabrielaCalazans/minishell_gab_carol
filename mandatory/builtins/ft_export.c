@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/20 19:22:15 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:44:45 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	ft_export(t_data *data)
 {
+	(void)data;
 	printf("ft_export\n");
 }

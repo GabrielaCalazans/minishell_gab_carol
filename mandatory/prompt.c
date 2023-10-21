@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/21 15:38:33 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:40:05 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 // add_history(tmp->prompt_input);
 // Agora 'input' contém o comando digitado pelo usuário
 // VERIFICAR LEAK DE MEMORIA??
-
 char	*create_command_path(char *path, char *command)
 {
 	char	*tmp1;
 	char	*tmp2;
 
-	*tmp1 = ft_strjoin(path, "/");
+	tmp1 = ft_strjoin(path, "/");
 	if (!tmp1)
 		return (NULL);
 	tmp2 = ft_strjoin(tmp1, command);
