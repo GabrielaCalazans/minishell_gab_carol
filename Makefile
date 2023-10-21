@@ -6,7 +6,7 @@
 #    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/10/21 15:47:53 by gacalaza         ###   ########.fr        #
+#    Updated: 2023/10/21 15:58:10 by gacalaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,24 +34,24 @@ CLEAR_DATA = clear_data.c
 UTILS = utils.c env.c
 
 # ====== Folders and Paths ========
-LIBFT_DIR	= ./libft/
-INCL_DIR	= ./include/
-LIBFT		= $(addprefix $(LIBFT_DIR), libft.a)
-HEADERM		= $(addprefix $(INCL_DIR), minishell.h)
-SRCS_MAIN	= $(addprefix ./mandatory/, $(SRCS))
-TOKEN_DIR	= $(addprefix ./token/, $(TOKEN))
-TOKEN_F		= $(addprefix ./mandatory/, $(TOKEN_DIR))
-LEXER_DIR	= $(addprefix ./lexer/, $(LEXER))
-LEXER_F		= $(addprefix ./mandatory/, $(LEXER_DIR))
-PARSE_DIR	= $(addprefix ./parse/, $(PARSE))
-PARSE_F		= $(addprefix ./mandatory/, $(PARSE_DIR))
+LIBFT_DIR		= ./libft/
+INCL_DIR		= ./include/
+LIBFT			= $(addprefix $(LIBFT_DIR), libft.a)
+HEADERM			= $(addprefix $(INCL_DIR), minishell.h)
+SRCS_MAIN		= $(addprefix ./mandatory/, $(SRCS))
+TOKEN_DIR		= $(addprefix ./token/, $(TOKEN))
+TOKEN_F			= $(addprefix ./mandatory/, $(TOKEN_DIR))
+LEXER_DIR		= $(addprefix ./lexer/, $(LEXER))
+LEXER_F			= $(addprefix ./mandatory/, $(LEXER_DIR))
+PARSE_DIR		= $(addprefix ./parse/, $(PARSE))
+PARSE_F			= $(addprefix ./mandatory/, $(PARSE_DIR))
 BUILTINS_DIR	= $(addprefix ./builtins/, $(BUILTINS))
 BUILTINS_F		= $(addprefix ./mandatory/, $(BUILTINS_DIR))
 REDIRECT_DIR	= $(addprefix ./redirect/, $(REDIRECT))
 REDIRECT_F		= $(addprefix ./mandatory/, $(REDIRECT_DIR))
 CLEAR_DATA_F	= $(addprefix ./mandatory/, $(CLEAR_DATA))
-UTILS_DIR	= $(addprefix ./utils/, $(UTILS))
-UTILS_F		= $(addprefix ./mandatory/, $(UTILS_DIR))
+UTILS_DIR		= $(addprefix ./utils/, $(UTILS))
+UTILS_F			= $(addprefix ./mandatory/, $(UTILS_DIR))
 
 MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(UTILS_F)
 MANDATORY	+= $(BUILTINS_F) $(REDIRECT_F) $(CLEAR_DATA_F)

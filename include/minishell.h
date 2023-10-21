@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/21 15:51:22 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:16:08 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
+typedef struct s_rdct
+{
+	int				redirect;
+	char			*file;
+	struct s_rdct	*next;
+}				t_rdct;
+
 typedef struct s_env
 {
 	char			*var;
@@ -84,20 +91,13 @@ typedef struct s_data
 	char			**cmd;
 	char			**cmd_args;
 	char			**heredoc;
-	struct s_rdct	*rdct;
 	char			**env;
 	char			*path;
+	t_rdct			*rdct;
 	t_token			*tokens;
 	t_env			*env_node;
 	struct s_data	*next;
 }			t_data;
-
-typedef struct s_rdct
-{
-	int				redirect;
-	char			*file;
-	struct s_rdct	*next;
-}				t_rdct;
 
 typedef struct s_prompt
 {
