@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:39:53 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/18 14:38:40 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:15:36 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_env	*create_list(char *str)
 {
 	t_env	*aux;
 	char	**split;
+
 	aux = malloc(sizeof(t_env));
 	split = ft_split(str, '=');
 	aux->var = ft_strdup(split[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 20:37:10 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/18 11:39:28 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:14:49 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_clean_lst(char **lst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lst[i])
@@ -24,4 +24,3 @@ void	ft_clean_lst(char **lst)
 	}
 	free(lst);
 }
-
