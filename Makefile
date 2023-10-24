@@ -6,7 +6,7 @@
 #    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/10/18 12:00:46 by ckunimur         ###   ########.fr        #
+#    Updated: 2023/10/20 17:17:29 by ckunimur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,22 +72,22 @@ VALGRIND		=	valgrind \
 # =================== Rules ==========================
 
 # # Compiling Mandatory or Bonus Objs
-%.o: %.c
-	$(CC) $(FLAGS) -I $(INCL_DIR) -c $< -o $@
+%.o:		%.c
+			$(CC) $(FLAGS) -I $(INCL_DIR) -c $< -o $@
 
-all: comp_libft $(NAME)
+all:		comp_libft $(NAME)
 
-$(OBJS): $(HEADERM)
+			$(OBJS): $(HEADERM)
 
-$(NAME): $(OBJS)
-	cc $(FLAGS) -I $(INCL_DIR) $^ $(LIBFT) $(LIBS) -o $@
+			$(NAME): $(OBJS)
+			cc $(FLAGS) -I $(INCL_DIR) $^ $(LIBFT) $(LIBS) -o $@
 
 
 comp_libft:
-	@make -C $(LIBFT_DIR) --no-print-directory
+			@make -C $(LIBFT_DIR) --no-print-directory
 
-run:	all
-		./$(NAME)
+run:		all
+			./$(NAME)
 
 valgrind:	all
 			$(VALGRIND) ./$(NAME)
@@ -95,16 +95,16 @@ valgrind:	all
 norminette:	all
 			norminette
 
-bonus: comp_libf $(BONUS)pu
+bonus:		comp_libf $(BONUS)pu
 
-re: fclean all
+re:			fclean all
 
-rebonus: fclean bonus
+rebonus:	fclean bonus
 
 clean:
-	@rm -rf $(OBJS)
-	@make -C $(LIBFT_DIR) clean
+			@rm -rf $(OBJS)
+			@make -C $(LIBFT_DIR) clean
 
-fclean: clean
-	@rm -rf $(NAME)
-	@make -C $(LIBFT_DIR) fclean
+fclean:		clean
+			@rm -rf $(NAME)
+			@make -C $(LIBFT_DIR) fclean
