@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/17 21:12:22 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:40:05 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,78 @@
 // add_history(tmp->prompt_input);
 // Agora 'input' contém o comando digitado pelo usuário
 // VERIFICAR LEAK DE MEMORIA??
+char	*create_command_path(char *path, char *command)
+{
+	char	*tmp1;
+	char	*tmp2;
+
+	tmp1 = ft_strjoin(path, "/");
+	if (!tmp1)
+		return (NULL);
+	tmp2 = ft_strjoin(tmp1, command);
+	free(tmp1);
+	if (!access(tmp2, F_OK) && !access(tmp2, X_OK))
+		return (tmp2);
+	free(tmp2);
+	return (NULL);
+}
+
 void	set_path_command(t_data *data)
 {
 	char	**path;
-	char	*tmp1;
-	char	*tmp2;
-	int		i = 0;
-	
+	char	*command_path;
+	int		i;
+
 	path = ft_split(data->path, ':');
-	while(path[i])
+	i = 0;
+	while (path[i])
 	{
-		tmp1 = ft_strjoin(path[i], "/");
-		tmp2 = ft_strjoin(tmp1, data->cmd[0]);
-		if (tmp1)
-			free(tmp1);
-		if (!access(tmp2, F_OK))
+		command_path = create_command_path(path[i], data->cmd[0]);
+		if (command_path)
 		{
-			if(!access(tmp2, X_OK))
-			{
-				if (data->cmd[0])
-					free(data->cmd[0]);
-				data->cmd[0] = tmp2;
-				ft_clean_lst(path);
-				return;
-			}
+			if (data->cmd[0])
+				free(data->cmd[0]);
+			data->cmd[0] = command_path;
+			ft_clean_lst(path);
+			return ;
 		}
-		if (tmp2)
-			free(tmp2);
 		i++;
 	}
+	ft_clean_lst(path);
 }
+
+// void	set_path_command(t_data *data)
+// {
+// 	char	**path;
+// 	char	*tmp1;
+// 	char	*tmp2;
+// 	int		i;
+
+// 	i = 0;
+// 	path = ft_split(data->path, ':');
+// 	while (path[i])
+// 	{
+// 		tmp1 = ft_strjoin(path[i], "/");
+// 		tmp2 = ft_strjoin(tmp1, data->cmd[0]);
+// 		if (tmp1)
+// 			free(tmp1);
+// 		if (!access(tmp2, F_OK))
+// 		{
+// 			if (!access(tmp2, X_OK))
+// 			{
+// 				if (data->cmd[0])
+// 					free(data->cmd[0]);
+// 				data->cmd[0] = tmp2;
+// 				ft_clean_lst(path);
+// 				return ;
+// 			}
+// 		}
+// 		if (tmp2)
+// 			free(tmp2);
+// 		i++;
+// 	}
+// }
+
 /*
 [] pipe
 [] exit code
@@ -56,7 +98,7 @@ void	execution(t_data *data)
 {
 	int	pid;
 	int	status;
-	
+
 	pid = fork();
 	if (pid == 0)
 	{
@@ -70,7 +112,8 @@ void	execution(t_data *data)
 
 void	prompt(t_data *data)
 {
-	extern char **environ;
+	extern char	**environ;
+
 	while (1)
 	{
 		data->prompt_in = readline(PROMPT);
@@ -80,15 +123,15 @@ void	prompt(t_data *data)
 			printf("prompt %s\n", data->prompt_in);
 		}
 		data->cmd = ft_split(data->prompt_in, ' ');
-		data->path = "/nfs/homes/ckunimur/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/nfs/homes/ckunimur/.local/bin";
+		data->path = TEST_PATH;
 		if (data->prompt_in[0] != '\0')
 			start_token(data);
-		//printf("%s\n", data->cmd[0]);
+		if (has_redirect(data->tokens))
+			create_redirect_lst(data);
 		data->env = environ;
 		if (!exec_builtin(data))
 			execution(data);
-		free(data->prompt_in);
-		data->prompt_in = NULL;
+		ft_clear_data(data);
 	}
 	rl_clear_history();
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:26 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/17 21:19:03 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:45:01 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_exit()
+void	ft_exit(t_data *data)
 {
+	(void)data;
 	printf("ft_exit\n");
 }

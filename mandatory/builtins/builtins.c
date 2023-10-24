@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:03:30 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/18 14:47:53 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:30:12 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,25 @@ int	is_builtins(char *check)
 		return (0);
 }
 
-typedef struct s_builtins {
-	char	*name;
-	void	(*built_in)(t_data *);
-}	t_builtins;
-
 int	exec_builtin(t_data *data)
 {
-	int index;
-	const t_builtins builtins[8] = {
-		{"error", NULL},
-		{"echo", ft_echo},
-		{"cd", ft_cd},
-		{"pwd", ft_pwd},
-		{"export", ft_export},
-		{"unset", ft_unset},
-		{"env", ft_env},
-		{"exit", ft_exit}
+	int					index;
+	const t_builtins	builtins[8] = {
+	{"error", NULL},
+	{"echo", ft_echo},
+	{"cd", ft_cd},
+	{"pwd", ft_pwd},
+	{"export", ft_export},
+	{"unset", ft_unset},
+	{"env", ft_env},
+	{"exit", ft_exit}
 	};
 
 	index = is_builtins(data->cmd[0]);
 	if (index != 0)
 		builtins[index].built_in(data);
-	return(index);
+	return (index);
 }
-
 // void	call_builtins(t_data *ptr)
 //{
 	//if (is_builtins(ptr->cmd[0]) == 1)
