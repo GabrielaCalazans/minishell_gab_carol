@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/21 16:16:08 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:54:54 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void	ft_error_redirect(int error);
 int		is_syntax_error(int type);
 int		is_possible_error(int type);
 int		check_error(t_token *tokens);
-int		dot_case(t_token *tokens);
+int		is_path(t_token *tokens);
 int		tilde_case(t_token *tokens);
 int		asterick_case(t_token *tokens);
 int		check_file_name(t_token *tokens);

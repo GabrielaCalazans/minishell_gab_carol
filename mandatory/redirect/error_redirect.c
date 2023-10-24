@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:31:51 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 16:59:55 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:55:14 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_error(t_token *tokens)
 		if (temp->type == C_SPACE || temp->type == H_TAB)
 			temp = jump_white_spaces(temp);
 		if (temp->type == DOT)
-			return (dot_case(temp));
+			return (is_path(temp));
 		if (temp->type == TILDE)
 			return (tilde_case(temp));
 		if (temp->type == ASTERISK)

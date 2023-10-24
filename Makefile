@@ -3,16 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/10/20 17:17:29 by ckunimur         ###   ########.fr        #
-=======
-#    Updated: 2023/10/21 15:58:10 by gacalaza         ###   ########.fr        #
->>>>>>> 373250b95e88c124a6ca6c0c58ca5501d02d4e07
+#    Updated: 2023/10/24 14:53:53 by ckunimur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 # ==== Name of the program =====
 NAME =	minishell
@@ -88,12 +85,12 @@ VALGRIND		=	valgrind \
 %.o:		%.c
 			$(CC) $(FLAGS) -I $(INCL_DIR) -c $< -o $@
 
-all:		comp_libft $(NAME)
+all:	comp_libft $(NAME)
 
-			$(OBJS): $(HEADERM)
+$(OBJS): $(HEADERM)
 
-			$(NAME): $(OBJS)
-			cc $(FLAGS) -I $(INCL_DIR) $^ $(LIBFT) $(LIBS) -o $@
+$(NAME): $(OBJS)
+	cc $(FLAGS) -I $(INCL_DIR) $^ $(LIBFT) $(LIBS) -o $@
 
 comp_libft:
 			@make -C $(LIBFT_DIR) --no-print-directory
