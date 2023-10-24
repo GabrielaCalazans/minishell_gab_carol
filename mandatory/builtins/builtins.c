@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:03:30 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 19:30:12 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:22:20 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	is_builtins(char *check)
 {
+	printf("entrei no is builtins\n");
 	if (ft_strncmp(check, "echo", 5) == 0)
 		return (1);
 	if (ft_strncmp(check, "cd", 3) == 0)
@@ -35,6 +36,7 @@ int	is_builtins(char *check)
 int	exec_builtin(t_data *data)
 {
 	int					index;
+	printf("entrei no exec_builtins\n");
 	const t_builtins	builtins[8] = {
 	{"error", NULL},
 	{"echo", ft_echo},

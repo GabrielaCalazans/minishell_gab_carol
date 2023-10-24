@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:06 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/20 19:23:52 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:38:32 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	create_env(t_data **data, char **envp)
-{
-	int	i;
 
-	i = 0;
-	while (envp[i])
-	{
-		link_end(&(*data)->env_node, create_list(envp[i]));
-		i++;
-	}
-}
 
 void	ft_env(t_data *data)
 {

@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:39:53 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/20 19:15:36 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:38:41 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	create_env(t_data **data, char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		link_end(&(*data)->env_node, create_list(envp[i]));
+		i++;
+	}
+}
 
 t_env	*create_list(char *str)
 {

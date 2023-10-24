@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/21 15:40:05 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:24:56 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,6 @@ void	set_path_command(t_data *data)
 [x] path command 
 [] mult pipes
 */
-void	execution(t_data *data)
-{
-	int	pid;
-	int	status;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		set_path_command(data);
-		execve(data->cmd[0], data->cmd, data->env);
-		printf("Error!\n");
-		exit(1);
-	}
-	waitpid(-1, &status, 0);
-}
 
 void	prompt(t_data *data)
 {
