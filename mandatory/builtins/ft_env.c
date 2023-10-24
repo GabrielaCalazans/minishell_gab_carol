@@ -6,12 +6,11 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:06 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/24 15:38:32 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:39:49 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 
 void	ft_env(t_data *data)

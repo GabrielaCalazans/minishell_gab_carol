@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:03:30 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/24 15:22:20 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:41:06 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	is_builtins(char *check)
 int	exec_builtin(t_data *data)
 {
 	int					index;
-	printf("entrei no exec_builtins\n");
 	const t_builtins	builtins[8] = {
 	{"error", NULL},
 	{"echo", ft_echo},
