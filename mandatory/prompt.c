@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/21 15:40:05 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:42:20 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,58 +56,20 @@ void	set_path_command(t_data *data)
 	ft_clean_lst(path);
 }
 
-// void	set_path_command(t_data *data)
-// {
-// 	char	**path;
-// 	char	*tmp1;
-// 	char	*tmp2;
-// 	int		i;
-
-// 	i = 0;
-// 	path = ft_split(data->path, ':');
-// 	while (path[i])
-// 	{
-// 		tmp1 = ft_strjoin(path[i], "/");
-// 		tmp2 = ft_strjoin(tmp1, data->cmd[0]);
-// 		if (tmp1)
-// 			free(tmp1);
-// 		if (!access(tmp2, F_OK))
-// 		{
-// 			if (!access(tmp2, X_OK))
-// 			{
-// 				if (data->cmd[0])
-// 					free(data->cmd[0]);
-// 				data->cmd[0] = tmp2;
-// 				ft_clean_lst(path);
-// 				return ;
-// 			}
-// 		}
-// 		if (tmp2)
-// 			free(tmp2);
-// 		i++;
-// 	}
-// }
-
-/*
-[] pipe
-[] exit code
-[x] path command 
-[] mult pipes
-*/
-void	execution(t_data *data)
+void	get_path(t_data *data)
 {
-	int	pid;
-	int	status;
+	t_env	*tmp;
 
-	pid = fork();
-	if (pid == 0)
+	tmp = data->env_node;
+	while (tmp)
 	{
-		set_path_command(data);
-		execve(data->cmd[0], data->cmd, data->env);
-		printf("Error!\n");
-		exit(1);
+		if (ft_strncmp(tmp->var, "PATH", 5) == 0)
+		{
+			data->path = tmp->value;
+			break ;
+		}
+		tmp = tmp->next;
 	}
-	waitpid(-1, &status, 0);
 }
 
 void	prompt(t_data *data)
@@ -123,12 +85,12 @@ void	prompt(t_data *data)
 			printf("prompt %s\n", data->prompt_in);
 		}
 		data->cmd = ft_split(data->prompt_in, ' ');
-		data->path = TEST_PATH;
 		if (data->prompt_in[0] != '\0')
 			start_token(data);
 		if (has_redirect(data->tokens))
 			create_redirect_lst(data);
 		data->env = environ;
+		get_path(data);
 		if (!exec_builtin(data))
 			execution(data);
 		ft_clear_data(data);
