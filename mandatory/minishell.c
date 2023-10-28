@@ -58,8 +58,10 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	if (argc != 1)
 		return (1);
+	
 	set_data(data);
 	create_env(&data, envp);
+	
 	prompt(data);
 	return (0);
 }

@@ -46,10 +46,10 @@ int	is_possible_error(int type)
 
 int	check_error(t_token *tokens)
 {
-	int		current;
+//	int		current;
 	t_token	*temp;
 
-	current = tokens->type;
+//	current = tokens->type;
 	temp = tokens->next;
 	while (temp)
 	{

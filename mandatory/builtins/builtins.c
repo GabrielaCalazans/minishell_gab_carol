@@ -14,7 +14,6 @@
 
 int	is_builtins(char *check)
 {
-	printf("entrei no is builtins\n");
 	if (ft_strncmp(check, "echo", 5) == 0)
 		return (1);
 	if (ft_strncmp(check, "cd", 3) == 0)

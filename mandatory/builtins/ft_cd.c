@@ -29,9 +29,6 @@ int	check_cd(t_data *data)
 
 int	check_valid_dir(char *str)
 {
-	int	i;
-
-	i = 0;
 	if (!access(str, F_OK))
 	{
 		if (!access(str, X_OK))

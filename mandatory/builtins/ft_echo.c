@@ -17,15 +17,16 @@ void	ft_echo(t_data *data)
 	int		i;
 	t_data	*temp;
 
-	i = 0;
+	i = 1;
 	temp = data;
-	printf("%s", temp->cmd_args[i]);
+	printf("%s", temp->cmd[i]);
 	i++;
-	while (temp->cmd_args[i+1])
+	while (temp->cmd[i])
 	{
-		printf(" %s", temp->cmd_args[i]);
+		printf(" %s", temp->cmd[i]);
 		i++;
 	}
-	if (data->cmd[1] == NULL)
-		printf("\n");
+	printf("\n");
+//	if (temp->cmd[1] == NULL)
+//		printf("\n");
 }

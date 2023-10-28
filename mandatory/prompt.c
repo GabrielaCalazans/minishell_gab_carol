@@ -56,6 +56,32 @@ void	set_path_command(t_data *data)
 	ft_clean_lst(path);
 }
 
+void	prompt(t_data *data)
+{
+	extern char	**environ;
+
+	while (1)
+	{
+		data->prompt_in = readline(PROMPT);
+		if (data->prompt_in[0] != '\0')
+		{
+			add_history(data->prompt_in);
+			printf("prompt %s\n", data->prompt_in);
+		}
+		data->cmd = ft_split(data->prompt_in, ' ');
+		data->path = TEST_PATH;
+		if (data->prompt_in[0] != '\0')
+			start_token(data);
+		if (has_redirect(data->tokens))
+			create_redirect_lst(data);
+		data->env = environ;
+		if (!exec_builtin(data))
+			execution(data);
+		ft_clear_data(data);
+	}
+	rl_clear_history();
+}
+
 // void	set_path_command(t_data *data)
 // {
 // 	char	**path;
@@ -95,31 +121,6 @@ void	set_path_command(t_data *data)
 [] mult pipes
 */
 
-void	prompt(t_data *data)
-{
-	extern char	**environ;
-
-	while (1)
-	{
-		data->prompt_in = readline(PROMPT);
-		if (data->prompt_in[0] != '\0')
-		{
-			add_history(data->prompt_in);
-			printf("prompt %s\n", data->prompt_in);
-		}
-		data->cmd = ft_split(data->prompt_in, ' ');
-		data->path = TEST_PATH;
-		if (data->prompt_in[0] != '\0')
-			start_token(data);
-		if (has_redirect(data->tokens))
-			create_redirect_lst(data);
-		data->env = environ;
-		if (!exec_builtin(data))
-			execution(data);
-		ft_clear_data(data);
-	}
-	rl_clear_history();
-}
 
 /*
 	PATH=
