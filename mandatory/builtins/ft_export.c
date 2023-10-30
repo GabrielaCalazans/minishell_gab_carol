@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/21 15:44:45 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/30 19:26:20 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 
 void	ft_export(t_data *data)
 {
-	(void)data;
-	printf("ft_export\n");
+	t_env *env_node;
+
+	env_node = data->env_node;
+	if (!data->cmd[1])
+	{
+		while (env_node->next != NULL)
+		{
+			ft_printf("declare -x %s=%s\n", env_node->var, env_node->value);
+			env_node = env_node->next;
+		}
+	}
+	else
+	{
+		while (env_node->next != NULL && ft_strncmp(data->cmd[1], env_node->var, ft_strlen(data->cmd[1])))
+			env_node = env_node->next;
+		if (ft_strncmp(data->cmd[1], env_node->var, ft_strlen(data->cmd[1])))
+				printf("Não achei\n");
+		else
+			printf("Achei %s\n", env_node->var);
+	}
 }

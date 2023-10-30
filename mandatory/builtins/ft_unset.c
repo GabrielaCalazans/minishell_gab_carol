@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:06:15 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/21 15:45:21 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/30 19:12:56 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,12 @@
 void	ft_unset(t_data *data)
 {
 	(void)data;
+/*	t_env	*env_node;
+
+	if(data->cmd[1])
+	{
+		find_var(t_env env_node);
+		
+	}*/
 	printf("ft_unset\n");
 }
