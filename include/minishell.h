@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/24 19:40:33 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:50:13 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	ft_exit(t_data *data);
 void	ft_export(t_data *data);
 void	ft_pwd(t_data *data);
 void	ft_unset(t_data *data);
+void	create_var(t_data *data, t_env *env_node);
 
 //env
 t_env	*create_list(char *str);
