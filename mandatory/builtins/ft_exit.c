@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:26 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/30 17:26:03 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:14:39 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exit(t_data *data)
 {
-	long err;
+	long	err;
 
 	err = 1;
 	if (!data->cmd[1])
@@ -32,7 +32,7 @@ void	ft_exit(t_data *data)
 			err = 2;
 			ft_printf("numeric argument is required\n");
 		}
-		else if(ft_strlen(data->cmd[1]) < 19)
+		else if (ft_strlen(data->cmd[1]) < 19)
 			err = ft_atoi(data->cmd[1]);
 		ft_clear_data(data);
 		ft_printf("exit\n");

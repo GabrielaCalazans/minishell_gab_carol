@@ -6,12 +6,11 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:06 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/24 19:39:49 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:15:45 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 void	ft_env(t_data *data)
 {
@@ -24,19 +23,17 @@ void	ft_env(t_data *data)
 		env_node = env_node->next;
 	}
 }
+
 // void	create_env(t_data **data, char **envp)
 // {
 // 	int	i;
-
 // 	i = 0;
 // 	while (envp[i])
 // 		link_end(&(*data)->env_node, criate_list(envp[i++]));
 // }
-
 // void ft_env(t_data *data)
 // {
 // 	t_env *env_ptr;
-
 // 	env_ptr = data->env_node;
 // 	while (env_ptr != NULL)
 // 	{
