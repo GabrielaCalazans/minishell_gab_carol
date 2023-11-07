@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/07 19:14:08 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/07 20:19:24 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_export(t_data *data)
 	env_node = data->env_node;
 	if (!data->cmd[1])
 	{
-		while (env_node->next != NULL)
+		while (env_node != NULL)
 		{
 			ft_printf("declare -x %s=%s\n", env_node->var, env_node->value);
 			env_node = env_node->next;
@@ -32,12 +32,11 @@ void	ft_export(t_data *data)
 			printf("invalid var\n");
 			return ;
 		}
-		if (have_var(data))
-		{
-			change_value(data);
-		}
-		else
+		env_node = have_var(data);
+		if (env_node == NULL)
 			create_var(data);
+		else
+			change_value(env_node, data);
 	}
 }
 
@@ -48,7 +47,7 @@ int	is_valid_var(t_data	*data)
 	i = 0;
 	if (data->cmd[1][0] >= '0' && data->cmd[1][0] <= '9')
 		return (1);
-	while (data->cmd[1][i])
+	while (data->cmd[1][i] && data->cmd[1][i] != '=')
 	{
 		if ((data->cmd[1][i] >= 'A' && data->cmd[1][i] <= 'Z') \
 			|| (data->cmd[1][i] >= 'a' && data->cmd[1][i] <= 'z') \
@@ -61,7 +60,7 @@ int	is_valid_var(t_data	*data)
 	return (0);
 }
 
-int	have_var(t_data *data)
+t_env	*have_var(t_data *data)
 {
 	t_env	*env_node;
 
@@ -69,22 +68,31 @@ int	have_var(t_data *data)
 	while (env_node != NULL)
 	{
 		if (ft_strncmp(data->cmd[1], env_node->var, \
-			ft_strlen(data->cmd[1] + 1)))
+			ft_strlen(env_node->var)))
 			env_node = env_node->next;
 		else
-			return (1);
+			return (env_node);
 	}
-	return (0);
+	return (NULL);
 }
 
 void	create_var(t_data *data)
 {
-	(void)data;
+	link_end(&data->env_node, linkar(data));
 	printf ("criando var\n");
 }
 
-void	change_value(t_data *data)
+void	change_value(t_env *env_node, t_data *data)
 {
-	(void)data;
-	printf ("mudando variavel\n");
+	char **split;
+
+	printf("mudando var\n");
+	split = ft_split(data->cmd[1], '=');
+	free(env_node->value);
+	if (split[0] && split[1])
+		env_node->value = split[1];
+	else
+		env_node->value = NULL;
+	free(split[0]);
+	free(split);
 }

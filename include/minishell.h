@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/07 19:07:38 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/07 20:11:14 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,15 +130,15 @@ void	ft_unset(t_data *data);
 //ENV
 t_env	*create_list(char *str);
 t_env	*node_last(t_env *list);
-void	linkar(t_env **lista, t_env *current);
+t_env	*linkar(t_data *data);
 void	link_end(t_env **list, t_env *current);
 void	create_env(t_data **data, char **envp);
 
 //EXPORT
 int		is_valid_var(t_data	*data);
-int		have_var(t_data *data);
+t_env	*have_var(t_data *data);
 void	create_var(t_data *data);
-void	change_value(t_data *data);
+void	change_value(t_env *env_node, t_data *data);
 
 //EXECUTION
 void	execution(t_data *data);
