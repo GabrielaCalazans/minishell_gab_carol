@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:06:02 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/20 19:25:01 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:38:49 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,11 @@
 
 void	ft_pwd(t_data *data)
 {
-	t_env	*env_node;
+	(void)data;
+	char	current_dir[1024];
 
-	env_node = data->env_node;
-	while (env_node->next != NULL)
-	{
-		if (!ft_strncmp(env_node->var, "PWD", 4))
-		{
-			ft_printf("%s\n", env_node->value);
-			return ;
-		}
-		env_node = env_node->next;
-	}
+	if (getcwd(current_dir, sizeof(current_dir)) != NULL)
+		printf("%s\n", current_dir);
+	else
+		perror("getcwd");
 }
