@@ -6,12 +6,12 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:03:28 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/30 18:55:50 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:30:05 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
+/*
 int	check_cd(t_data *data)
 {
 	if (!ft_strncmp(data->cmd_args[0], "..", 2))
@@ -38,9 +38,22 @@ int	check_valid_dir(char *str)
 	}
 	return (printf("NEET A RETURN VALUE HERE LINE 43 ft_cd\n"));
 }
+*/
 
 void	ft_cd(t_data *data)
 {
-	(void)data;
-	printf("nothing done yet. JUST TRYING TO COMPILE\n");
+	char	*go_home;
+	if (data->cmd[1] == NULL)
+	{
+		go_home = getenv("HOME");
+		if (go_home != NULL)
+		{
+			if (chdir(go_home) != 0)
+				perror("cd");
+		}
+		else
+			ft_putendl_fd("cd: could not determine home directory\n", 2);
+	}
+	else if (data->cmd[1] != NULL && chdir(data->cmd[1]) != 0)
+		perror("cd");
 }

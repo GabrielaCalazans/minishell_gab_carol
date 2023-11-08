@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/07 20:19:24 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:21:10 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	ft_export(t_data *data)
 	{
 		while (env_node != NULL)
 		{
-			ft_printf("declare -x %s=%s\n", env_node->var, env_node->value);
+			if (env_node->value)
+				ft_printf("declare -x %s=%s\n", env_node->var, env_node->value);
+			else
+				ft_printf("declare -x %s\n", env_node->var);
 			env_node = env_node->next;
 		}
 	}
@@ -79,7 +82,6 @@ t_env	*have_var(t_data *data)
 void	create_var(t_data *data)
 {
 	link_end(&data->env_node, linkar(data));
-	printf ("criando var\n");
 }
 
 void	change_value(t_env *env_node, t_data *data)

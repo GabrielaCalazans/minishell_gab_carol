@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/07 20:11:14 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:30:41 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,5 +203,6 @@ void	printlist(void *head, int check);
 
 // CLEAR DATA
 void	ft_clear_data(t_data *data);
+void	ft_clear_env(t_env *env_node);
 
 #endif
