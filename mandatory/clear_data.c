@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:16:14 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/08 17:31:00 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:59:20 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_clear_env(t_env *env_node)
 	t_env	*temp;	
 
 	temp = NULL;
-	while(env_node->next != NULL)
+	while (env_node->next != NULL)
 	{
 		temp = env_node->next;
 		free(env_node->var);

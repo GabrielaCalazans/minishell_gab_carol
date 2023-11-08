@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:31:51 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/24 19:40:15 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:37:44 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ int	is_possible_error(int type)
 
 int	check_error(t_token *tokens)
 {
-//	int		current;
 	t_token	*temp;
 
-//	current = tokens->type;
 	temp = tokens->next;
 	while (temp)
 	{

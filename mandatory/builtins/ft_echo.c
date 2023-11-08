@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:04:33 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/10/24 19:39:38 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:36:52 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,4 @@ void	ft_echo(t_data *data)
 		i++;
 	}
 	printf("\n");
-//	if (temp->cmd[1] == NULL)
-//		printf("\n");
 }

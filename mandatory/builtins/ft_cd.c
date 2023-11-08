@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:03:28 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/08 17:30:05 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:36:36 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	check_valid_dir(char *str)
 void	ft_cd(t_data *data)
 {
 	char	*go_home;
+
 	if (data->cmd[1] == NULL)
 	{
 		go_home = getenv("HOME");

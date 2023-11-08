@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 17:19:09 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:58:48 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	if (argc != 1)
 		return (1);
-	
 	set_data(data);
 	create_env(&data, envp);
-	
 	prompt(data);
 	return (0);
 }

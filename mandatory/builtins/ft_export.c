@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/08 17:21:10 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:35:49 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,18 @@ void	ft_export(t_data *data)
 				ft_printf("declare -x %s\n", env_node->var);
 			env_node = env_node->next;
 		}
+		return ;
 	}
-	else
+	if (is_valid_var(data))
 	{
-		if (is_valid_var(data))
-		{
-			printf("invalid var\n");
-			return ;
-		}
-		env_node = have_var(data);
-		if (env_node == NULL)
-			create_var(data);
-		else
-			change_value(env_node, data);
+		printf("invalid var\n");
+		return ;
 	}
+	env_node = have_var(data);
+	if (env_node == NULL)
+		create_var(data);
+	else
+		change_value(env_node, data);
 }
 
 int	is_valid_var(t_data	*data)
@@ -86,9 +84,8 @@ void	create_var(t_data *data)
 
 void	change_value(t_env *env_node, t_data *data)
 {
-	char **split;
+	char	**split;
 
-	printf("mudando var\n");
 	split = ft_split(data->cmd[1], '=');
 	free(env_node->value);
 	if (split[0] && split[1])

@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/24 19:40:45 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:59:44 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,6 @@ void	prompt(t_data *data)
 [] exit code
 [x] path command 
 [] mult pipes
-*/
-
-
-/*
 	PATH=
 	/nfs/homes/ckunimur/bin
 	:/usr/local/sbin:/usr/local/bin

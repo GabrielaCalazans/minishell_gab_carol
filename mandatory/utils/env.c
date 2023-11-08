@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:39:53 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/07 20:11:34 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:38:53 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_env	*linkar(t_data *data)
 {
 	t_env	*new_node;
 	char	**split;
-	
+
 	new_node = ft_calloc(sizeof(t_env), 1);
 	split = ft_split(data->cmd[1], '=');
 	new_node->var = split[0];
@@ -62,19 +62,19 @@ t_env	*linkar(t_data *data)
 		new_node->value = NULL;
 	free(split);
 	new_node->next = NULL;
-	return(new_node);
+	return (new_node);
 }
 
-void link_end(t_env **list, t_env *current)
+void	link_end(t_env **list, t_env *current)
 {
 	t_env	*aux;
 
 	if (list == NULL)
-		return;
+		return ;
 	if (*list == NULL)
 	{
 		*list = current;
-		return;
+		return ;
 	}
 	aux = node_last(*list);
 	aux->next = current;
