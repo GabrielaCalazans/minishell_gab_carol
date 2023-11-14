@@ -6,7 +6,7 @@
 #    By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/11/14 18:50:02 by gacalaza         ###   ########.fr        #
+#    Updated: 2023/11/14 18:56:10 by gacalaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,6 @@ UTILS_F			= $(addprefix ./mandatory/, $(UTILS_DIR))
 
 MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(UTILS_F)
 MANDATORY	+= $(BUILTINS_F) $(REDIRECT_F) $(CLEAR_DATA_F) $(PARSE_F)
-
 
 # ========== OBJS ============
 OBJS = $(MANDATORY:.c=.o)
