@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/08 18:32:02 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/14 16:33:56 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int		is_builtins(char *check);
 //void	call_builtins(t_data *ptr);
 
 //utils
-
 void	ft_clean_lst(char **lst);
 
 //builtins

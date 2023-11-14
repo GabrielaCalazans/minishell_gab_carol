@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/08 17:59:44 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/14 16:33:01 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,22 @@ void	set_path_command(t_data *data)
 	ft_clean_lst(path);
 }
 
+void	get_path(t_data *data)
+{
+	t_env	*tmp;
+
+	tmp = data->env_node;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->var, "PATH", 5) == 0)
+		{
+			data->path = tmp->value;
+			break ;
+		}
+		tmp = tmp->next;
+	}
+}
+
 void	prompt(t_data *data)
 {
 	extern char	**environ;
@@ -75,6 +91,7 @@ void	prompt(t_data *data)
 		if (has_redirect(data->tokens))
 			create_redirect_lst(data);
 		data->env = environ;
+		get_path(data);
 		if (!exec_builtin(data))
 			execution(data);
 		ft_clear_data(data);
