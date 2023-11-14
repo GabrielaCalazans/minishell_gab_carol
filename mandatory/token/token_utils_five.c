@@ -1,47 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect_lst_utils.c                               :+:      :+:    :+:   */
+/*   token_utils_five.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 16:33:10 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/30 18:47:19 by gacalaza         ###   ########.fr       */
+/*   Created: 2023/11/10 18:25:07 by gacalaza          #+#    #+#             */
+/*   Updated: 2023/11/10 18:25:28 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Func to find the size of the lst
-int	ft_size_rdct(t_rdct *lst)
+int	len_flag(char *str)
 {
 	int	len;
 
 	len = 0;
-	while (lst != NULL)
+	if (str[len] == '-')
 	{
-		lst = lst->next;
 		len++;
+		while (str[len] != '\0')
+		{
+			if (!ft_isalpha(str[len]))
+				break ;
+			len++;
+		}
 	}
 	return (len);
 }
 
-// Func to free the the lst
-void	ft_clear_rdct(t_rdct **lst)
+int	len_var(char *str)
 {
-	t_rdct	*temp;
-	t_rdct	*next;
+	int	len;
 
-	temp = *lst;
-	while (temp != NULL)
+	len = 0;
+	if (str[len] == '$')
 	{
-		free(temp->files);
-		temp->files = NULL;
-		free(temp->redirects);
-		temp->redirects = NULL;
-		next = temp->next;
-		free (temp);
-		temp = next;
+		len++;
+		while (str[len] != '\0')
+		{
+			if (is_space(str[len]))
+				break ;
+			len++;
+		}
 	}
-	*lst = NULL;
+	return (len);
+}
+
+int	ft_lensize(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (is_hd_c(str) || is_e_c(str))
+		i += 2;
+	if (is_flag(str))
+		i = len_flag(str);
+	if (is_dollar(str) == DOLLAR)
+		i = len_var(str);
+	return (i);
 }

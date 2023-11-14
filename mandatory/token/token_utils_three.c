@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:11:09 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/11 16:14:44 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:14:08 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,34 @@ int	word_len(char *str)
 		str++;
 	}
 	return (len);
+}
+
+int	is_word_q(int check)
+{
+	if (check == WORD)
+		return (TRUE);
+	if (check == QUOTE_DOUBLE)
+		return (TRUE);
+	if (check == QUOTE_SINGLE)
+		return (TRUE);
+	return (FALSE);
+}
+
+int	qword_len(char *str, int type)
+{
+	int	len;
+
+	len = 0;
+	str++;
+	while (*str)
+	{
+		len++;
+		if (type == find_type(str))
+		{
+			len++;
+			return (len);
+		}
+		str++;
+	}
+	return (FALSE);
 }

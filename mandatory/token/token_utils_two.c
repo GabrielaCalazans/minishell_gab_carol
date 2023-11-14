@@ -6,16 +6,21 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 21:59:35 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 19:18:31 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:21:33 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_dollar(char c)
+int	is_dollar(char *str)
 {
-	if (c == '$')
-		return (DOLLAR);
+	if (ft_strlen(str) > 1)
+	{
+		if (str[0] == '$' && str[1] == '?')
+			return (EXIT_STATUS);
+		if (str[0] == '$' && str[1] != '?')
+			return (DOLLAR);
+	}
 	return (0);
 }
 
@@ -31,7 +36,9 @@ int	is_quote(char c)
 int	is_space(char c)
 {
 	if (c == ' ')
-		return (SPACE);
+		return (C_SPACE);
+	if (c == '\t')
+		return (H_TAB);
 	return (0);
 }
 
@@ -56,14 +63,12 @@ int	find_type(char *str)
 		return (is_heredoc(str, is_redirect(*str)));
 	if (0 < is_pipe(*str))
 		return (is_pipe(*str));
-	if (0 < is_flag(*str))
-		return (is_flag(*str));
-	if (0 < is_dollar(*str))
-		return (is_dollar(*str));
+	if (0 < is_flag(str))
+		return (is_flag(str));
+	if (0 < is_dollar(str))
+		return (is_dollar(str));
 	if (0 < is_slash(*str))
 		return (is_slash(*str));
-	if (0 < is_questionmark(*str))
-		return (is_questionmark(*str));
 	if (0 < is_quote(*str))
 		return (is_quote(*str));
 	if (0 < is_space(*str))

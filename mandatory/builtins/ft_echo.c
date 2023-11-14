@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:04:33 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/08 18:36:52 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:50:35 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	ft_echo(t_data *data)
 
 	i = 1;
 	temp = data;
-	printf("%s", temp->cmd[i]);
+	printf("%s", temp->cmd_args[i]);
 	i++;
-	while (temp->cmd[i])
+	while (temp->cmd_args[i])
 	{
-		printf(" %s", temp->cmd[i]);
+		printf(" %s", temp->cmd_args[i]);
 		i++;
 	}
 	printf("\n");

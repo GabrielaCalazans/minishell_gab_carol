@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 21:58:55 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/10 19:24:27 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:19:10 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ int	is_pipe(char c)
 	return (0);
 }
 
-int	is_flag(char c)
+int	is_flag(char *str)
 {
-	if (c == '-')
-		return (FLAG);
+	if (ft_strlen(str) > 1)
+	{
+		if (str[0] == '-' && ft_isalpha(str[1]))
+			return (FLAG);
+	}
 	return (0);
 }
 

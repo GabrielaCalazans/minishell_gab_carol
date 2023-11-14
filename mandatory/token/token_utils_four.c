@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:05:39 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/21 15:42:00 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:25:14 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_special_char(char c)
 		return (DOT);
 	if (c == ';')
 		return (SEMICOLON);
-	return (FALSE);
+	return (0);
 }
 
 int	is_r_bracket(char c)
@@ -33,13 +33,20 @@ int	is_r_bracket(char c)
 		return (R_BRACKET_O);
 	if (c == ')')
 		return (R_BRACKET_C);
-	return (FALSE);
+	return (0);
 }
 
-int	is_heredoc_case(t_data *data, int i)
+int	is_hd_c(char *str)
 {
-	if (find_type(&data->prompt_in[i]) == HEREDOC
-		|| find_type(&data->prompt_in[i]) == APPEND)
-		return (TRUE);
-	return (FALSE);
+	if (find_type(str) == HEREDOC
+		|| find_type(str) == APPEND)
+		return (1);
+	return (0);
+}
+
+int	is_e_c(char *str)
+{
+	if (find_type(&str[0]) == EXIT_STATUS)
+		return (1);
+	return (0);
 }
