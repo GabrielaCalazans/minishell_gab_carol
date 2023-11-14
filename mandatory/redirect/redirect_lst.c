@@ -3,29 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_lst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:11:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/19 16:34:39 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/13 22:03:41 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // Func to create a new node
-t_rdct	*createnode_rdct(char *file, int redirect)
+t_rdct	*createnode_rdct(char **files, int *redirects, int nbr_rdcts)
 {
 	t_rdct	*newnode;
 
 	newnode = (t_rdct *)malloc(sizeof(t_rdct));
 	if (!newnode)
 		perror("malloc");
-	newnode->file = ft_strdup(file);
-	newnode->redirect = redirect;
-	if (!newnode->redirect || !newnode->file)
+	newnode->files = ft_arraydup(files);
+	newnode->redirects = ft_intdup(redirects, nbr_rdcts);
+	newnode->nbr_rdcts = nbr_rdcts;
+	if (!newnode->redirects || !newnode->files)
 	{
-		perror("strdup");
-		free(newnode);
+		perror("ft_strdup");
+		ft_clear_rdct(&newnode);
 		return (NULL);
 	}
 	newnode->next = NULL;

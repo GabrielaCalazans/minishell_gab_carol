@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/11/07 17:58:16 by ckunimur         ###   ########.fr        #
+#    Updated: 2023/11/14 18:56:10 by gacalaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,16 @@ NAME =	minishell
 SRCS = minishell.c prompt.c execution.c
 
 TOKEN = token.c token_utils_one.c token_utils_two.c token_utils_three.c
-TOKEN += token_lst.c token_lst_utils.c token_utils_four.c
+TOKEN += token_lst.c token_lst_utils.c token_utils_four.c token_utils_five.c
 
-REDIRECT = redirect.c redirect_utils_two.c redirect_utils.c redirect_lst.c
+REDIRECT = redirect.c redirect_utils_two.c redirect_utils_one.c redirect_lst.c
 REDIRECT += redirect_lst_utils.c error_redirect.c error_redirect_utils.c
+REDIRECT += redirect_utils_three.c redirect_utils_four.c
 
 LEXER = lexical.c
 
-PARSE = parse.c
+PARSE = parse.c case_one.c parse_utils.c case_two.c
+PARSE += case_three.c case_zero.c
 
 BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c
 BUILTINS += ft_cd.c ft_exit.c ft_unset.c
@@ -55,7 +57,7 @@ UTILS_DIR		= $(addprefix ./utils/, $(UTILS))
 UTILS_F			= $(addprefix ./mandatory/, $(UTILS_DIR))
 
 MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(UTILS_F)
-MANDATORY	+= $(BUILTINS_F) $(REDIRECT_F) $(CLEAR_DATA_F)
+MANDATORY	+= $(BUILTINS_F) $(REDIRECT_F) $(CLEAR_DATA_F) $(PARSE_F)
 
 # ========== OBJS ============
 OBJS = $(MANDATORY:.c=.o)

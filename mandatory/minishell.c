@@ -3,26 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/08 17:58:48 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:38:41 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 // Function to print the linked list
+// Function to print the linked list
 void	printlist(void *head, int check)
 {
 	t_token	*temp1;
 	t_rdct	*temp2;
+	int		j;
+	int		i;
 
 	if (!head)
-		printf("EMPTY");
+	{
+		printf("EMPTY LIST\n");
+		return ;
+	}
 	if (check == 1)
 	{
-		temp1 = (t_token *) head;
+		temp1 = (t_token *)head;
 		while (temp1 != NULL)
 		{
 			printf("NODE - token: %s type: %d\n", temp1->token, temp1->type);
@@ -31,11 +37,19 @@ void	printlist(void *head, int check)
 	}
 	else
 	{
-		temp2 = (t_rdct *) head;
+		temp2 = (t_rdct *)head;
+		j = 0;
 		while (temp2 != NULL)
 		{
-			printf("NODE - redirect: %i file_name: %s, size str:%zu\n",
-				temp2->redirect, temp2->file, ft_strlen(temp2->file));
+			i = 0;
+			while (i < temp2->nbr_rdcts)
+			{
+				printf("NODE %i - rdct: %i file: %s, size str:%zu\n", j,
+					temp2->redirects[i], temp2->files[i],
+					ft_strlen(temp2->files[i]));
+				i++;
+			}
+			j++;
 			temp2 = temp2->next;
 		}
 	}
@@ -61,6 +75,7 @@ int	main(int argc, char *argv[], char *envp[])
 	set_data(data);
 	create_env(&data, envp);
 	prompt(data);
+	ft_clear_data(data);
 	return (0);
 }
 

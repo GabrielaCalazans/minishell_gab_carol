@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:38:24 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/20 16:59:55 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:48:28 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ int	check_file_name(t_token *tokens)
 			while (temp->type == C_SPACE || temp->type == H_TAB)
 				temp = temp->next;
 		}
-		if (is_syntax_error(temp->type) && temp->type != 11)
-		{
+		if (is_syntax_error(temp->type) && is_special_case(temp->type, 1))
 			return (C_ERROR);
-		}
-		if (temp->type == WORD)
+		if (temp->type == WORD || temp->type == QUOTED_WORD
+			|| is_special_case(temp->type, 2))
 			break ;
 		temp = temp->next;
 	}
@@ -46,8 +45,14 @@ int	first_check(t_token *tokens)
 	check = 0;
 	while (temp)
 	{
-		if (temp->type == 1 || temp->type == 2)
-			check += check_file_name(temp->next);
+		if ((temp->type == REDIRECT_IN || temp->type == REDIRECT_OUT))
+		{
+			if (temp->next)
+			{
+				temp = temp->next;
+				check += check_file_name(temp);
+			}
+		}
 		temp = temp->next;
 	}
 	return (check);
@@ -71,6 +76,20 @@ size_t	quoted_word_size(t_token *tokens, int len)
 		i++;
 	}
 	return (word_size);
+}
+
+char	*take_q_name(t_token *tokens)
+{
+	int		type;
+	char	*name;
+
+	type = find_type(tokens->token);
+	name = ft_strdup(tokens->token);
+	if (type == QUOTE_DOUBLE)
+		name = ft_strtrim(name, "\"");
+	if (type == QUOTE_SINGLE)
+		name = ft_strtrim(name, "\'");
+	return (name);
 }
 
 char	*get_name_quoted(t_token *tokens, char *name, int len)
