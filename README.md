@@ -5,9 +5,9 @@
 - [x] Display a prompt when waiting for a new command.
 - [x] Have a working history.
 - [ ] Search and launch the right executable (based on the PATH variable or using a relative or an absolute path).
-- [ ] Handle ’ (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
-- [ ] Handle " (double quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence except for $ (dollar sign).
-- [ ] TODO: parsear stringone
+- [x] Handle ’ (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
+- [x] Handle " (double quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence except for $ (dollar sign).
+- [x] TODO: parsear stringone
 
 ### Implement redirections:
 - [ ] < should redirect input.
@@ -35,3 +35,6 @@
 
 - [ ] memory leaks.
 - [x] memory leaks readline. ATTENTION DELETE THE .SUPP FILE BEFORE FINAL SUBMISSION
+
+### ERROR - TODO
+- [ ] in case of string"string" we have a extra space - ZEUS HELP US
