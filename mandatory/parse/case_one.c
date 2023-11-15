@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:35:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 00:21:04 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:58:20 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	nb_words_r(t_token *tokens)
 				break ;
 		}
 	}
-	printf("leaving one\n");
 	return (words);
 }
 
