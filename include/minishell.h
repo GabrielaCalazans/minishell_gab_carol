@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 18:40:54 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/16 11:21:31 by carolinekun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,10 @@ void	change_value(t_env *env_node, t_data *data);
 //EXECUTION
 void	execution(t_data *data);
 void	set_path_command(t_data *data);
+
+//HEREDOC
+void	heredoc(t_data *data);
+
 
 // TOKENS
 void		start_token(t_data *data);
