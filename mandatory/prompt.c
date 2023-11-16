@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 18:35:39 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/16 10:58:08 by carolinekun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	prompt(t_data *data)
 		parsing_it(data);
 		data->env = environ;
 		get_path(data);
+		heredoc(data);
 		if (!exec_builtin(data))
 			execution(data);
 		ft_clear_data(data);

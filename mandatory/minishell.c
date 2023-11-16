@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 18:38:41 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/16 10:58:16 by carolinekun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

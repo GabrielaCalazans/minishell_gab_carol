@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/11/14 18:56:10 by gacalaza         ###   ########.fr        #
+#    Updated: 2023/11/16 10:59:50 by carolinekun      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ PARSE += case_three.c case_zero.c
 BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c
 BUILTINS += ft_cd.c ft_exit.c ft_unset.c
 
+HEREDOC = heredoc.c
+
 CLEAR_DATA = clear_data.c
 
 UTILS = utils.c env.c
@@ -55,9 +57,12 @@ REDIRECT_F		= $(addprefix ./mandatory/, $(REDIRECT_DIR))
 CLEAR_DATA_F	= $(addprefix ./mandatory/, $(CLEAR_DATA))
 UTILS_DIR		= $(addprefix ./utils/, $(UTILS))
 UTILS_F			= $(addprefix ./mandatory/, $(UTILS_DIR))
+HEREDOC_DIR		= $(addprefix ./heredoc/, $(HEREDOC))
+HEREDOC_F		= $(addprefix ./mandatory/, $(HEREDOC_DIR))
 
 MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(UTILS_F)
-MANDATORY	+= $(BUILTINS_F) $(REDIRECT_F) $(CLEAR_DATA_F) $(PARSE_F)
+MANDATORY	+= $(BUILTINS_F) $(REDIRECT_F) $(CLEAR_DATA_F) $(PARSE_F) 
+MANDATORY	+= $(HEREDOC_F)
 
 # ========== OBJS ============
 OBJS = $(MANDATORY:.c=.o)
