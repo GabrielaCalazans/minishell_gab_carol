@@ -6,7 +6,7 @@
 /*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/11/16 16:08:29 by carolinekun      ###   ########.fr       */
+/*   Updated: 2023/11/16 16:09:59 by carolinekun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ void    heredoc(t_data *data)
 	waitpid(pid, &status, 0);
 	exit(0);
 }
+
+
+
 
 /*
 1. colocar sinais heredoc
