@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/16 16:30:10 by carolinekun      ###   ########.fr       */
+/*   Updated: 2023/11/21 16:16:19 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	set_path_command(t_data *data);
 void	heredoc(t_data *data);
 
 //PIPE
-void	dup_pipe(int *fd, int ord, int len_pipe)
+void	dup_pipe(int *fd, int ord, int len_pipe);
 
 // TOKENS
 void		start_token(t_data *data);

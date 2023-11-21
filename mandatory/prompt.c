@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/16 15:30:21 by carolinekun      ###   ########.fr       */
+/*   Updated: 2023/11/21 15:30:41 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ void	prompt(t_data *data)
 			create_redirect_lst(data);
 		parsing_it(data);
 		data->cmd = (char *[]){"<<", "oi", NULL};
-		heredoc(data);
+	//	heredoc(data);
 		data->env = environ;
 		get_path(data);
 		if (!exec_builtin(data))
 			execution(data);
-		ft_clear_data(data);
+	//	ft_clear_data(data);
 	}
 	rl_clear_history();
 }
