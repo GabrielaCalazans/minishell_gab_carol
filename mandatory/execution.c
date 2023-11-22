@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/21 21:09:29 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:17:03 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	execution(t_data *data)
 	status = 0;
 	while (i < 3)
 	{
-		if (i == 0) 
-			data->cmd = (char *[]) {"/usr/bin/ls", NULL};
-		else if (i == 1)
-			data->cmd = (char *[]) {"/usr/bin/wc", "-c", NULL};
-		else 	
-			data->cmd = (char *[]) {"/usr/bin/tr", "6", "9", NULL};
+		// if (i == 0) 
+		// 	data->cmd = (char *[]) {"/usr/bin/ls", NULL};
+		// else if (i == 1)
+		// 	data->cmd = (char *[]) {"/usr/bin/wc", "-c", NULL};
+		// else 	
+		// 	data->cmd = (char *[]) {"/usr/bin/tr", "6", "9", NULL};
 		pid[i] = fork();
 		if (pid[i] == 0)
 		{
