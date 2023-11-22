@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/21 16:20:30 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:09:29 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 void	execution(t_data *data)
 {
-	int	pid[2];
+	int	pid[3];
 	int	status;
-	int fd[2][2];
 	int ord = 0;
 	int i = 0;
-	
-	pipe(fd[0]);
-	pipe(fd[1]);
+
+	data->n_cmd = 3;
+	data->fd = ft_calloc(data->n_cmd * 2, sizeof(int));
+	while (i < data->n_cmd * 2 - 1)
+	{
+		pipe(&data->fd[i]);
+		i += 2;
+	}
+	i = 0;
 	status = 0;
 	while (i < 3)
 	{
@@ -36,9 +41,9 @@ void	execution(t_data *data)
 		{
 			int bkp = dup(1);
 			printf("%i\n", i);
-			set_path_command(data);
+			// set_path_command(data);
 			printf("%s\n", data->cmd[0]);
-			dup_pipe((int *)fd, ord, 1);
+			dup_pipe(ord, data);
 			execve(data->cmd[0], data->cmd, data->env);
 			dup2(bkp, 1);
 			printf("Error!\n");
@@ -47,34 +52,42 @@ void	execution(t_data *data)
 		ord++;
 		i++;
 	}
-	close(fd[0][0]);
-	close(fd[0][1]);
-	for (int y = 0; y < 2; y++) {
+	close(data->fd[0]);
+	close(data->fd[1]);
+	close(data->fd[2]);
+	close(data->fd[3]);
+	for (int y = 0; y < data->n_cmd; y++) {
 		waitpid(pid[y], &status, 0);
 	}
 }
 
-void	dup_pipe(int *fd, int ord, int len_pipe)
+void	dup_pipe(int ord, t_data *data)
 {
 	
 	if (ord == 0) {
 		printf("primeiro pipe\n");
-		dup2(fd[1], 1);
-		close(fd[0]);
-		close(fd[1]);
+		dup2(data->fd[1], 1);
+		close(data->fd[0]);
+		close(data->fd[1]);
+		close(data->fd[2]);
+		close(data->fd[3]);
 	}
-	else if (ord == len_pipe) {
+	else if (ord == data->n_cmd - 1) {
 		printf("segundo pipe\n");
-		dup2(fd[0], 0);
-		close(fd[0]);
-		close(fd[1]);
+		dup2(data->fd[2], 0);
+		close(data->fd[0]);
+		close(data->fd[1]);
+		close(data->fd[2]);
+		close(data->fd[3]);
 	}
 	else
 	{
 		printf("else pipe\n");	
-		dup2(0, fd[0]);
-		dup2(1, fd[1]);
-		close(fd[0]);
-		close(fd[1]);
+		dup2(data->fd[0], 0);
+		dup2(data->fd[3], 1);
+		close(data->fd[0]);
+		close(data->fd[1]);
+		close(data->fd[2]);
+		close(data->fd[3]);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/11/16 16:09:59 by carolinekun      ###   ########.fr       */
+/*   Updated: 2023/11/21 19:37:03 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void    heredoc(t_data *data)
 			printf("%s\n",str);
 			dup2(bkpfd, 1);
 			free(str);
-			str = readline("> ");   
+			str = readline("> ");
 		}
 	}
 	waitpid(pid, &status, 0);
