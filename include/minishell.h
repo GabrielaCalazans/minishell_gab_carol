@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 18:40:54 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:58:31 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,13 @@ typedef struct s_data
 	char			**heredoc;
 	char			**env;
 	char			*path;
+	int				*fd;
+	int				n_cmd;
+	int				amount_heredocs;
 	t_rdct			*rdct;
 	t_token			*tokens;
 	t_env			*env_node;
+	
 	struct s_data	*next;
 }			t_data;
 
@@ -152,6 +156,12 @@ void	change_value(t_env *env_node, t_data *data);
 //EXECUTION
 void	execution(t_data *data);
 void	set_path_command(t_data *data);
+
+//HEREDOC
+void	heredoc(char	*key_str);
+
+//PIPE
+void	dup_pipe(int ord, t_data *data);
 
 // TOKENS
 void		start_token(t_data *data);

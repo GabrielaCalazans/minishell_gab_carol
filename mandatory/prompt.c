@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 18:35:39 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:24:15 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	prompt(t_data *data)
 		if (has_redirect(data->tokens))
 			create_redirect_lst(data);
 		parsing_it(data);
+		data->cmd = (char *[]){"<<", "oi", NULL};
+	//	heredoc(data);
 		data->env = environ;
 		get_path(data);
 		if (!exec_builtin(data))

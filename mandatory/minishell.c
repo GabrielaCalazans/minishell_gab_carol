@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 18:38:41 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:23:57 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	set_data(t_data *data)
 	data->tokens = NULL;
 	data->rdct = NULL;
 	data->env_node = NULL;
+	data->n_cmd = 0;
+	data->fd = NULL;
 }
 
 int	main(int argc, char *argv[], char *envp[])
