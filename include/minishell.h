@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/22 16:58:31 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/24 20:04:51 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_data
 	t_rdct			*rdct;
 	t_token			*tokens;
 	t_env			*env_node;
+	int				fds[2];
 	
 	struct s_data	*next;
 }			t_data;
@@ -159,9 +160,13 @@ void	set_path_command(t_data *data);
 
 //HEREDOC
 void	heredoc(char	*key_str);
+void	ft_input(t_data *data);
+void	ft_output(t_data *data);
+void	ft_append(t_data *data);
 
 //PIPE
 void	dup_pipe(int ord, t_data *data);
+void	close_fd(t_data *data, int n_fd);
 
 // TOKENS
 void		start_token(t_data *data);

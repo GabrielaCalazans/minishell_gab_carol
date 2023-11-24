@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: carolinekunimura <carolinekunimura@stud    +#+  +:+       +#+         #
+#    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/11/16 10:59:50 by carolinekun      ###   ########.fr        #
+#    Updated: 2023/11/24 19:23:01 by ckunimur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ PARSE += case_three.c case_zero.c
 BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c
 BUILTINS += ft_cd.c ft_exit.c ft_unset.c
 
-HEREDOC = heredoc.c
+HEREDOC = heredoc.c ft_append.c ft_input.c ft_output.c
 
 CLEAR_DATA = clear_data.c
 
