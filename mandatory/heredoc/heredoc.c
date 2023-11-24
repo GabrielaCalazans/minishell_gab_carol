@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/11/22 17:08:01 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:18:03 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	find_hrdc(t_data *data)
 	{
 		while (i < temp->nbr_rdcts)
 		{
-			if(temp->redirects[i] == HEREDOC)
+			if (temp->redirects[i] == HEREDOC)
 				heredoc(temp->files[i]);
 		}
 		temp = temp->next;
@@ -35,8 +35,8 @@ void	heredoc(char	*key_str)
 	char	*str;
 	int		fd;
 	int		bkpfd;
-	int 	pid;
-	int 	status;
+	int		pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -44,11 +44,11 @@ void	heredoc(char	*key_str)
 		fd = open("/tmp/.heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		bkpfd = dup(1);
 		str = readline("> ");
-		while ((str != NULL) && ft_strncmp(key_str, str, (ft_strlen(key_str) +1)) != 0)
+		while ((str != NULL) && ft_strncmp(key_str, str, \
+			(ft_strlen(key_str) + 1)) != 0)
 		{
-			
 			dup2(fd, 1);
-			printf("%s\n",str);
+			printf("%s\n", str);
 			dup2(bkpfd, 1);
 			free(str);
 			str = readline("> ");
