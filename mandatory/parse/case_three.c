@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_three.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:47:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/13 20:55:45 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:24:22 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,37 +40,6 @@ int	nb_words_three(t_token *tokens)
 	}
 	return (words);
 }
-
-// char	**get_words_t(t_token *tokens)
-// {
-// 	t_token	*tmp;
-// 	int		i;
-// 	char	**words;
-
-// 	i = 0;
-// 	tmp = tokens;
-// 	words = malloc(sizeof(char **) * (nb_words_dr(tokens) + 1));
-// 	if (!words)
-// 		ft_error_parse(1);
-// 	while (tmp && tmp->type != PIPE)
-// 	{
-// 		if (is_word(tmp->type, 2))
-// 			words[i++] = ft_strdup(tmp->token);
-// 		if (is_drd_case(tmp->type))
-// 			tmp = move_drd(tmp->next);
-// 		if (is_rd_case(tmp->type))
-// 			tmp = move_rd(tmp->next);
-// 		else
-// 		{
-// 			if (tmp->next)
-// 				tmp = tmp->next;
-// 			else
-// 				break ;
-// 		}
-// 	}
-// 	words[i] = NULL;
-// 	return (words);
-// }
 
 void	process_tokens(t_token *tokens, int *i, char **words)
 {

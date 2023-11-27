@@ -3,49 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 16:25:43 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:27:25 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	has_d_redirec_p(t_token *tokens)
-{
-	t_token	*temp;
-	int		r_rdrcts;
-
-	temp = tokens;
-	r_rdrcts = 0;
-	while (temp)
-	{
-		if (temp->type == HEREDOC || temp->type == APPEND)
-			r_rdrcts++;
-		if (temp->type == PIPE)
-			break ;
-		temp = temp->next;
-	}
-	return (r_rdrcts);
-}
-
-void	*ft_error_parse(int error)
-{
-	if (error == 1)
-		printf("erro malloc\n");
-	else if (error == 2)
-		printf("DEU RUIM.\n");
-	else if (error == 3)
-		printf("ELSE\n");
-	else if (error == 4)
-		printf("ELSE\n");
-	else
-	{
-		printf("undefined error\n");
-	}
-	return (NULL);
-}
 
 int	is_rd_case(int type)
 {
@@ -72,78 +37,30 @@ int	is_word(int type, int check)
 	{
 		if (type == WORD)
 			return (TRUE);
-		if (type == QUOTED_WORD)
+		if (type == EXIT_STATUS)
 			return (TRUE);
 	}
 	if (check == 2)
 	{
-		if (type == WORD)
-			return (TRUE);
-		if (type == QUOTED_WORD)
-			return (TRUE);
-		if (!is_special_case(type, 3))
+		if (type != REDIRECT_IN && type != REDIRECT_OUT
+			&& type != HEREDOC && type != APPEND
+			&& type != C_SPACE)
 			return (TRUE);
 	}
 	return (FALSE);
 }
 
-void	ft_clear_cmd(t_data *data)
-{
-	data->cmd = freearray(data->cmd);
-	data->cmd = NULL;
-	data->cmd_args = freearray(data->cmd_args);
-	data->cmd_args = NULL;
-}
-
-char	*trim_process(char *word, int type)
-{
-	char	*name;
-
-	name = ft_strdup(word);
-	if (type == QUOTE_DOUBLE)
-		name = ft_strtrim(name, "\"");
-	if (type == QUOTE_SINGLE)
-		name = ft_strtrim(name, "\'");
-	return (name);
-}
-
-char	**trim_quote(char **words)
+void	print_array(char **array, char *type)
 {
 	int	i;
 
 	i = 0;
-	while (words[i])
+	if (!array)
+		return ;
+	while (array[i] != NULL)
 	{
-		if (find_type(words[i]) == 8
-			|| find_type(words[i]) == 9)
-			words[i] = trim_process(words[i], find_type(words[i]));
+		printf("%s[%i]: %s\n", type, i, array[i]);
 		i++;
 	}
-	return (words);
-}
-
-void	get_cmd(t_data *data, char **words)
-{
-	int	len;
-	int	check;
-
-	len = ft_array_size(words);
-	check = 0;
-	ft_clear_cmd(data);
-	if (len > 1)
-	{
-		if (find_type(words[0]) == 10 && find_type(words[1]) == 4)
-		{
-			data->cmd = ft_arraydup_size(words, 2);
-			check = 1;
-		}
-		else
-			data->cmd = ft_arraydup_size(words, 1);
-	}
-	if (check == 1 && len > 2)
-		data->cmd_args = ft_arraydup(trim_quote(&words[2]));
-	if (len > 1 && check == 0)
-		data->cmd_args = ft_arraydup(trim_quote(&words[1]));
-	if (len < 2)
-		data->cmd = ft_arraydup_size(words, 1);
+	printf("\n");
 }

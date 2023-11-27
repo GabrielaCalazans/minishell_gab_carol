@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 19:16:35 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/09 17:00:00 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:40:25 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ int	has_redirect_pipe(t_token *tokens)
 	return (redirects);
 }
 
+int	is_slashcase(int type)
+{
+	if (type == BACKSLASH || type == SLASH)
+		return (TRUE);
+	return (FALSE);
+}
+
+// PRECISO AJUSTAR A expansão de variavel em caso de exit status
 char	*find_file_name(t_token *tokens)
 {
 	t_token	*temp;
@@ -48,7 +56,7 @@ char	*find_file_name(t_token *tokens)
 			return (take_q_name(temp));
 		if (temp->type == EXIT_STATUS)
 			return (ft_strdup("0"));
-		if (temp->type == WORD || temp->type == SLASH
+		if (temp->type == WORD || is_slashcase(temp->type)
 			|| is_special_case(temp->type, 2))
 			return (word_case(temp));
 		temp = temp->next;
@@ -108,4 +116,13 @@ t_params	*inicialize_rd_params(void)
 	params->files = NULL;
 	params->redirects = NULL;
 	return (params);
+}
+
+int is_redrt_case(int type)
+{
+	if (type == REDIRECT_IN || type == REDIRECT_OUT)
+		return (TRUE);
+	if (type == HEREDOC || type == APPEND)
+		return (TRUE);
+	return (FALSE);
 }

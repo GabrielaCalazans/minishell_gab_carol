@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/22 16:58:31 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:21:52 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,22 @@ typedef struct s_env
 	struct s_env	*next;
 }		t_env;
 
+typedef struct s_cmd
+{
+	char			*cmd;
+	char			**args;
+	struct s_cmd	*next;
+}				t_cmd;
+
 typedef struct s_data
 {
 	char			*prompt_in;
-	char			**cmd;
-	char			**cmd_args;
-	char			**heredoc;
 	char			**env;
 	char			*path;
 	int				*fd;
 	int				n_cmd;
 	int				amount_heredocs;
+	t_cmd			*cmd;
 	t_rdct			*rdct;
 	t_token			*tokens;
 	t_env			*env_node;
@@ -124,13 +129,14 @@ typedef struct s_params {
 }	t_params;
 
 void	prompt(t_data *data);
-int		is_builtins(char *check);
 //void	call_builtins(t_data *ptr);
+void		mini_start(t_data *data);
 
 //utils
 void	ft_clean_lst(char **lst);
 
 //builtins
+int		is_builtins(char *check);
 int		exec_builtin(t_data *data);
 void	ft_cd(t_data *data);
 void	ft_echo(t_data *data);
@@ -180,18 +186,18 @@ int			is_hd_c(char *str);
 int			is_e_c(char *str);
 int			find_type(char *str);
 char		*define_type(char *str);
-int			word_len(char *str);
+int			word_len(char *str, int back);
 int			is_word_q(int check);
-int			qword_len(char *str, int type);
+int			qword_len(char *str, int type, int back);
 int			ft_lensize(char *str);
 int			len_flag(char *str);
 int			len_var(char *str);
 
 // DEALING LIST
-t_token	*createnode(char *token, int type);
-void	ft_add_back(t_token **lst, t_token *new);
-int		ft_size(t_token *lst);
-void	ft_clear_token(t_token **lst);
+t_token		*createnode(char *token, int type);
+void		ft_add_back(t_token **lst, t_token *new);
+int			ft_size(t_token *lst);
+void		ft_clear_token(t_token **lst);
 
 // REDIRECT
 t_params	*inicialize_rd_params(void);
@@ -199,6 +205,7 @@ t_token		*jump_white_spaces(t_token *tokens);
 void		create_redirect_lst(t_data *data);
 int			has_another_quote(t_token *tokens, int type);
 int			has_redirect(t_token *tokens);
+int			has_dredirect(t_token *tokens);
 int			has_redirect_pipe(t_token *tokens);
 int			has_pipe_yet(t_token *tokens);
 int			has_rdct_yet(t_token *tokens);
@@ -223,6 +230,7 @@ char		**ft_arraydup_size(char **array, int size);
 int			ft_array_size(char **array);
 int			*ft_intdup(int *array, int size);
 void		*return_error(void);
+int			is_redrt_case(int type);
 
 // DEALING REDIRECT LIST
 t_rdct		*createnode_rdct(char **files, int *redirects, int nbr_rdcts);
@@ -234,7 +242,8 @@ int			ft_size_rdct(t_rdct *lst);
 
 // PARSE
 void		parsing_it(t_data *data);
-void		get_cmd(t_data *data, char **words);
+char		**get_args(char **words, int len);
+char		*get_cmd(char **words);
 char		**get_words(t_token *tokens, int len);
 char		**get_words_one(t_token *tokens);
 t_token		*move_one(t_token *tokens);
@@ -245,17 +254,42 @@ void		*ft_error_parse(int error);
 int			is_word(int type, int check);
 int			is_rd_case(int type);
 int			is_drd_case(int type);
+char		**get_all_words(t_token *tokens);
 char		**get_words_three(t_token *tokens);
 int			nb_words(t_token *tokens);
+char		*trim_process(char *word, int type);
+char		**trim_quote(char **words);
+void		finalizepipe_cmd(t_data *data, char	**all_words);
+char		**fixwords(t_token *tokens, char **words);
+void		cmd_pipe(t_data *data);
+
+int			flag_case(t_token *tokens);
+int			ft_strrchr_len(char *str, int type);
+
+// PARSE LIST
+t_cmd		*createnode_cmd(char *cmd, char **args);
+t_cmd		*ft_last_cmd(t_cmd *lst);
+int			ft_size_cmd(t_cmd *lst);
+void		ft_clear_cmd_lst(t_cmd **lst);
+void		ft_add_back_cmd(t_cmd **lst, t_cmd *new);
+void		ft_add_front_cmd(t_cmd **lst, t_cmd *new);
 
 // LEXER
 int		lexer(t_data *data);
+int		has_pipe(t_data *data);
+
+//HEREDOC
+
 
 // PRINT LIST
-void	printlist(void *head, int check);
+void		printlist(void *head, int check);
+void		print_array(char **array, char *type);
 
 // CLEAR DATA
 void	ft_clear_data(t_data *data);
 void	ft_clear_env(t_env *env_node);
+
+// SIGNAL
+void	run_signals(int sig);
 
 #endif

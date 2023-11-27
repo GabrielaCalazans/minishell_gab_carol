@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/22 16:24:15 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:43:17 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ void	set_path_command(t_data *data)
 	i = 0;
 	while (path[i])
 	{
-		command_path = create_command_path(path[i], data->cmd[0]);
+		command_path = create_command_path(path[i], data->cmd->cmd);
 		if (command_path)
 		{
-			if (data->cmd[0])
-				free(data->cmd[0]);
-			data->cmd[0] = command_path;
+			printf("%s", data->cmd->cmd);
+			if (data->cmd->cmd)
+				free(data->cmd->cmd);
+			data->cmd->cmd = command_path;
 			ft_clean_lst(path);
 			return ;
 		}
@@ -72,65 +73,60 @@ void	get_path(t_data *data)
 	}
 }
 
-		// data->cmd = ft_split(data->prompt_in, ' ');
-void	prompt(t_data *data)
+void	mini_start(t_data *data)
 {
 	extern char	**environ;
 
-	while (1)
-	{
-		data->prompt_in = readline(PROMPT);
-		if (data->prompt_in[0] != '\0')
-		{
-			add_history(data->prompt_in);
-			printf("PROMPT: %s\n", data->prompt_in);
-		}
-		if (data->prompt_in[0] != '\0')
-			start_token(data);
-		if (has_redirect(data->tokens))
-			create_redirect_lst(data);
-		parsing_it(data);
-		data->cmd = (char *[]){"<<", "oi", NULL};
-	//	heredoc(data);
-		data->env = environ;
-		get_path(data);
-		if (!exec_builtin(data))
-			execution(data);
-		ft_clear_data(data);
-	}
-	rl_clear_history();
+	data->env = environ;
+	get_path(data);
+	if (ft_strlen(data->prompt_in) != 0)
+		start_token(data);
+	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
+		create_redirect_lst(data);
+	parsing_it(data);
+	if (!exec_builtin(data))
+		execution(data);
 }
 
-// void	set_path_command(t_data *data)
-// {
-// 	char	**path;
-// 	char	*tmp1;
-// 	char	*tmp2;
-// 	int		i;
 
-// 	i = 0;
-// 	path = ft_split(data->path, ':');
-// 	while (path[i])
+void	prompt(t_data *data)
+{
+	// run_signals(1);
+	data->prompt_in = readline(PROMPT);
+	if (data->prompt_in && *data->prompt_in)
+	{
+		add_history(data->prompt_in);
+		printf("PROMPT: %s\n", data->prompt_in);
+	}
+}
+
+		// data->cmd = ft_split(data->prompt_in, ' ');
+// void	prompt(t_data *data)
+// {
+// 	extern char	**environ;
+
+// 	while (1)
 // 	{
-// 		tmp1 = ft_strjoin(path[i], "/");
-// 		tmp2 = ft_strjoin(tmp1, data->cmd[0]);
-// 		if (tmp1)
-// 			free(tmp1);
-// 		if (!access(tmp2, F_OK))
+// 		data->prompt_in = readline(PROMPT);
+// 		if (data->prompt_in[0] != '\0')
 // 		{
-// 			if (!access(tmp2, X_OK))
-// 			{
-// 				if (data->cmd[0])
-// 					free(data->cmd[0]);
-// 				data->cmd[0] = tmp2;
-// 				ft_clean_lst(path);
-// 				return ;
-// 			}
+// 			add_history(data->prompt_in);
+// 			printf("PROMPT: %s\n", data->prompt_in);
 // 		}
-// 		if (tmp2)
-// 			free(tmp2);
-// 		i++;
+// 		if (data->prompt_in[0] != '\0')
+// 			start_token(data);
+// 		if (has_redirect(data->tokens))
+// 			create_redirect_lst(data);
+// 		parsing_it(data);
+// 		// data->cmd = (char *[]){"<<", "oi", NULL};
+// 	//	heredoc(data);
+// 		data->env = environ;
+// 		get_path(data);
+// 		if (!exec_builtin(data))
+// 			execution(data);
+// 		ft_clear_data(data);
 // 	}
+// 	rl_clear_history();
 // }
 
 /*

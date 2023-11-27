@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/09 17:00:24 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:50:34 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	processclean(t_token *temp, t_params *ptr)
 	ptr->files = NULL;
 	ptr->i = 0;
 	ptr->inside_pipe = 0;
-	ptr->len = has_rdct_yet(temp->next);
+	ptr->len = has_rdct_yet(temp->next) + has_d_redirec_p(temp->next);
 }
 
 void	processredirect(t_token *temp, t_params *ptr)
@@ -55,10 +55,11 @@ void	processredirect(t_token *temp, t_params *ptr)
 
 void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 {
-	ptr->len = has_rdct_yet(temp);
+	ptr->len = has_rdct_yet(temp->next) + has_d_redirec_p(temp->next);
 	while (temp)
 	{
-		if ((temp->type == PIPE || !has_pipe_yet(temp)) && !has_rdct_yet(temp))
+		if ((temp->type == PIPE || !has_pipe_yet(temp)) && (!has_rdct_yet(temp)
+			&& !has_d_redirec_p(temp)))
 		{
 			ptr->files[ptr->i] = NULL;
 			finalizepipe(data, ptr);
@@ -70,7 +71,7 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 			if (ptr->len < 1)
 				break ;
 		}
-		if (temp->type == REDIRECT_IN || temp->type == REDIRECT_OUT)
+		if (is_redrt_case(temp->type))
 			processredirect(temp, ptr);
 		temp = temp->next;
 	}
