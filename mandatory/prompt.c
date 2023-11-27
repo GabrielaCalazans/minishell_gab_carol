@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/24 20:02:17 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:11:07 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	prompt(t_data *data)
 		parsing_it(data);
 //		data->cmd = (char *[]){"<<", "oi", NULL};
 //		heredoc(data);
-
 		data->env = environ;
 		get_path(data);
 		if (!exec_builtin(data))

@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/24 20:19:47 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:16:02 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	execution(t_data *data)
 	int	status;
 	int	ord;
 	int	i;
+	int	bkp;
 
 	ord = 0;
 	i = 0;
@@ -34,16 +35,10 @@ void	execution(t_data *data)
 	ft_append(data);
 	while (i < data->n_cmd)
 	{
-		if (i == 0) 
-			data->cmd = (char *[]) {"/usr/bin/ls", NULL};
-//		else if (i == 1)
-//			data->cmd = (char *[]) {"/usr/bin/wc", "-c", NULL};
-//		else 	
-//			data->cmd = (char *[]) {"/usr/bin/tr", "6", "9", NULL};
 		pid[i] = fork();
 		if (pid[i] == 0)
 		{
-			int bkp = dup(1);
+			bkp = dup(1);
 			set_path_command(data);
 			if (data->n_cmd - 1 != 0)
 				dup_pipe(ord, data);
@@ -64,7 +59,6 @@ void	execution(t_data *data)
 
 void	dup_pipe(int ord, t_data *data)
 {
-
 	if (ord == 0)
 	{
 		dup2(data->fd[1], 1);
@@ -91,3 +85,11 @@ void	close_fd(t_data *data, int n_fd)
 	while (i <= n_fd)
 		close(data->fd[i++]);
 }
+
+//test execution
+//		if (i == 0) 
+//			data->cmd = (char *[]){"/usr/bin/ls", NULL};
+//		else if (i == 1)
+//			data->cmd = (char *[]) {"/usr/bin/wc", "-c", NULL};
+//		else 	
+//			data->cmd = (char *[]) {"/usr/bin/tr", "6", "9", NULL};

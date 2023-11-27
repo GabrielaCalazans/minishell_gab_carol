@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 16:25:43 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:10:29 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	is_rd_case(int type)
 
 int	is_drd_case(int type)
 {
-	
 	if (type == HEREDOC)
 		return (TRUE);
 	if (type == APPEND)
