@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 19:19:32 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:42:27 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,65 +23,48 @@ void	close_fd(t_data *data, int n_fd)
 
 void	execution(t_data *data)
 {
-	int	pid;
-	int	status;
+	int		pid[3];
+	int		status;
+	int		ord;
+	int		i;
+	t_cmd	*tmp;
 
-	pid = fork();
-	if (pid == 0)
+	ord = 0;
+	i = 0;
+	data->n_cmd = 3;
+	data->fd = ft_calloc(data->n_cmd * 2, sizeof(int));
+	while (i < data->n_cmd * 2 - 1)
 	{
-		set_path_command(data);
-		execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
-		printf("Error!\n");
-		exit(1);
+		pipe(&data->fd[i]);
+		i += 2;
 	}
-	waitpid(-1, &status, 0);
+	i = 0;
+	status = 0;
+	tmp = data->cmd;
+	while (tmp != NULL)
+	{
+		pid[i] = fork();
+		if (pid[i] == 0)
+		{
+			int bkp = dup(1);
+			set_path_command(data);
+			dup_pipe(ord, data);
+			execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
+			dup2(bkp, 1);
+			printf("Error!\n");
+			exit(1);
+		}
+		ord++;
+		i++;
+	}
+	close_fd(data, data->n_cmd * 2);
+	i = 0;
+	while (i < data->n_cmd)
+	{
+		waitpid(pid[i], &status, 0);
+		i++;
+	}
 }
-
-// void	execution(t_data *data)
-// {
-// 	int	pid[3];
-// 	int	status;
-// 	int	ord;
-// 	int	i;
-
-// 	ord = 0;
-// 	i = 0;
-// 	data->n_cmd = 3;
-// 	data->fd = ft_calloc(data->n_cmd * 2, sizeof(int));
-// 	while (i < data->n_cmd * 2 - 1)
-// 	{
-// 		pipe(&data->fd[i]);
-// 		i += 2;
-// 	}
-// 	i = 0;
-// 	status = 0;
-// 	while (i < 3)
-// 	{
-// 		// if (i == 0) 
-// 		// 	data->cmd->cmd = (char *[]) {"/usr/bin/ls", NULL};
-// 		// else if (i == 1)
-// 		// 	data->cmd = (char *[]) {"/usr/bin/wc", "-c", NULL};
-// 		// else 	
-// 		// 	data->cmd = (char *[]) {"/usr/bin/tr", "6", "9", NULL};
-// 		pid[i] = fork();
-// 		if (pid[i] == 0)
-// 		{
-// 			int bkp = dup(1);
-// 			set_path_command(data);
-// 			dup_pipe(ord, data);
-// 			execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
-// 			dup2(bkp, 1);
-// 			printf("Error!\n");
-// 			exit(1);
-// 		}
-// 		ord++;
-// 		i++;
-// 	}
-// 	close_fd(data, data->n_cmd * 2);
-// 	for (int y = 0; y < data->n_cmd; y++) {
-// 		waitpid(pid[y], &status, 0);
-// 	}
-// }
 
 void	dup_pipe(int ord, t_data *data)
 {

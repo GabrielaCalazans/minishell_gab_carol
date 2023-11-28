@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 20:00:50 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:36:28 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ typedef struct s_env
 typedef struct s_cmd
 {
 	char			**cmd;
-	// char			**args;
 	struct s_cmd	*next;
 }				t_cmd;
 
