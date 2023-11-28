@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/27 20:43:17 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:05:43 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	set_path_command(t_data *data)
 	i = 0;
 	while (path[i])
 	{
-		command_path = create_command_path(path[i], data->cmd->cmd);
+		command_path = create_command_path(path[i], data->cmd->cmd[0]);
 		if (command_path)
 		{
-			printf("%s", data->cmd->cmd);
-			if (data->cmd->cmd)
-				free(data->cmd->cmd);
-			data->cmd->cmd = command_path;
+			printf("%s", data->cmd->cmd[0]);
+			if (data->cmd->cmd[0])
+				free(data->cmd->cmd[0]);
+			data->cmd->cmd[0] = command_path;
 			ft_clean_lst(path);
 			return ;
 		}

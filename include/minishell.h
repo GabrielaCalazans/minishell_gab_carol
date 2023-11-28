@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/27 20:21:52 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:00:50 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_token
 {
 	char			*token;
 	int				type;
+	struct s_token	*prev;
 	struct s_token	*next;
 }				t_token;
 
@@ -89,8 +90,8 @@ typedef struct s_env
 
 typedef struct s_cmd
 {
-	char			*cmd;
-	char			**args;
+	char			**cmd;
+	// char			**args;
 	struct s_cmd	*next;
 }				t_cmd;
 
@@ -263,11 +264,8 @@ void		finalizepipe_cmd(t_data *data, char	**all_words);
 char		**fixwords(t_token *tokens, char **words);
 void		cmd_pipe(t_data *data);
 
-int			flag_case(t_token *tokens);
-int			ft_strrchr_len(char *str, int type);
-
 // PARSE LIST
-t_cmd		*createnode_cmd(char *cmd, char **args);
+t_cmd		*createnode_cmd(char **cmd);
 t_cmd		*ft_last_cmd(t_cmd *lst);
 int			ft_size_cmd(t_cmd *lst);
 void		ft_clear_cmd_lst(t_cmd **lst);

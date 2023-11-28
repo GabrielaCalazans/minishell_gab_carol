@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:11:09 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/28 15:14:08 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:22:19 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,63 @@ char	*define_type(char *str)
 	return ("error");
 }
 
-int	word_len(char *str)
+int	has_asquote_str(char *str, int type)
+{
+	int	i;
+
+	i = 0;
+	while (str[++i] != '\0')
+	{
+		if (type == is_quote(str[i]))
+			return (i);
+	}
+	return (0);
+}
+
+int	is_thiscase(int type, char c)
+{
+	(void)c;
+	if(type == WORD || type == BACKSLASH)
+		return (TRUE);
+	return (FALSE);
+}
+
+int	is_backs(char *str, int len, int type)
+{
+	if (type == BACKSLASH && str[len] != '\0')
+		return (len + 1);
+	if (type == BACKSLASH && str[len] == '\0')
+	{
+		ft_error_parse(6);
+		exit(1);
+	}
+	return (0);
+}
+
+int	word_len(char *str, int back)
 {
 	int	len;
+	int	type;
 
 	len = 0;
-	while (*str && find_type(str) == 10)
+	type = find_type(str);
+	while (str[len] != '\0' && is_thiscase(type, str[len]))
 	{
-		len++;
-		str++;
+		if (type == BACKSLASH && str[len] != '\0')
+			len = is_backs(str, len, type);
+		if (type == is_quote(str[len]) && back == 0)
+		{
+			if (has_asquote_str(&str[len], type))
+				len += has_asquote_str(&str[len], type) + 1;
+			else
+			{
+				ft_error_redirect(3);
+				exit (1);
+			}
+		}
+		else
+			len++;
+		type = find_type(&str[len]);
 	}
 	return (len);
 }
@@ -77,21 +125,28 @@ int	is_word_q(int check)
 	return (FALSE);
 }
 
-int	qword_len(char *str, int type)
+int	qword_len(char *str, int type, int back)
 {
 	int	len;
+	int	check;
 
 	len = 0;
-	str++;
-	while (*str)
+	check = 0;
+	if (back == 1)
+		return (1);
+	while (str[len])
 	{
 		len++;
-		if (type == find_type(str))
+		check = find_type(&str[len]);
+		if (type == check)
 		{
 			len++;
 			return (len);
 		}
-		str++;
+		if (check == BACKSLASH)
+		{
+			len++;
+		}
 	}
 	return (FALSE);
 }

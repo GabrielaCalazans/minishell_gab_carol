@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 21:58:55 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/10 18:19:10 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:04:17 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	is_slash(char c)
 {
 	if (c == '/')
 		return (SLASH);
+	if (c == '\\')
+		return (BACKSLASH);
 	return (0);
 }
 

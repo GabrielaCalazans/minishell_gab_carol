@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:12:33 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/10/12 16:05:23 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:18:39 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@ t_token	*createnode(char *token, int type)
 
 	newnode = (t_token *)malloc(sizeof(t_token));
 	if (!newnode)
+	{
 		perror("malloc");
+		return (NULL);
+	}
 	newnode->token = ft_strdup(token);
 	newnode->type = type;
+	newnode->next = NULL;
+	newnode->prev = NULL;
 	if (!newnode->token || !newnode->type)
 	{
-		perror("strdup");
+		perror("ft_strdup");
 		free(newnode);
 		return (NULL);
 	}
@@ -55,6 +60,7 @@ void	ft_add_back(t_token **lst, t_token *new)
 	{
 		temp = ft_last(*lst);
 		temp->next = new;
+		new->prev = temp;
 	}
 	else
 		*lst = new;
@@ -66,6 +72,7 @@ void	ft_add_front(t_token **lst, t_token *new)
 	if (*lst)
 	{
 		new->next = *lst;
+		(*lst)->prev = new;
 		*lst = new;
 	}
 	else

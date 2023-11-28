@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/08 18:35:49 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:38:53 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_export(t_data *data)
 	t_env	*env_node;
 
 	env_node = data->env_node;
-	if (!data->cmd[1])
+	if (!data->cmd->cmd[1])
 	{
 		while (env_node != NULL)
 		{
@@ -46,14 +46,14 @@ int	is_valid_var(t_data	*data)
 	int		i;
 
 	i = 0;
-	if (data->cmd[1][0] >= '0' && data->cmd[1][0] <= '9')
+	if (data->cmd->cmd[1][0] >= '0' && data->cmd->cmd[1][0] <= '9')
 		return (1);
-	while (data->cmd[1][i] && data->cmd[1][i] != '=')
+	while (data->cmd->cmd[1][i] && data->cmd->cmd[1][i] != '=')
 	{
-		if ((data->cmd[1][i] >= 'A' && data->cmd[1][i] <= 'Z') \
-			|| (data->cmd[1][i] >= 'a' && data->cmd[1][i] <= 'z') \
-			|| (data->cmd[1][i] >= '0' && data->cmd[1][i] <= '9') \
-			|| data->cmd[1][i] == '_')
+		if ((data->cmd->cmd[1][i] >= 'A' && data->cmd->cmd[1][i] <= 'Z') \
+			|| (data->cmd->cmd[1][i] >= 'a' && data->cmd->cmd[1][i] <= 'z') \
+			|| (data->cmd->cmd[1][i] >= '0' && data->cmd->cmd[1][i] <= '9') \
+			|| data->cmd->cmd[1][i] == '_')
 			i++;
 		else
 			return (1);
@@ -68,7 +68,7 @@ t_env	*have_var(t_data *data)
 	env_node = data->env_node;
 	while (env_node != NULL)
 	{
-		if (ft_strncmp(data->cmd[1], env_node->var, \
+		if (ft_strncmp(data->cmd->cmd[1], env_node->var, \
 			ft_strlen(env_node->var)))
 			env_node = env_node->next;
 		else
@@ -86,7 +86,7 @@ void	change_value(t_env *env_node, t_data *data)
 {
 	char	**split;
 
-	split = ft_split(data->cmd[1], '=');
+	split = ft_split(data->cmd->cmd[1], '=');
 	free(env_node->value);
 	if (split[0] && split[1])
 		env_node->value = split[1];

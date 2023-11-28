@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:33:10 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/22 22:18:13 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:41:26 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	ft_clear_cmd_lst(t_cmd **lst)
 	temp = *lst;
 	while (temp != NULL)
 	{
-		free(temp->cmd);
-		freearray(temp->args);
-		temp->args = NULL;
+		freearray(temp->cmd);
 		next = temp->next;
 		free (temp);
 		temp = next;
