@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 19:56:01 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:18:29 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ int	count_backs(int len, char *str)
 	backs = 0;
 	while(i < len)
 	{
-		if (i + 1 == len)
-			break ;
 		if (str[i] == '\\' && str[i + 1] != '\\')
 			backs++;
+		if (i + 1 == len)
+			break ;
 		i++;
 	}
 	return (backs);
