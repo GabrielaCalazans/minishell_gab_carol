@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:25:07 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/10 18:25:28 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:58:19 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,35 @@ int	ft_lensize(char *str)
 	if (is_dollar(str) == DOLLAR)
 		i = len_var(str);
 	return (i);
+}
+
+// void	paramsclean(t_token *temp, t_tokenp *ptr)
+// {
+// 	if (ptr->len > 0)
+// 		ptr->files = freearray(ptr->files);
+// 	free(ptr->redirects);
+// 	ptr->redirects = NULL;
+// 	ptr->files = NULL;
+// 	ptr->i = 0;
+// 	ptr->inside_pipe = 0;
+// 	ptr->len = has_rdct_yet(temp->next) + has_d_redirec_p(temp->next);
+// }
+
+// Handle the error appropriately
+
+t_tk_p	*inicialize_tokenparams(void)
+{
+	t_tk_p	*params;
+
+	params = (t_tk_p *)malloc(sizeof(t_tk_p));
+	if (!params)
+	{
+		printf("Error malloc: initialize_tokenparams");
+		exit(1);
+	}
+	params->i = 0;
+	params->type = 0;
+	params->check = 0;
+	params->back = 0;
+	return (params);
 }

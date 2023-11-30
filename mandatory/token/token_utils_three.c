@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:11:09 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 20:22:19 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:30:43 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	has_asquote_str(char *str, int type)
 int	is_thiscase(int type, char c)
 {
 	(void)c;
-	if(type == WORD || type == BACKSLASH)
+	if (type == WORD || type == BACKSLASH)
 		return (TRUE);
 	return (FALSE);
 }

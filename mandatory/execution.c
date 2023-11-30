@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/30 08:45:36 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:29:22 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	execution(t_data *data)
 	}
 	i = 0;
 	status = 0;
-	data->cmd->cmd = (char *[]){"log.txt", NULL}; // AJUSTAR ESTÁ LINHA
 	ft_append(data);
 	while (i < data->n_cmd)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/29 15:29:31 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:59:11 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,13 @@
 // **cmd_args; // aqui str
 // **heredoc; // heredoc e seu delimitador/palavra
 // **rdct; // lista redirect e seu arquivo
+
+typedef struct s_tk_p {
+	int		check;
+	int 	type;
+	int		i;
+	int		back;
+}			t_tk_p;
 
 typedef struct s_token
 {
@@ -197,6 +204,7 @@ int			qword_len(char *str, int type, int back);
 int			ft_lensize(char *str);
 int			len_flag(char *str);
 int			len_var(char *str);
+t_tk_p		*inicialize_tokenparams(void);
 
 // DEALING LIST
 t_token		*createnode(char *token, int type);
