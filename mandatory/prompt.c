@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/29 15:30:25 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/30 08:41:36 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,6 @@ void	prompt(t_data *data)
 			add_history(data->prompt_in);
 			printf("PROMPT: %s\n", data->prompt_in);
 		}
-		if (data->prompt_in[0] != '\0')
-			start_token(data);
-		if (has_redirect(data->tokens))
-			create_redirect_lst(data);
-		parsing_it(data);
-//		data->cmd = (char *[]){"<<", "oi", NULL};
-//		heredoc(data);
-		data->env = environ;
-		get_path(data);
-		if (!exec_builtin(data))
-			execution(data);
-		ft_clear_data(data);
 	}
 }
 
