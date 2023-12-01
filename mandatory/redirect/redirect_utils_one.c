@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:10:45 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/27 19:55:27 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 11:45:36 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,78 +24,6 @@ t_token	*jump_white_spaces(t_token *tokens)
 	if (!tmp)
 		return (NULL);
 	return (tmp);
-}
-
-int	has_another_quote(t_token *tokens, int type)
-{
-	t_token	*temp;
-	int		len;
-
-	temp = tokens->next;
-	len = 0;
-	while (temp)
-	{
-		if (temp->type == type)
-			return (len);
-		len++;
-		temp = temp->next;
-	}
-	return (FALSE);
-}
-
-int	has_redirect(t_token *tokens)
-{
-	t_token	*temp;
-	int		redirects;
-
-	temp = tokens;
-	redirects = 0;
-	while (temp)
-	{
-		if (temp->type == 1 || temp->type == 2)
-			redirects++;
-		temp = temp->next;
-	}
-	return (redirects);
-}
-
-int	has_dredirect(t_token *tokens)
-{
-	t_token	*temp;
-	int		redirects;
-
-	temp = tokens;
-	redirects = 0;
-	while (temp)
-	{
-		if (temp->type == HEREDOC || temp->type == APPEND)
-			redirects++;
-		temp = temp->next;
-	}
-	return (redirects);
-}
-
-
-int	is_path(t_token *tokens)
-{
-	t_token	*tmp;
-
-	tmp = tokens;
-	if (tmp->next)
-	{
-		if (tmp->type == SLASH && tmp->next->type == WORD)
-			return (TRUE);
-		if (tmp->token[0] == '.' && tmp->next->type == SLASH)
-		{
-			tmp = tmp->next;
-			if (tmp->next->type == WORD)
-				return (TRUE);
-		}
-		tmp = tokens;
-		if (tmp->type == WORD && tmp->next->type == SLASH)
-			return (TRUE);
-	}
-	return (FALSE);
 }
 
 char	*word_case(t_token *tokens)
@@ -118,4 +46,51 @@ char	*word_case(t_token *tokens)
 		tmp = tmp->next;
 	}
 	return (result);
+}
+
+// PRECISO AJUSTAR A expansão de variavel em caso de exit status
+char	*find_file_name(t_token *tokens)
+{
+	t_token	*temp;
+
+	temp = tokens;
+	if (check_file_name(tokens))
+		return_error();
+	while (temp)
+	{
+		if (temp->type == C_SPACE || temp->type == H_TAB)
+		{
+			while (temp->type == C_SPACE || temp->type == H_TAB)
+				temp = temp->next;
+		}
+		if (temp->type == QUOTED_WORD)
+			return (take_q_name(temp));
+		if (temp->type == EXIT_STATUS)
+			return (ft_strdup("0"));
+		if (temp->type == WORD || is_slashcase(temp->type)
+			|| is_special_case(temp->type, 2))
+			return (word_case(temp));
+		temp = temp->next;
+	}
+	ft_error_redirect(4);
+	return (NULL);
+}
+
+// Handle the error appropriately
+t_params	*inicialize_rd_params(void)
+{
+	t_params	*params;
+
+	params = (t_params *)malloc(sizeof(t_params));
+	if (!params)
+	{
+		printf("Error malloc: initialize_rd_params");
+		exit(1);
+	}
+	params->i = 0;
+	params->len = 0;
+	params->inside_pipe = 0;
+	params->files = NULL;
+	params->redirects = NULL;
+	return (params);
 }

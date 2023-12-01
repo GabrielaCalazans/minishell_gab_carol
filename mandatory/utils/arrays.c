@@ -1,35 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect_utils_three.c                             :+:      :+:    :+:   */
+/*   arrays.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 14:00:10 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/13 23:54:23 by gacalaza         ###   ########.fr       */
+/*   Created: 2023/12/01 11:37:56 by gacalaza          #+#    #+#             */
+/*   Updated: 2023/12/01 11:37:59 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	*ft_intdup(int *array, int size)
-{
-	int		*array_copy;
-	int		i;
-
-	if (array == NULL)
-		return (NULL);
-	i = 0;
-	array_copy = (int *)malloc(sizeof(int) * size);
-	if (array_copy == NULL)
-		return (NULL);
-	while (i < size)
-	{
-		array_copy[i] = array[i];
-		i++;
-	}
-	return (array_copy);
-}
 
 char	**freearray(char **array)
 {

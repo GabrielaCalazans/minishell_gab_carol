@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:51:16 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 19:20:50 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:53:15 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	printlst_cmd(t_cmd *head)
 	t_cmd	*temp;
 	int		j;
 	int		i;
-	
+
 	temp = head;
 	j = 0;
 	while (temp != NULL)
@@ -51,6 +51,7 @@ void	printlst_rdct(t_rdct *head)
 	t_rdct	*temp;
 	int		j;
 	int		i;
+
 	temp = (t_rdct *)head;
 	j = 0;
 	while (temp != NULL)

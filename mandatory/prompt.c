@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/30 19:24:45 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:51:12 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	mini_start(t_data *data)
 		execution(data);
 }
 
-
 void	prompt(t_data *data)
 {
 	// run_signals(1);
@@ -99,45 +98,3 @@ void	prompt(t_data *data)
 		printf("PROMPT: %s\n", data->prompt_in);
 	}
 }
-
-		// data->cmd = ft_split(data->prompt_in, ' ');
-// void	prompt(t_data *data)
-// {
-// 	extern char	**environ;
-
-// 	while (1)
-// 	{
-// 		data->prompt_in = readline(PROMPT);
-// 		if (data->prompt_in[0] != '\0')
-// 		{
-// 			add_history(data->prompt_in);
-// 			printf("PROMPT: %s\n", data->prompt_in);
-// 		}
-// 		if (data->prompt_in[0] != '\0')
-// 			start_token(data);
-// 		if (has_redirect(data->tokens))
-// 			create_redirect_lst(data);
-// 		parsing_it(data);
-// 		// data->cmd = (char *[]){"<<", "oi", NULL};
-// 	//	heredoc(data);
-// 		data->env = environ;
-// 		get_path(data);
-// 		if (!exec_builtin(data))
-// 			execution(data);
-// 		ft_clear_data(data);
-// 	}
-// 	rl_clear_history();
-// }
-
-/*
-[] pipe
-[] exit code
-[x] path command 
-[] mult pipes
-	PATH=
-	/nfs/homes/ckunimur/bin
-	:/usr/local/sbin:/usr/local/bin
-	:/usr/sbin:
-	/usr/bin
-	:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/nfs/homes/ckunimur/.local/bin
-*/

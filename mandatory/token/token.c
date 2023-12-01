@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/30 20:02:58 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:51:28 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_token	*create_word_token(char *str, int len, int check)
 	return (newnode);
 }
 
-	// if (find_type(&str[0]) == 12 || find_type(&str[0]) == 13)
 t_token	*create_token(char *str)
 {
 	t_token	*newnode;
@@ -89,16 +88,12 @@ void	sub_start_tokens(t_data *data, t_token *newnode, t_tk_p *p)
 	{
 		p->check = find_type(&data->prompt_in[p->i]);
 		if (p->check == BACKSLASH)
-		{
-			p->back = 1;
-			p->check = WORD;
-		}
+			backs_case(p);
 		if (p->check == WORD)
 		{
 			if (sub_creating_token(data, newnode, p))
 				break ;
-			p->i += word_len(&data->prompt_in[p->i], p->back);
-			p->back = 0;
+			def_len(data, p, 2);
 		}
 		if (p->check == QUOTE_DOUBLE || p->check == QUOTE_SINGLE)
 		{
@@ -111,10 +106,7 @@ void	sub_start_tokens(t_data *data, t_token *newnode, t_tk_p *p)
 		{
 			if (sub_creating_token(data, newnode, p))
 				break ;
-			if (ft_lensize(&data->prompt_in[p->i]))
-				p->i += ft_lensize(&data->prompt_in[p->i]);
-			else
-				p->i++;
+			def_len(data, p, 1);
 		}
 	}
 }

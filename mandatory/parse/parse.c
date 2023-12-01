@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/30 19:18:29 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:48:01 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,6 @@ char	**fixwords(t_token *tokens, char **words)
 	return (words);
 }
 
-void	cmd_pipe(t_data *data)
-{
-	t_token	*tmp;
-	char	**all_words;
-
-	tmp = data->tokens;
-	all_words = get_all_words(data->tokens);
-	while (tmp)
-	{
-		if (tmp->type == PIPE || tmp->next == NULL)
-		{
-			finalizepipe_cmd(data, all_words);
-			if (tmp->next != NULL)
-				all_words = fixwords(tmp->next, all_words);
-		}
-		tmp = tmp->next;
-	}
-}
-
 char	**get_all_words(t_token *tokens)
 {
 	char	**all_words;
@@ -66,7 +47,7 @@ char	**get_all_words(t_token *tokens)
 
 	check = 0;
 	all_words = NULL;
-	if (has_redirect_pipe(tokens))
+	if (has_rdrct_pipe(tokens))
 		check = 1;
 	if (has_d_redirec_p(tokens))
 		check += 2;
@@ -83,65 +64,6 @@ char	**get_all_words(t_token *tokens)
 	return (all_words);
 }
 
-int	count_backs(int len, char *str)
-{
-	int	i;
-	int	backs;
-
-	i = 0;
-	backs = 0;
-	while(i < len)
-	{
-		if (str[i] == '\\' && str[i + 1] != '\\')
-			backs++;
-		if (i + 1 == len)
-			break ;
-		i++;
-	}
-	return (backs);
-}
-
-char	*process_backs(char *str)
-{
-	int		i;
-	int		j;
-	int		len;
-	int		backs;
-	char	*new_str;
-
-	i = 0;
-	j = 0;
-	new_str = NULL;
-	len = ft_strlen(str);
-	backs = count_backs(len, str);
-	if (backs > 0)
-	{
-		new_str = malloc(sizeof (char) * (len - backs) + 1);
-		if (!new_str)
-		{
-			perror("malloc");
-			exit (1);
-		}
-		while (j < (len - backs))
-		{
-			if (str[i] == '\\')
-			{
-				i++;
-				new_str[j] = str[i];
-				j++;
-			}
-			else
-			{
-				new_str[j] = str[i];
-				j++;
-			}
-			i++;
-		}
-		new_str[j] = '\0';
-	}
-	return (new_str);
-}
-
 char	**treat_backs(char **words)
 {
 	int	i;
@@ -150,7 +72,7 @@ char	**treat_backs(char **words)
 	while (words[i] != NULL)
 	{
 		if (ft_strchr(words[i], '\\') != NULL)
-			words[i] = process_backs(words[i]);
+			words[i] = process_backs(words[i], ft_strlen(words[i]));
 		i++;
 	}
 	return (words);
@@ -161,7 +83,7 @@ void	parsing_it(t_data *data)
 {
 	char	**all_words;
 
-	if (has_pipe(data) > 0)
+	if (has_pipe(data->tokens) > 0)
 		cmd_pipe(data);
 	else
 	{

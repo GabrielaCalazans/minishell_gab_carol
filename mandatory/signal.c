@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 02:32:53 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/20 20:40:48 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:12:08 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,6 @@ void	ctrl_c(int sig)
 	// g_ret = 130;
 	write(1, "\n", 1);
 	(void)sig;
-}
-
-void	ctrl_d(int sig)
-{
-	// g_ret = 130;
-	printf("exit\n");
-	(void)sig;
-	exit(0);
 }
 
 void	back_slash(int sig)
