@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:06:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/27 20:25:50 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:51:39 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	nb_words(t_token *tokens)
 
 char	**get_words(t_token *tokens, int len)
 {
+	char	**words;
 	t_token	*tmp;
 	int		i;
-	char	**words;
 
 	i = 0;
 	tmp = tokens;
@@ -42,17 +42,13 @@ char	**get_words(t_token *tokens, int len)
 	while (tmp && tmp->type != PIPE)
 	{
 		if (i == 0 && tmp->type == 10)
-		{
-			words[i] = ft_strdup(tmp->token);
-			i++;
-		}
+			words[i++] = ft_strdup(tmp->token);
 		else if (is_word(tmp->type, 2) && i != 0)
 		{
 			if (tmp->type == QUOTED_WORD)
-				words[i] = trim_process(tmp->token, find_type(tmp->token));
+				words[i++] = trim_process(tmp->token, find_type(tmp->token));
 			else
-				words[i] = ft_strdup(tmp->token);
-			i++;
+				words[i++] = ft_strdup(tmp->token);
 		}
 		tmp = tmp->next;
 	}

@@ -3,49 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_two.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/26 22:04:43 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:55:15 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*get_cmd(char **words)
+char	*ft_triming(char const *s1, char const *set)
 {
-	char	*cmd;
+	size_t	size_s1;
+	char	*newstr;
 
-	cmd = ft_strdup(words[0]);
-	return (cmd);
+	size_s1 = ft_strlen(s1) - 1;
+	if (!s1 || !set)
+		return (NULL);
+	newstr = (char *)malloc(sizeof(char) * size_s1);
+	if (!newstr)
+		return (NULL);
+	ft_strlcpy(newstr, &s1[1], size_s1);
+	return (newstr);
 }
 
-char	**get_args(char **words, int len)
+char	*trim_process(char *word, int type)
 {
-	char	**args;
+	char	*name;
 
-	args = NULL;
-	if (len > 1)
-		return (ft_arraydup((&words[1])));
-	return (args);
+	name = ft_strdup(word);
+	printf("type:%d\n", type);
+	if (type == QUOTE_DOUBLE)
+		name = ft_triming(name, "\"");
+	if (type == QUOTE_SINGLE)
+		name = ft_triming(name, "\'");
+	return (name);
 }
 
-int	has_d_redirec_p(t_token *tokens)
+char	**trim_quote(char **words)
 {
-	t_token	*temp;
-	int		r_rdrcts;
+	int	i;
+	int	type;
 
-	temp = tokens;
-	r_rdrcts = 0;
-	while (temp)
+	if (!words)
+		return (NULL);
+	i = 0;
+	while (words[i])
 	{
-		if (temp->type == HEREDOC || temp->type == APPEND)
-			r_rdrcts++;
-		if (temp->type == PIPE)
-			break ;
-		temp = temp->next;
+		type = find_type(words[i]);
+		if (type == 8 || type == 9)
+			words[i] = trim_process(words[i], type);
+		i++;
 	}
-	return (r_rdrcts);
+	return (words);
 }
 
 void	*ft_error_parse(int error)
@@ -56,7 +66,7 @@ void	*ft_error_parse(int error)
 		printf("DEU RUIM.\n");
 	else if (error == 3)
 		printf("ERROR! Missing quote\n");
-	else if(error == 5)
+	else if (error == 5)
 		printf("ELSE\n");
 	else if (error == 6)
 		printf("ERROR! Missing backslash key\n");
@@ -65,4 +75,10 @@ void	*ft_error_parse(int error)
 		printf("undefined error\n");
 	}
 	return (NULL);
+}
+
+void	return_error_parse(char *str)
+{
+	perror(str);
+	exit (1);
 }

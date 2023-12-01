@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/11/29 15:28:32 by ckunimur         ###   ########.fr        #
+#    Updated: 2023/12/01 18:56:23 by gacalaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,18 +15,18 @@
 NAME =	minishell
 
 # ======= Sources ========
-SRCS = minishell.c prompt.c execution.c printlist.c signal.c
+SRCS = minishell.c prompt.c execution.c printlist.c signal.c print_array.c
 
 TOKEN = token.c token_utils_one.c token_utils_two.c token_utils_three.c
-TOKEN += token_lst.c token_lst_utils.c token_utils_four.c token_utils_five.c
+TOKEN += token_lst.c token_lst_utils.c
 
 REDIRECT = redirect.c redirect_utils_two.c redirect_utils_one.c redirect_lst.c
 REDIRECT += redirect_lst_utils.c error_redirect.c error_redirect_utils.c
-REDIRECT += redirect_utils_three.c redirect_utils_four.c
 
-LEXER = lexical.c
+LEXER = lexical_analyzer.c lexical_one.c lexical_two.c lexical_three.c
+LEXER += lexical_four.c lexical_five.c lexical_six.c
 
-PARSE = parse.c parse_utils.c parse_utils_two.c parse_utils_three.c
+PARSE = parse.c parse_utils.c parse_utils_two.c
 PARSE += case_zero.c case_one.c case_two.c case_three.c
 PARSE += cmd_lst.c cmd_lst_utils.c
 
@@ -37,7 +37,7 @@ HEREDOC = heredoc.c ft_append.c ft_input.c ft_output.c
 
 CLEAR_DATA = clear_data.c
 
-UTILS = utils.c env.c
+UTILS = utils.c env.c arrays.c ft_intdup.c
 
 # ====== Folders and Paths ========
 LIBFT_DIR		= ./libft/

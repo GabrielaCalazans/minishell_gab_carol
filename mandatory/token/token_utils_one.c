@@ -6,51 +6,33 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 21:58:55 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 20:04:17 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:51:13 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_redirect(char c)
+void	backs_case(t_tk_p *p)
 {
-	if (c == '<')
-		return (REDIRECT_IN);
-	if (c == '>')
-		return (REDIRECT_OUT);
-	else
-		return (0);
-}
-
-int	is_pipe(char c)
-{
-	if (c == '|')
-		return (PIPE);
-	return (0);
-}
-
-int	is_flag(char *str)
-{
-	if (ft_strlen(str) > 1)
+	if (p->check == BACKSLASH)
 	{
-		if (str[0] == '-' && ft_isalpha(str[1]))
-			return (FLAG);
+		p->back = 1;
+		p->check = WORD;
 	}
-	return (0);
 }
 
-int	is_slash(char c)
+void	def_len(t_data *data, t_tk_p *p, int check)
 {
-	if (c == '/')
-		return (SLASH);
-	if (c == '\\')
-		return (BACKSLASH);
-	return (0);
-}
-
-int	is_questionmark(char c)
-{
-	if (c == '?')
-		return (QUESTION);
-	return (0);
+	if (check == 1)
+	{
+		if (ft_lensize(&data->prompt_in[p->i]))
+			p->i += ft_lensize(&data->prompt_in[p->i]);
+		else
+			p->i++;
+	}
+	if (check == 2)
+	{
+		p->i += word_len(&data->prompt_in[p->i], p->back);
+		p->back = 0;
+	}
 }

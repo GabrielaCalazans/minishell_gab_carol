@@ -6,73 +6,112 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 21:59:35 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/10 18:21:33 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:16:00 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_dollar(char *str)
+int	word_len(char *str, int back)
 {
-	if (ft_strlen(str) > 1)
+	int	len;
+	int	type;
+
+	len = 0;
+	type = find_type(str);
+	while (str[len] != '\0' && is_worbks_case(type, str[len]))
 	{
-		if (str[0] == '$' && str[1] == '?')
-			return (EXIT_STATUS);
-		if (str[0] == '$' && str[1] != '?')
-			return (DOLLAR);
+		if (type == BACKSLASH && str[len] != '\0')
+			len = is_backs(str, len, type);
+		if (type == is_quote(str[len]) && back == 0)
+		{
+			if (has_asquote_str(&str[len], type))
+				len += has_asquote_str(&str[len], type) + 1;
+			else
+			{
+				ft_error_redirect(3);
+				exit (1);
+			}
+		}
+		else
+			len++;
+		type = find_type(&str[len]);
 	}
-	return (0);
+	return (len);
 }
 
-int	is_quote(char c)
+int	qword_len(char *str, int type, int back)
 {
-	if (c == '\"')
-		return (QUOTE_DOUBLE);
-	if (c == '\'')
-		return (QUOTE_SINGLE);
-	return (0);
-}
+	int	len;
+	int	check;
 
-int	is_space(char c)
-{
-	if (c == ' ')
-		return (C_SPACE);
-	if (c == '\t')
-		return (H_TAB);
-	return (0);
-}
-
-int	is_heredoc(char *str, int check)
-{
-	if (check == 1)
+	len = 0;
+	check = 0;
+	if (back == 1)
+		return (1);
+	while (str[len])
 	{
-		if (str[0] == str[1])
-			return (APPEND);
+		len++;
+		check = find_type(&str[len]);
+		if (type == check)
+		{
+			len++;
+			return (len);
+		}
+		if (check == BACKSLASH)
+		{
+			len++;
+		}
 	}
-	if (check == 2)
-	{
-		if (str[0] == str[1])
-			return (HEREDOC);
-	}
-	return (check);
+	return (FALSE);
 }
 
-int	find_type(char *str)
+int	len_flag(char *str)
 {
-	if (0 < is_redirect(*str))
-		return (is_heredoc(str, is_redirect(*str)));
-	if (0 < is_pipe(*str))
-		return (is_pipe(*str));
-	if (0 < is_flag(str))
-		return (is_flag(str));
-	if (0 < is_dollar(str))
-		return (is_dollar(str));
-	if (0 < is_slash(*str))
-		return (is_slash(*str));
-	if (0 < is_quote(*str))
-		return (is_quote(*str));
-	if (0 < is_space(*str))
-		return (is_space(*str));
-	else
-		return (WORD);
+	int	len;
+
+	len = 0;
+	if (str[len] == '-')
+	{
+		len++;
+		while (str[len] != '\0')
+		{
+			if (!ft_isalpha(str[len]))
+				break ;
+			len++;
+		}
+	}
+	return (len);
+}
+
+int	len_var(char *str)
+{
+	int	len;
+
+	len = 0;
+	if (str[len] == '$')
+	{
+		len++;
+		while (str[len] != '\0')
+		{
+			if (is_space(str[len]))
+				break ;
+			len++;
+		}
+	}
+	return (len);
+}
+
+int	ft_lensize(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (is_hd_c(str) || is_e_c(str))
+		i += 2;
+	if (is_flag(str))
+		i = len_flag(str);
+	if (is_dollar(str) == DOLLAR)
+		i = len_var(str);
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 20:17:40 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:51:28 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_token	*create_word_token(char *str, int len, int check)
 	return (newnode);
 }
 
-	// if (find_type(&str[0]) == 12 || find_type(&str[0]) == 13)
 t_token	*create_token(char *str)
 {
 	t_token	*newnode;
@@ -55,27 +54,27 @@ t_token	*create_token(char *str)
 	return (newnode);
 }
 
-int	sub_creating_token(t_data *data, t_token *newnode, int check, int i, int back)
+int	sub_creating_token(t_data *data, t_token *newnode, t_tk_p *p)
 {
-	if (check == WORD)
+	if (p->check == WORD)
 	{
-		newnode = create_word_token(&data->prompt_in[i],
-				word_len(&data->prompt_in[i], back), 1);
+		newnode = create_word_token(&data->prompt_in[p->i],
+				word_len(&data->prompt_in[p->i], p->back), 1);
 		if (!newnode)
 			return (C_ERROR);
 		ft_add_back(&data->tokens, newnode);
 	}
-	if (check == QUOTE_DOUBLE || check == QUOTE_SINGLE)
+	if (p->check == QUOTE_DOUBLE || p->check == QUOTE_SINGLE)
 	{
-		newnode = create_word_token(&data->prompt_in[i],
-				qword_len(&data->prompt_in[i], check, back), 2);
+		newnode = create_word_token(&data->prompt_in[p->i],
+				qword_len(&data->prompt_in[p->i], p->check, p->back), 2);
 		if (!newnode)
 			return (C_ERROR);
 		ft_add_back(&data->tokens, newnode);
 	}
-	if (check > 0 && !is_word_q(check))
+	if (p->check > 0 && !is_word_q(p->check))
 	{
-		newnode = create_token(&data->prompt_in[i]);
+		newnode = create_token(&data->prompt_in[p->i]);
 		if (!newnode)
 			return (C_ERROR);
 		ft_add_back(&data->tokens, newnode);
@@ -83,59 +82,47 @@ int	sub_creating_token(t_data *data, t_token *newnode, int check, int i, int bac
 	return (C_SUCCESS);
 }
 
-void	sub_start_tokens(t_data *data, t_token *newnode, int check, int i)
+void	sub_start_tokens(t_data *data, t_token *newnode, t_tk_p *p)
 {
-	int	back;
-
-	back = 0;
-	while (data->prompt_in[i] != '\0' && data->prompt_in[i])
+	while (data->prompt_in[p->i] != '\0' && data->prompt_in[p->i])
 	{
-		check = find_type(&data->prompt_in[i]);
-		if (check == BACKSLASH)
+		p->check = find_type(&data->prompt_in[p->i]);
+		if (p->check == BACKSLASH)
+			backs_case(p);
+		if (p->check == WORD)
 		{
-			back = 1;
-			check = WORD;
-		}
-		if (check == WORD)
-		{
-			if (sub_creating_token(data, newnode, check, i, back))
+			if (sub_creating_token(data, newnode, p))
 				break ;
-			i += word_len(&data->prompt_in[i], back);
-			back = 0;
+			def_len(data, p, 2);
 		}
-		if (check == QUOTE_DOUBLE || check == QUOTE_SINGLE)
+		if (p->check == QUOTE_DOUBLE || p->check == QUOTE_SINGLE)
 		{
-			check = find_type(&data->prompt_in[i]);
-			if (sub_creating_token(data, newnode, check, i, back))
+			p->check = find_type(&data->prompt_in[p->i]);
+			if (sub_creating_token(data, newnode, p))
 				break ;
-			i += qword_len(&data->prompt_in[i], check, back);
+			p->i += qword_len(&data->prompt_in[p->i], p->check, p->back);
 		}
-		if (check > 0 && !is_word_q(check))
+		if (p->check > 0 && !is_word_q(p->check))
 		{
-			if (sub_creating_token(data, newnode, check, i, back))
+			if (sub_creating_token(data, newnode, p))
 				break ;
-			if (ft_lensize(&data->prompt_in[i]))
-				i += ft_lensize(&data->prompt_in[i]);
-			else
-				i++;
+			def_len(data, p, 1);
 		}
 	}
 }
 
 void	start_token(t_data *data)
 {
-	int		check;
-	int		i;
 	t_token	*newnode;
+	t_tk_p	*params;
 
-	i = 0;
-	check = 0;
 	newnode = NULL;
+	params = inicialize_tokenparams();
 	if (!data->prompt_in)
 	{
 		printf("NO STR");
 		return ;
 	}
-	sub_start_tokens(data, newnode, check, i);
+	sub_start_tokens(data, newnode, params);
 	printlist(data->tokens, 1);
 }

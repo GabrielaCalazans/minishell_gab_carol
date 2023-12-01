@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/29 15:30:19 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:29:22 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	close_fd(t_data *data, int n_fd)
 {
 	int	i;
-	int	bkp;
 
 	i = 0;
 	while (i <= n_fd)
@@ -28,7 +27,7 @@ void	execution(t_data *data)
 	int		status;
 	int		ord;
 	int		i;
-	t_cmd	*tmp;
+	int		bkp;
 
 	ord = 0;
 	i = 0;
@@ -41,7 +40,6 @@ void	execution(t_data *data)
 	}
 	i = 0;
 	status = 0;
-	data->cmd_args = (char *[]){"log.txt", NULL};
 	ft_append(data);
 	while (i < data->n_cmd)
 	{
@@ -52,7 +50,7 @@ void	execution(t_data *data)
 			set_path_command(data);
 			if (data->n_cmd - 1 != 0)
 				dup_pipe(ord, data);
-			execve(data->cmd[0], data->cmd, data->env);
+			execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
 			dup2(bkp, 1);
 			printf("Error!\n");
 			exit(1);
@@ -90,14 +88,6 @@ void	dup_pipe(int ord, t_data *data)
 	}
 }
 
-void	close_fd(t_data *data, int n_fd)
-{
-	int	i;
-
-	i = 0;
-	while (i <= n_fd)
-		close(data->fd[i++]);
-}
 
 //test execution
 //		if (i == 0) 

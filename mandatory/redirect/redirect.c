@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/27 19:50:34 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:30:40 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	processclean(t_token *temp, t_params *ptr)
 	ptr->files = NULL;
 	ptr->i = 0;
 	ptr->inside_pipe = 0;
-	ptr->len = has_rdct_yet(temp->next) + has_d_redirec_p(temp->next);
+	ptr->len = has_rdrct_pipe(temp->next) + has_d_redirec_p(temp->next);
 }
 
 void	processredirect(t_token *temp, t_params *ptr)
@@ -55,11 +55,11 @@ void	processredirect(t_token *temp, t_params *ptr)
 
 void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 {
-	ptr->len = has_rdct_yet(temp->next) + has_d_redirec_p(temp->next);
+	ptr->len = has_rdrct_pipe(temp->next) + has_d_redirec_p(temp->next);
 	while (temp)
 	{
-		if ((temp->type == PIPE || !has_pipe_yet(temp)) && (!has_rdct_yet(temp)
-			&& !has_d_redirec_p(temp)))
+		if ((temp->type == PIPE || !has_pipe(temp)) && (!has_rdrct_pipe(temp)
+				&& !has_d_redirec_p(temp)))
 		{
 			ptr->files[ptr->i] = NULL;
 			finalizepipe(data, ptr);
@@ -100,73 +100,3 @@ void	create_redirect_lst(t_data *data)
 	free(params);
 	printlist(data->rdct, 2);
 }
-
-// void	create_redirect_lst(t_data *data)
-// {
-// 	t_token	*temp;
-// 	char	**files;
-// 	int		*redirects;
-// 	int		inside_pipe;
-// 	int		len;
-// 	int		i;
-
-// 	i = 0;
-// 	inside_pipe = 0;
-// 	redirects = NULL;
-// 	files = NULL;
-// 	if (first_check(data->tokens))
-// 	{
-// 		ft_error_redirect(C_ERROR);
-// 		return ;
-// 	}
-// 	temp = data->tokens;
-// 	len = has_rdct_yet(temp);
-// 	while (temp)
-// 	{
-// 		if ((temp->type == PIPE || !has_pipe_yet(temp)) && !has_rdct_yet(temp))
-// 		{
-// 			files[i] = NULL;
-// 			finalizepipe(data, files, redirects, len);
-// 			inside_pipe = 1;
-// 		}
-// 		if (inside_pipe == 1)
-// 		{
-// 			if (len > 0)
-// 				files = freearray(files);
-// 			free(redirects);
-// 			redirects = NULL;
-// 			files = NULL;
-// 			len = has_rdct_yet(temp->next);
-// 			if (len < 1)
-// 				break ;
-// 			i = 0;
-// 			inside_pipe = 0;
-// 		}
-// 		if (temp->type == REDIRECT_IN || temp->type == REDIRECT_OUT)
-// 		{
-// 			if (inside_pipe == 0)
-// 			{
-// 				redirects = malloc(sizeof (int) * (len + 1));
-// 				files = malloc(sizeof (char **) * (len + 1));
-// 				if (!redirects || !files)
-// 				{
-// 					printf("Error malloc: create_redirect_lst 1");
-// 					return ;
-// 				}
-// 				inside_pipe = 3;
-// 			}
-// 			if (i < len)
-// 			{
-// 				redirects[i] = temp->type;
-// 				files[i] = find_file_name(temp->next);
-// 				i++;
-// 			}
-// 		}
-// 		temp = temp->next;
-// 	}
-// 	if (redirects)
-// 		free(redirects);
-// 	if (files)
-// 		files = freearray(files);
-// 	printlist(data->rdct, 2);
-// }

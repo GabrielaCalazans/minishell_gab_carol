@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   print_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 21:04:33 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/01 18:49:42 by gacalaza         ###   ########.fr       */
+/*   Created: 2023/12/01 16:20:08 by gacalaza          #+#    #+#             */
+/*   Updated: 2023/12/01 16:20:49 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
-void	ft_echo(t_data *data)
+void	print_array(char **array, char *type)
 {
-	int		i;
-	t_cmd	*temp;
+	int	i;
 
-	i = 1;
-	temp = data->cmd;
-	printf("%s", temp->cmd[i]);
-	i++;
-	if (ft_array_size(data->cmd->cmd) > 1
-		&& ft_strncmp(data->cmd->cmd[1], "-n", 3) == 0)
+	i = 0;
+	if (!array)
+		return ;
+	while (array[i] != NULL)
 	{
-		while (temp->cmd[i])
-		{
-			printf(" %s", temp->cmd[i]);
-			i++;
-		}
+		printf("%s[%i]: %s\n", type, i, array[i]);
+		i++;
 	}
-	else
-	{
-		while (temp->cmd[i])
-		{
-			printf(" %s", temp->cmd[i]);
-			i++;
-		}
-		printf("\n");
-	}
+	printf("\n");
 }

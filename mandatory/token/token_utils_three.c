@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:11:09 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 20:22:19 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:15:47 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,100 +53,40 @@ char	*define_type(char *str)
 	return ("error");
 }
 
-int	has_asquote_str(char *str, int type)
+int	find_type(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[++i] != '\0')
-	{
-		if (type == is_quote(str[i]))
-			return (i);
-	}
-	return (0);
+	if (0 < is_redirect(*str))
+		return (is_heredoc(str, is_redirect(*str)));
+	if (0 < is_pipe(*str))
+		return (is_pipe(*str));
+	if (0 < is_flag(str))
+		return (is_flag(str));
+	if (0 < is_dollar(str))
+		return (is_dollar(str));
+	if (0 < is_slash(*str))
+		return (is_slash(*str));
+	if (0 < is_quote(*str))
+		return (is_quote(*str));
+	if (0 < is_space(*str))
+		return (is_space(*str));
+	else
+		return (WORD);
 }
 
-int	is_thiscase(int type, char c)
+// Handle the error appropriately
+t_tk_p	*inicialize_tokenparams(void)
 {
-	(void)c;
-	if(type == WORD || type == BACKSLASH)
-		return (TRUE);
-	return (FALSE);
-}
+	t_tk_p	*params;
 
-int	is_backs(char *str, int len, int type)
-{
-	if (type == BACKSLASH && str[len] != '\0')
-		return (len + 1);
-	if (type == BACKSLASH && str[len] == '\0')
+	params = (t_tk_p *)malloc(sizeof(t_tk_p));
+	if (!params)
 	{
-		ft_error_parse(6);
+		printf("Error malloc: initialize_tokenparams");
 		exit(1);
 	}
-	return (0);
-}
-
-int	word_len(char *str, int back)
-{
-	int	len;
-	int	type;
-
-	len = 0;
-	type = find_type(str);
-	while (str[len] != '\0' && is_thiscase(type, str[len]))
-	{
-		if (type == BACKSLASH && str[len] != '\0')
-			len = is_backs(str, len, type);
-		if (type == is_quote(str[len]) && back == 0)
-		{
-			if (has_asquote_str(&str[len], type))
-				len += has_asquote_str(&str[len], type) + 1;
-			else
-			{
-				ft_error_redirect(3);
-				exit (1);
-			}
-		}
-		else
-			len++;
-		type = find_type(&str[len]);
-	}
-	return (len);
-}
-
-int	is_word_q(int check)
-{
-	if (check == WORD)
-		return (TRUE);
-	if (check == QUOTE_DOUBLE)
-		return (TRUE);
-	if (check == QUOTE_SINGLE)
-		return (TRUE);
-	return (FALSE);
-}
-
-int	qword_len(char *str, int type, int back)
-{
-	int	len;
-	int	check;
-
-	len = 0;
-	check = 0;
-	if (back == 1)
-		return (1);
-	while (str[len])
-	{
-		len++;
-		check = find_type(&str[len]);
-		if (type == check)
-		{
-			len++;
-			return (len);
-		}
-		if (check == BACKSLASH)
-		{
-			len++;
-		}
-	}
-	return (FALSE);
+	params->i = 0;
+	params->type = 0;
+	params->check = 0;
+	params->back = 0;
+	return (params);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/29 15:29:31 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:56:33 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,13 @@
 // **cmd_args; // aqui str
 // **heredoc; // heredoc e seu delimitador/palavra
 // **rdct; // lista redirect e seu arquivo
+
+typedef struct s_tk_p {
+	int		check;
+	int 	type;
+	int		i;
+	int		back;
+}			t_tk_p;
 
 typedef struct s_token
 {
@@ -176,27 +183,16 @@ void	close_fd(t_data *data, int n_fd);
 
 // TOKENS
 void		start_token(t_data *data);
-int			is_redirect(char c);
-int			is_pipe(char c);
-int			is_flag(char *str);
-int			is_slash(char c);
-int			is_questionmark(char c);
-int			is_dollar(char *str);
-int			is_quote(char c);
-int			is_space(char c);
-int			is_special_char(char c);
-int			is_r_bracket(char c);
-int			is_heredoc(char *str, int check);
-int			is_hd_c(char *str);
-int			is_e_c(char *str);
 int			find_type(char *str);
 char		*define_type(char *str);
 int			word_len(char *str, int back);
-int			is_word_q(int check);
 int			qword_len(char *str, int type, int back);
 int			ft_lensize(char *str);
 int			len_flag(char *str);
 int			len_var(char *str);
+t_tk_p		*inicialize_tokenparams(void);
+void		backs_case(t_tk_p *p);
+void		def_len(t_data *data, t_tk_p *p, int check);
 
 // DEALING LIST
 t_token		*createnode(char *token, int type);
@@ -208,18 +204,11 @@ void		ft_clear_token(t_token **lst);
 t_params	*inicialize_rd_params(void);
 t_token		*jump_white_spaces(t_token *tokens);
 void		create_redirect_lst(t_data *data);
-int			has_another_quote(t_token *tokens, int type);
-int			has_redirect(t_token *tokens);
-int			has_dredirect(t_token *tokens);
-int			has_redirect_pipe(t_token *tokens);
-int			has_pipe_yet(t_token *tokens);
-int			has_rdct_yet(t_token *tokens);
 void		ft_error_redirect(int error);
 int			is_syntax_error(int type);
 int			is_possible_error(int type);
 int			is_special_case(int type, int check);
 int			check_error(t_token *tokens);
-int			is_path(t_token *tokens);
 int			tilde_case(t_token *tokens);
 int			asterick_case(t_token *tokens);
 int			check_file_name(t_token *tokens);
@@ -235,7 +224,6 @@ char		**ft_arraydup_size(char **array, int size);
 int			ft_array_size(char **array);
 int			*ft_intdup(int *array, int size);
 void		*return_error(void);
-int			is_redrt_case(int type);
 
 // DEALING REDIRECT LIST
 t_rdct		*createnode_rdct(char **files, int *redirects, int nbr_rdcts);
@@ -254,19 +242,17 @@ char		**get_words_one(t_token *tokens);
 t_token		*move_one(t_token *tokens);
 char		**get_words_two(t_token *tokens);
 t_token		*move_two(t_token *tokens);
-int			has_d_redirec_p(t_token *tokens);
-void		*ft_error_parse(int error);
-int			is_word(int type, int check);
-int			is_rd_case(int type);
-int			is_drd_case(int type);
 char		**get_all_words(t_token *tokens);
 char		**get_words_three(t_token *tokens);
 int			nb_words(t_token *tokens);
 char		*trim_process(char *word, int type);
 char		**trim_quote(char **words);
-void		finalizepipe_cmd(t_data *data, char	**all_words);
 char		**fixwords(t_token *tokens, char **words);
+void		finalizepipe_cmd(t_data *data, char	**all_words);
 void		cmd_pipe(t_data *data);
+void		*ft_error_parse(int error);
+void		return_error_parse(char *str);
+char		*process_backs(char *str, int len);
 
 // PARSE LIST
 t_cmd		*createnode_cmd(char **cmd);
@@ -277,11 +263,38 @@ void		ft_add_back_cmd(t_cmd **lst, t_cmd *new);
 void		ft_add_front_cmd(t_cmd **lst, t_cmd *new);
 
 // LEXER
-int		lexer(t_data *data);
-int		has_pipe(t_data *data);
+int			has_pipe(t_token *tokens);
+int			has_redirect(t_token *tokens);
+int			has_rdrct_pipe(t_token *tokens);
+int			has_dredirect(t_token *tokens);
+int			has_d_redirec_p(t_token *tokens);
+int			has_asquote_str(char *str, int type);
+int			has_another_quote(t_token *tokens, int type);
+int			is_backs(char *str, int len, int type);
+int			is_worbks_case(int type, char c);
+int			is_word(int type, int check);
+int			is_rd_case(int type);
+int			is_drd_case(int type);
+int			is_path(t_token *tokens);
+int			is_redrt_case(int type);
+int			is_redirect(char c);
+int			is_a_quote(int type);
+int			is_pipe(char c);
+int			is_flag(char *str);
+int			is_slash(char c);
+int			is_slashcase(int type);
+int			is_questionmark(char c);
+int			is_dollar(char *str);
+int			is_quote(char c);
+int			is_space(char c);
+int			is_special_char(char c);
+int			is_r_bracket(char c);
+int			is_heredoc(char *str, int check);
+int			is_hd_c(char *str);
+int			is_e_c(char *str);
+int			is_word_q(int check);
 
 //HEREDOC
-
 
 // PRINT LIST
 void		printlist(void *head, int check);
