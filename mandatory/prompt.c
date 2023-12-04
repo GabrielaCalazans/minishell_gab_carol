@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/02 21:39:47 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:44:43 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	mini_start(t_data *data)
 		create_redirect_lst(data);
 	parsing_it(data);
 	data->n_cmd = command_count(data);
-	printf("comands: %i\n", data->n_cmd);
+	printf("commands: %i\n", data->n_cmd);
 	if (!exec_builtin(data))
 		execution(data);
 	return ;
@@ -110,6 +110,7 @@ void	prompt(t_data *data)
 {
 	// run_signals(1);
 	data->prompt_in = readline(PROMPT);
+	printf("token: '%s'", data->prompt_in);
 	if (data->prompt_in == NULL)
 	{
 		printf("Error reading input.\n");

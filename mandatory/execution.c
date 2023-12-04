@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 14:28:55 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:05:56 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,24 @@ void	close_fd(t_data *data, int n_fd)
 	int	i;
 
 	i = 0;
+	if (n_fd == 0)
+		return ;
 	while (i <= n_fd)
 		close(data->fd[i++]);
 }
 
 void	execution(t_data *data)
 {
-	int		pid[3];
+	int		pid[data->n_cmd];
 	int		status;
 	int		ord;
 	int		i;
-	int		bkp;
+	//int		bkp;
 
 	ord = 0;
 	i = 0;
-	data->n_cmd = 1;
 	data->fd = ft_calloc(data->n_cmd * 2, sizeof(int));
-	while (i < data->n_cmd * 2 - 1)
+	while (data->n_cmd != 1 && i < data->n_cmd * 2 - 1)
 	{
 		pipe(&data->fd[i]);
 		i += 2;
@@ -45,26 +46,26 @@ void	execution(t_data *data)
 		pid[i] = fork();
 		if (pid[i] == 0)
 		{
-			bkp = dup(1);
+			//bkp = dup(1);
 			set_path_command(data);
 			if (data->n_cmd - 1 != 0)
 				dup_pipe(ord, data);
 			execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
-			dup2(bkp, 1);
-			printf("Error!\n");
-			exit(1);
+			//dup2(bkp, 1);
+			//printf("Error!\n");
+			//exit(1);
 		}
 		ord++;
 		i++;
 	}
-	close_fd(data, data->n_cmd * 2);
 	i = 0;
+	close_fd(data, (data->n_cmd - 1) * 2);
 	while (i < data->n_cmd)
 	{
 		waitpid(pid[i], &status, 0);
 		i++;
 	}
-	exit(0);
+//	exit(0);
 }
 
 void	dup_pipe(int ord, t_data *data)
