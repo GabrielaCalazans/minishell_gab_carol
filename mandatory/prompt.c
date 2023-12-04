@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 17:57:27 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:52:43 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,13 @@ void	mini_start(t_data *data)
 	if (ft_strlen(data->prompt_in) != 0)
 		start_token(data);
 	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
+	{
 		create_redirect_lst(data);
+	}
 	parsing_it(data);
 	data->n_cmd = command_count(data);
 	printf("commands: %i\n", data->n_cmd);
+	define_rdct(data);
 	if (!exec_builtin(data))
 		execution(data);
 	return ;

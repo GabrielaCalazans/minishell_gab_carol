@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 15:56:48 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:42:48 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-# define PROMPT	"CHORA $> "
+# define PROMPT	"minishell $> "
 # define TRUE			1
 # define FALSE			0
 # define REDIRECT_IN	1
@@ -173,10 +173,11 @@ void		config_pipe(t_data *data);
 void		execute_pid(t_data *data, int i);
 
 //HEREDOC
-void		heredoc(char	*key_str);
-void		ft_input(t_data *data);
-void		ft_output(t_data *data);
-void		ft_append(t_data *data);
+void		ft_heredoc(char	*key_str);
+void		ft_input(char *file, t_data *data);
+void		ft_output(char *file, t_data *data);
+void		ft_append(char *file, t_data *data);
+void		define_rdct(t_data *data);
 
 //PIPE
 void		dup_pipe(int ord, t_data *data);
@@ -295,7 +296,6 @@ int			is_hd_c(char *str);
 int			is_e_c(char *str);
 int			is_word_q(int check);
 
-//HEREDOC
 
 // PRINT LIST
 void		printlist(void *head, int check);

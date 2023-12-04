@@ -6,7 +6,7 @@
 #    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/12/04 16:47:55 by ckunimur         ###   ########.fr        #
+#    Updated: 2023/12/04 18:58:51 by ckunimur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ TOKEN += token_lst.c token_lst_utils.c
 
 REDIRECT = redirect.c redirect_utils_two.c redirect_utils_one.c redirect_lst.c
 REDIRECT += redirect_lst_utils.c error_redirect.c error_redirect_utils.c
+REDIRECT += ft_heredoc.c ft_append.c ft_input.c ft_output.c
 
 LEXER = lexical_analyzer.c lexical_one.c lexical_two.c lexical_three.c
 LEXER += lexical_four.c lexical_five.c lexical_six.c
@@ -32,8 +33,6 @@ PARSE += cmd_lst.c cmd_lst_utils.c
 
 BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c
 BUILTINS += ft_cd.c ft_exit.c ft_unset.c
-
-HEREDOC = heredoc.c ft_append.c ft_input.c ft_output.c
 
 CLEAR_DATA = clear_data.c
 
@@ -58,12 +57,9 @@ REDIRECT_F		= $(addprefix ./mandatory/, $(REDIRECT_DIR))
 CLEAR_DATA_F	= $(addprefix ./mandatory/, $(CLEAR_DATA))
 UTILS_DIR		= $(addprefix ./utils/, $(UTILS))
 UTILS_F			= $(addprefix ./mandatory/, $(UTILS_DIR))
-HEREDOC_DIR		= $(addprefix ./heredoc/, $(HEREDOC))
-HEREDOC_F		= $(addprefix ./mandatory/, $(HEREDOC_DIR))
 
 MANDATORY	:= $(SRCS_MAIN) $(TOKEN_F) $(LEXER_F) $(UTILS_F)
 MANDATORY	+= $(BUILTINS_F) $(REDIRECT_F) $(CLEAR_DATA_F) $(PARSE_F)
-MANDATORY	+= $(HEREDOC_F)
 
 # ========== OBJS ============
 OBJS = $(MANDATORY:.c=.o)

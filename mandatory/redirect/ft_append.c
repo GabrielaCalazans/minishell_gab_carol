@@ -3,25 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_append.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:13:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/30 08:47:06 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:42:23 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_append(t_data *data)
+void	ft_append(char *file, t_data *data)
 {
-	int	fd;
-
-	if (access(data->cmd->cmd[1], F_OK) == 0)
+	if (access(file, F_OK) == 0)
 	{
-		if (access(data->cmd->cmd[1], W_OK) == 0)
+		if (access(file, W_OK) == 0)
 		{
 			printf("ta entrani\n");
-			fd = open(data->cmd->cmd[1], O_WRONLY | O_APPEND);
+			data->fd[0] = open(file, O_WRONLY | O_APPEND);
 		}
 		else
 		{
@@ -30,11 +28,11 @@ void	ft_append(t_data *data)
 		}
 	}
 	else
-		fd = (open(data->cmd->cmd[1], O_WRONLY | O_CREAT | O_APPEND, 0644));
-	if (fd == -1)
+		data->fd[0] = (open(file, O_WRONLY | O_CREAT | O_APPEND, 0644));
+	if (data->fd[0] == -1)
 	{
 		printf("error!2\n");
 		return ;
 	}
-	dup2(fd, 1);
+	dup2(data->fd[0], 1);
 }

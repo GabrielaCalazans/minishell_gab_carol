@@ -1,36 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/04 18:00:17 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:03:18 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	find_hrdc(t_data *data)
+void	define_rdct(t_data *data)
 {
 	t_rdct	*temp;
 	int		i;
 
 	i = 0;
 	temp = data->rdct;
+	printf("%p\n", data->rdct);
 	while (temp->next != NULL)
 	{
 		while (i < temp->nbr_rdcts)
 		{
 			if (temp->redirects[i] == HEREDOC)
-				heredoc(temp->files[i]);
+				ft_heredoc(temp->files[i]);
+			i++;
 		}
 		temp = temp->next;
 	}
 }
 
-void	heredoc(char	*key_str)
+		//i = 0;
+		//while (i < temp->nbr_rdcts)
+		//{
+			// if (temp->redirects[i] == APPEND)
+			// 	ft_append(temp->files[i], data);
+			// if (temp->redirects[i] == REDIRECT_IN)
+			// 	ft_input(temp->files[i], data);
+			// if (temp->redirects[i] == REDIRECT_OUT)
+			// 	ft_output(temp->files[i], data);
+		//}
+
+void	ft_heredoc(char	*key_str)
 {
 	char	*str;
 	int		fd;
