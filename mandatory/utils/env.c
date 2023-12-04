@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:39:53 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/28 19:34:00 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:20:45 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_env	*create_list(char *str)
 	aux->var = ft_strdup(split[0]);
 	aux->value = ft_strdup(split[1]);
 	aux->next = NULL;
-	ft_clean_lst(split);
+	freearray(split);
 	return (aux);
 }
 

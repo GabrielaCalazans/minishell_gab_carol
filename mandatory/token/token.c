@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 15:51:28 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:08:49 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_token	*create_word_token(char *str, int len, int check)
 	else
 		type = QUOTED_WORD;
 	newnode = createnode(token, type);
+	free(token);
 	return (newnode);
 }
 
@@ -51,6 +52,7 @@ t_token	*create_token(char *str)
 	token = ft_substr(str, 0, len);
 	type = find_type(&str[0]);
 	newnode = createnode(token, type);
+	free(token);
 	return (newnode);
 }
 
@@ -125,4 +127,5 @@ void	start_token(t_data *data)
 	}
 	sub_start_tokens(data, newnode, params);
 	printlist(data->tokens, 1);
+	free(params);
 }

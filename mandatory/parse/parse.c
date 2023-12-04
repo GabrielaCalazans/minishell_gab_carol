@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 16:48:01 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:12:29 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	finalizepipe_cmd(t_data *data, char	**all_words)
 	cmd = ft_arraydup(all_words);
 	newnode = createnode_cmd(cmd);
 	ft_add_back_cmd(&data->cmd, newnode);
+	freearray(cmd);
 }
 
 char	**fixwords(t_token *tokens, char **words)
@@ -91,6 +92,7 @@ void	parsing_it(t_data *data)
 		all_words = treat_backs(all_words);
 		print_array(all_words, "all_words");
 		finalizepipe_cmd(data, all_words);
+		freearray(all_words);
 	}
 	printlist(data->cmd, 3);
 }

@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 15:49:03 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:56:48 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@
 
 typedef struct s_tk_p {
 	int		check;
-	int 	type;
+	int		type;
 	int		i;
 	int		back;
 }			t_tk_p;
@@ -114,14 +114,13 @@ typedef struct s_data
 	t_token			*tokens;
 	t_env			*env_node;
 	int				fds[2];
-	
 	struct s_data	*next;
 }			t_data;
 
 typedef struct s_prompt
 {
-	char			*prompt_input;
-}				t_prompt;
+	char	*prompt_input;
+}			t_prompt;
 
 typedef struct s_builtins {
 	char	*name;
@@ -136,52 +135,52 @@ typedef struct s_params {
 	int		i;
 }	t_params;
 
-void	prompt(t_data *data);
+void		prompt(t_data *data);
 //void	call_builtins(t_data *ptr);
 void		mini_start(t_data *data);
 
 //utils
-void	ft_clean_lst(char **lst);
+void		ft_clean_lst(char **lst);
 
 //builtins
-int		is_builtins(char *check);
-int		exec_builtin(t_data *data);
-void	ft_cd(t_data *data);
-void	ft_echo(t_data *data);
-void	ft_env(t_data *data);
-void	ft_exit(t_data *data);
-void	ft_export(t_data *data);
-void	ft_pwd(t_data *data);
-void	ft_unset(t_data *data);
+int			is_builtins(char *check);
+int			exec_builtin(t_data *data);
+void		ft_cd(t_data *data);
+void		ft_echo(t_data *data);
+void		ft_env(t_data *data);
+void		ft_exit(t_data *data);
+void		ft_export(t_data *data);
+void		ft_pwd(t_data *data);
+void		ft_unset(t_data *data);
 
 //ENV
-t_env	*create_list(char *str);
-t_env	*node_last(t_env *list);
-t_env	*linkar(t_data *data);
-void	link_end(t_env **list, t_env *current);
-void	create_env(t_data **data, char **envp);
+t_env		*create_list(char *str);
+t_env		*node_last(t_env *list);
+t_env		*linkar(t_data *data);
+void		link_end(t_env **list, t_env *current);
+void		create_env(t_data **data, char **envp);
 
 //EXPORT
-int		is_valid_var(t_data	*data);
-t_env	*have_var(t_data *data);
-void	create_var(t_data *data);
-void	change_value(t_env *env_node, t_data *data);
+int			is_valid_var(t_data	*data);
+t_env		*have_var(t_data *data);
+void		create_var(t_data *data);
+void		change_value(t_env *env_node, t_data *data);
 
 //EXECUTION
-void	execution(t_data *data);
-void	set_path_command(t_data *data);
-void	config_pipe(t_data *data);
-void	execute_pid(t_data *data, int i);
+void		execution(t_data *data);
+void		set_path_command(t_data *data);
+void		config_pipe(t_data *data);
+void		execute_pid(t_data *data, int i);
 
 //HEREDOC
-void	heredoc(char	*key_str);
-void	ft_input(t_data *data);
-void	ft_output(t_data *data);
-void	ft_append(t_data *data);
+void		heredoc(char	*key_str);
+void		ft_input(t_data *data);
+void		ft_output(t_data *data);
+void		ft_append(t_data *data);
 
 //PIPE
-void	dup_pipe(int ord, t_data *data);
-void	close_fd(t_data *data, int n_fd);
+void		dup_pipe(int ord, t_data *data);
+void		close_fd(t_data *data, int n_fd);
 
 // TOKENS
 void		start_token(t_data *data);
@@ -303,10 +302,10 @@ void		printlist(void *head, int check);
 void		print_array(char **array, char *type);
 
 // CLEAR DATA
-void	ft_clear_data(t_data *data);
-void	ft_clear_env(t_env *env_node);
+void		ft_clear_data(t_data *data);
+void		ft_clear_env(t_env *env_node);
 
 // SIGNAL
-void	run_signals(int sig);
+void		run_signals(int sig);
 
 #endif
