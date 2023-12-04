@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 15:51:42 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:55:46 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,18 @@ void	execution(t_data *data)
 	{
 		pid[i] = fork();
 		if (pid[i] == 0)
+		{
+			run_signals(2);
 			execute_pid(data, i);
+		}
 		i++;
 	}
 	i = 0;
 	close_fd(data, (data->n_cmd - 1) * 2);
 	while (i < data->n_cmd)
 		waitpid(pid[i++], &status, 0);
+	free(pid);
+	free(data->fd);
 }
 
 void	execute_pid(t_data *data, int i)

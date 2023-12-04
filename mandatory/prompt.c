@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 14:44:43 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:57:27 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,16 @@ void	mini_start(t_data *data)
 
 void	prompt(t_data *data)
 {
-	// run_signals(1);
+	run_signals(1);
 	data->prompt_in = readline(PROMPT);
+	signal(SIGINT, SIG_IGN);
 	printf("token: '%s'", data->prompt_in);
 	if (data->prompt_in == NULL)
 	{
-		printf("Error reading input.\n");
+		ft_clear_data(data);
+		ft_clear_env(data->env_node);
+		rl_clear_history();
+		free(data);
 		exit(1);
 	}
 	if (data->prompt_in && *data->prompt_in)

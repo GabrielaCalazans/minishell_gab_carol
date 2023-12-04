@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 02:32:53 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 15:12:08 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:56:23 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,7 @@ void	run_signals(int sig)
 	}
 	if (sig == 2)
 	{
-		signal(SIGINT, ctrl_c);
-		signal(SIGQUIT, back_slash);
-		// signal(SIGEOF, ctrl_d);
-	}
-	if (sig == 3)
-	{
-		printf("exit\n");
-		exit(0);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 	}
 }

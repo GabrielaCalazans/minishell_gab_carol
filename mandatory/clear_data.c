@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:16:14 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 17:29:53 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:47:27 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,11 @@ void	ft_clear_env(t_env *env_node)
 		free(env_node->value);
 		free(env_node);
 		env_node = temp;
+	}
+	if (env_node != NULL)
+	{
+		free(env_node->var);
+		free(env_node->value);
+		free(env_node);
 	}
 }
