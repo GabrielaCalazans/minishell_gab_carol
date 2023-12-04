@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 16:56:33 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:49:03 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,8 @@ void	change_value(t_env *env_node, t_data *data);
 //EXECUTION
 void	execution(t_data *data);
 void	set_path_command(t_data *data);
+void	config_pipe(t_data *data);
+void	execute_pid(t_data *data, int i);
 
 //HEREDOC
 void	heredoc(char	*key_str);
