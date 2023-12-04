@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 18:51:12 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/02 21:39:47 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,21 @@ void	get_path(t_data *data)
 	}
 }
 
+int	command_count(t_data *data)
+{
+	int		command;
+	t_cmd	*tmp;
+
+	command = 0;
+	tmp = data->cmd;
+	while (tmp)
+	{
+		command++;
+		tmp = tmp->next;
+	}
+	return (command);
+}
+
 void	mini_start(t_data *data)
 {
 	extern char	**environ;
@@ -84,14 +99,22 @@ void	mini_start(t_data *data)
 	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
 		create_redirect_lst(data);
 	parsing_it(data);
+	data->n_cmd = command_count(data);
+	printf("comands: %i\n", data->n_cmd);
 	if (!exec_builtin(data))
 		execution(data);
+	return ;
 }
 
 void	prompt(t_data *data)
 {
 	// run_signals(1);
 	data->prompt_in = readline(PROMPT);
+	if (data->prompt_in == NULL)
+	{
+		printf("Error reading input.\n");
+		exit(1);
+	}
 	if (data->prompt_in && *data->prompt_in)
 	{
 		add_history(data->prompt_in);

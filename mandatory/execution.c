@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/30 19:29:22 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:28:55 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	execution(t_data *data)
 	}
 	i = 0;
 	status = 0;
-	ft_append(data);
 	while (i < data->n_cmd)
 	{
 		pid[i] = fork();
@@ -87,7 +86,6 @@ void	dup_pipe(int ord, t_data *data)
 		close_fd(data, data->n_cmd * 2);
 	}
 }
-
 
 //test execution
 //		if (i == 0) 
