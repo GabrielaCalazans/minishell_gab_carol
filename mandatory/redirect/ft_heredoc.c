@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/05 15:41:19 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:42:54 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_heredoc(char	*key_str)
 		run_signals(1);
 		fd = open("/tmp/.heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		bkpfd = dup(1);
-		str = readline("> ");tar execução de mu
+		str = readline("> ");
 		while ((str != NULL) && ft_strncmp(key_str, str, \
 				(ft_strlen(key_str))) != 0)
 		{
