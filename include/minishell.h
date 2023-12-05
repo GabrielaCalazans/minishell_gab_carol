@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 16:50:59 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:04:01 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 # define EXIT_STATUS	24
 # define C_ERROR		1
 # define C_SUCCESS		0
+# define HEREDOC_FILE	"/tmp/.heredoc"
 
 // **cmd; // aqui comando e flags
 // **cmd_args; // aqui str
@@ -227,6 +228,7 @@ char		**ft_arraydup_size(char **array, int size);
 int			ft_array_size(char **array);
 int			*ft_intdup(int *array, int size);
 void		*return_error(void);
+void		run_redirect(t_data *data);
 
 // DEALING REDIRECT LIST
 t_rdct		*createnode_rdct(char **files, int *redirects, int nbr_rdcts);

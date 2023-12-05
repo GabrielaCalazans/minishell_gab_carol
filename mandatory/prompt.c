@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 15:59:35 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:01:28 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,11 @@ void	mini_start(t_data *data)
 		create_redirect_lst(data);
 		//define_rdct(data);
 	}
-	find_heredoc(data);
 	parsing_it(data);
-	
 	data->n_cmd = command_count(data);
+	find_heredoc(data);
 	// ABRAKADABRA printf("commands: %i\n", data->n_cmd);
-	if (!exec_builtin(data))
-		execution(data);
+	execution(data);
 	return ;
 }
 

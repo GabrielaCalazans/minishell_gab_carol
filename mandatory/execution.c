@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 13:40:02 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:30:21 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@ void	execution(t_data *data)
 	int		*pid;
 	int		status;
 	int		i;
+	t_cmd	*tmp_cmds;
+	t_rdct	*tmp_rdcts;
 
 	i = 0;
 	status = 0;
 	pid = ft_calloc(data->n_cmd, sizeof(int));
 	config_pipe(data);
+	tmp_cmds = data->cmd;
+	tmp_rdcts = data->rdct;
+	if (data->n_cmd == 1 && exec_builtin(data))
+		return ;
 	while (i < data->n_cmd)
 	{
 		pid[i] = fork();
@@ -41,6 +47,10 @@ void	execution(t_data *data)
 			run_signals(2);
 			execute_pid(data, i);
 		}
+		if (data->rdct)
+			data->rdct = data->rdct->next;
+		if (data->cmd)
+			data->cmd = data->cmd->next;
 		i++;
 	}
 	i = 0;
@@ -49,6 +59,8 @@ void	execution(t_data *data)
 		waitpid(pid[i++], &status, 0);
 	free(pid);
 	free(data->fd);
+	data->cmd = tmp_cmds;
+	data->rdct = tmp_rdcts;
 }
 
 void	execute_pid(t_data *data, int i)
@@ -56,10 +68,12 @@ void	execute_pid(t_data *data, int i)
 	int	bkp;
 
 	bkp = dup(1);
+	run_redirect(data);
 	set_path_command(data);
 	if (data->n_cmd - 1 != 0)
 		dup_pipe(i, data);
-	execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
+	if (!exec_builtin(data))
+		execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
 	dup2(bkp, 1);
 	printf("Error!\n");
 	exit(1);
