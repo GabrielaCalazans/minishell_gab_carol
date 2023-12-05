@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_two.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 16:55:15 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:06:20 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*trim_process(char *word, int type)
 	char	*name;
 
 	name = ft_strdup(word);
-	printf("type:%d\n", type);
+	// ABRAKADRABA printf("type:%d\n", type);
 	if (type == QUOTE_DOUBLE)
 		name = ft_triming(name, "\"");
 	if (type == QUOTE_SINGLE)

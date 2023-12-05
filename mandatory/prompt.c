@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 15:02:32 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:59:35 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	mini_start(t_data *data)
 	parsing_it(data);
 	
 	data->n_cmd = command_count(data);
-	printf("commands: %i\n", data->n_cmd);
+	// ABRAKADABRA printf("commands: %i\n", data->n_cmd);
 	if (!exec_builtin(data))
 		execution(data);
 	return ;
@@ -117,7 +117,7 @@ void	prompt(t_data *data)
 	run_signals(1);
 	data->prompt_in = readline(PROMPT);
 	signal(SIGINT, SIG_IGN);
-	printf("token: '%s'", data->prompt_in);
+	// printf("ABRAKADABRA token: '%s'", data->prompt_in);
 	if (data->prompt_in == NULL)
 	{
 		ft_clear_data(data);
@@ -129,6 +129,6 @@ void	prompt(t_data *data)
 	if (data->prompt_in && *data->prompt_in)
 	{
 		add_history(data->prompt_in);
-		printf("PROMPT: %s\n", data->prompt_in);
+		// printf("ABRAKADABRA PROMPT: %s\n", data->prompt_in);
 	}
 }

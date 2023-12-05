@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 11:44:56 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:50:59 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_data
 	t_token			*tokens;
 	t_env			*env_node;
 	int				fds[2];
+	int				exit_code;
 	struct s_data	*next;
 }			t_data;
 
@@ -156,15 +157,15 @@ void		ft_unset(t_data *data);
 //ENV
 t_env		*create_list(char *str);
 t_env		*node_last(t_env *list);
-t_env		*linkar(t_data *data);
+t_env		*linkar(char *arg);
 void		link_end(t_env **list, t_env *current);
 void		create_env(t_data **data, char **envp);
 
 //EXPORT
 int			is_valid_var(t_data	*data);
-t_env		*have_var(t_data *data);
-void		create_var(t_data *data);
-void		change_value(t_env *env_node, t_data *data);
+t_env		*have_var(t_data *data, char *arg);
+void		create_var(t_data *data, char *arg);
+void		change_value(t_env *env_node, char *arg);
 
 //EXECUTION
 void		execution(t_data *data);

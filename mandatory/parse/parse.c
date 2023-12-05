@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 12:00:05 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:49:03 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	parsing_it(t_data *data)
 	{
 		all_words = get_all_words(data->tokens);
 		all_words = treat_backs(all_words);
-		print_array(all_words, "all_words");
+		// ABRAKADABRA print_array(all_words, "all_words");
 		finalizepipe_cmd(data, all_words);
 		freearray(all_words);
 	}
-	printlist(data->cmd, 3);
+	// ABRAKADABRA printlist(data->cmd, 3);
 }

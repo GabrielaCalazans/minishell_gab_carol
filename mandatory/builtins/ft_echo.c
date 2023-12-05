@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:04:33 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/01 18:49:42 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:09:36 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	ft_echo(t_data *data)
 
 	i = 1;
 	temp = data->cmd;
+	if (temp->cmd[1] == NULL)
+		return ;
+	if (ft_strncmp(temp->cmd[i], "$?", 3) == 0) {
+		free(temp->cmd[i]);
+		temp->cmd[i] = ft_itoa(data->exit_code);
+	}
 	printf("%s", temp->cmd[i]);
 	i++;
 	if (ft_array_size(data->cmd->cmd) > 1

@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 11:30:08 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:04:11 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	set_data(t_data *data, char *envp[], char *argv[])
 	data->cmd = NULL;
 	data->n_cmd = 0;
 	data->fd = NULL;
+	data->exit_code = 0;
 	create_env(&data, envp);
 }
 

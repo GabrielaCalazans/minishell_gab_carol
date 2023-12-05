@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 17:08:49 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:47:46 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,6 @@ void	start_token(t_data *data)
 		return ;
 	}
 	sub_start_tokens(data, newnode, params);
-	printlist(data->tokens, 1);
+	// ABRAKADABRA printlist(data->tokens, 1);
 	free(params);
 }
