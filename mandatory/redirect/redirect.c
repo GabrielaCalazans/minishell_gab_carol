@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 14:30:40 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:29:46 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	processclean(t_token *temp, t_params *ptr)
 	ptr->files = NULL;
 	ptr->i = 0;
 	ptr->inside_pipe = 0;
-	ptr->len = has_rdrct_pipe(temp->next) + has_d_redirec_p(temp->next);
+	ptr->len = has_rdrct_pipe(temp) + has_d_redirec_p(temp);
 }
 
 void	processredirect(t_token *temp, t_params *ptr)
@@ -55,7 +55,7 @@ void	processredirect(t_token *temp, t_params *ptr)
 
 void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 {
-	ptr->len = has_rdrct_pipe(temp->next) + has_d_redirec_p(temp->next);
+	ptr->len = has_rdrct_pipe(temp) + has_d_redirec_p(temp);
 	while (temp)
 	{
 		if ((temp->type == PIPE || !has_pipe(temp)) && (!has_rdrct_pipe(temp)
@@ -82,6 +82,7 @@ void	create_redirect_lst(t_data *data)
 	t_token		*temp;
 	t_params	*params;
 
+	printf("create_redirect_lst\n");
 	if (first_check(data->tokens))
 	{
 		ft_error_redirect(C_ERROR);

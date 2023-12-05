@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical_four.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:45:41 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 18:47:31 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:16:22 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	is_heredoc(char *str, int check)
 	if (check == 1)
 	{
 		if (str[0] == str[1])
-			return (APPEND);
+			return (HEREDOC);
 	}
 	if (check == 2)
 	{
 		if (str[0] == str[1])
-			return (HEREDOC);
+			return (APPEND);
 	}
 	return (check);
 }

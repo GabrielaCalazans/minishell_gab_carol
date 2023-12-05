@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 19:42:48 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 11:44:56 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void		mini_start(t_data *data);
 //utils
 void		ft_clean_lst(char **lst);
 
-//builtins
+//BUILTINS
 int			is_builtins(char *check);
 int			exec_builtin(t_data *data);
 void		ft_cd(t_data *data);
@@ -177,7 +177,7 @@ void		ft_heredoc(char	*key_str);
 void		ft_input(char *file, t_data *data);
 void		ft_output(char *file, t_data *data);
 void		ft_append(char *file, t_data *data);
-void		define_rdct(t_data *data);
+void		find_heredoc(t_data *data);
 
 //PIPE
 void		dup_pipe(int ord, t_data *data);
@@ -295,7 +295,6 @@ int			is_heredoc(char *str, int check);
 int			is_hd_c(char *str);
 int			is_e_c(char *str);
 int			is_word_q(int check);
-
 
 // PRINT LIST
 void		printlist(void *head, int check);

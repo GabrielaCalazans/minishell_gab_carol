@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 19:52:43 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 11:59:43 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,15 @@ void	mini_start(t_data *data)
 		start_token(data);
 	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
 	{
+		printf("has_redirect\n");
 		create_redirect_lst(data);
+		//define_rdct(data);
 	}
+	find_heredoc(data);
 	parsing_it(data);
+	
 	data->n_cmd = command_count(data);
 	printf("commands: %i\n", data->n_cmd);
-	define_rdct(data);
 	if (!exec_builtin(data))
 		execution(data);
 	return ;

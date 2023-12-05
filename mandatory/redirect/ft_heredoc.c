@@ -6,21 +6,20 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/04 20:03:18 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:22:46 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	define_rdct(t_data *data)
+void	find_heredoc(t_data *data)
 {
 	t_rdct	*temp;
 	int		i;
 
 	i = 0;
 	temp = data->rdct;
-	printf("%p\n", data->rdct);
-	while (temp->next != NULL)
+	while (temp)
 	{
 		while (i < temp->nbr_rdcts)
 		{
@@ -31,7 +30,6 @@ void	define_rdct(t_data *data)
 		temp = temp->next;
 	}
 }
-
 		//i = 0;
 		//while (i < temp->nbr_rdcts)
 		//{
@@ -67,6 +65,7 @@ void	ft_heredoc(char	*key_str)
 			free(str);
 			str = readline("> ");
 		}
+		exit(0);
 	}
 	waitpid(pid, &status, 0);
 	exit(0);
