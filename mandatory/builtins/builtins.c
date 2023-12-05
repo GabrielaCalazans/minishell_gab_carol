@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:03:30 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 19:34:30 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:40:43 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,10 @@ int	exec_builtin(t_data *data)
 	{"exit", ft_exit}
 	};
 
-	index = is_builtins(data->cmd->cmd[0]);
+	index = 0;
+	if (data->cmd)
+		index = is_builtins(data->cmd->cmd[0]);
 	if (index != 0)
 		builtins[index].built_in(data);
 	return (index);
 }
-// void	call_builtins(t_data *ptr)
-//{
-	//if (is_builtins(ptr->cmd[0]) == 1)
-// 		ft_echo(ptr);
-// 	if (is_builtins(ptr->cmd[0]) == 2)
-// 		ft_cd(ptr);
-// 	if (is_builtins(ptr->cmd[0]) == 3)
-// 		ft_pwd(ptr);
-// 	if (is_builtins(ptr->cmd[0]) == 4)
-// 		ft_export(ptr);
-// 	if (is_builtins(ptr->cmd[0]) == 5)
-// 		ft_unset(ptr);
-// 	if (is_builtins(ptr->cmd[0]) == 6)
-// 		ft_env(ptr);
-// 	if (is_builtins(ptr->cmd[0]) == 7)
-// 		ft_exit(ptr);
-// 	else
-// 		printf("Them, all, eventually, went to shit");
-// }

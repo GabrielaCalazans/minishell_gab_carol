@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/05 12:22:46 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:41:19 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	find_heredoc(t_data *data)
 	{
 		while (i < temp->nbr_rdcts)
 		{
-			if (temp->redirects[i] == HEREDOC)
+			if (temp->redirects[i] == HEREDOC){
 				ft_heredoc(temp->files[i]);
+			}
 			i++;
 		}
 		temp = temp->next;
@@ -49,15 +50,16 @@ void	ft_heredoc(char	*key_str)
 	int		pid;
 	int		status;
 
+	status = 0;
 	pid = fork();
 	if (pid == 0)
 	{
 		run_signals(1);
 		fd = open("/tmp/.heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		bkpfd = dup(1);
-		str = readline("> ");
+		str = readline("> ");tar execução de mu
 		while ((str != NULL) && ft_strncmp(key_str, str, \
-			(ft_strlen(key_str) + 1)) != 0)
+				(ft_strlen(key_str))) != 0)
 		{
 			dup2(fd, 1);
 			printf("%s\n", str);
@@ -65,10 +67,11 @@ void	ft_heredoc(char	*key_str)
 			free(str);
 			str = readline("> ");
 		}
-		exit(0);
+		// exit(0);
 	}
 	waitpid(pid, &status, 0);
-	exit(0);
+	// return (status);
+	// exit(status);
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_two.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:05:41 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/14 00:22:20 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:27:13 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	nb_words_dr(t_token *tokens)
 				break ;
 		}
 	}
-	printf("%i\n", words);
 	return (words);
 }
 
