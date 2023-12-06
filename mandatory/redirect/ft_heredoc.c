@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/05 18:59:02 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:37:34 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	find_heredoc(t_data *data)
 		while (i < temp->nbr_rdcts)
 		{
 			if (temp->redirects[i] == HEREDOC){
-				ft_heredoc(temp->files[i]);
+				ft_heredoc(temp->files[i], data);
 			}
 			i++;
 		}
@@ -37,6 +37,8 @@ void	run_redirect(t_data *data)
 	int	i;
 	
 	i = 0;
+	if (data->rdct == NULL)
+		return ;
 	while (i < data->rdct->nbr_rdcts)
 	{
 		if (data->rdct->redirects[i] == HEREDOC)
@@ -47,10 +49,11 @@ void	run_redirect(t_data *data)
 			ft_input(data->rdct->files[i], data);
 		if (data->rdct->redirects[i] == REDIRECT_OUT)
 			ft_output(data->rdct->files[i], data);
+		i++;
 	}
 }
 
-void	ft_heredoc(char	*key_str)
+void	ft_heredoc(char	*key_str, t_data *data)
 {
 	char	*str;
 	int		fd;
@@ -75,11 +78,14 @@ void	ft_heredoc(char	*key_str)
 			free(str);
 			str = readline("> ");
 		}
-		// exit(0);
+		ft_clear_data(data);
+		ft_clear_env(data->env_node);
+		rl_clear_history();
+		free(data);
+		exit(0);
 	}
 	waitpid(pid, &status, 0);
 	// return (status);
-	// exit(status);
 }
 
 /*

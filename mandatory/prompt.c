@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 19:01:28 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:05:26 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*create_command_path(char *path, char *command)
 	char	*tmp1;
 	char	*tmp2;
 
+	if (command == NULL)
+		return (NULL);
 	tmp1 = ft_strjoin(path, "/");
 	if (!tmp1)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 19:30:21 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:21:40 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,24 @@ void	execution(t_data *data)
 void	execute_pid(t_data *data, int i)
 {
 	int	bkp;
+	char **temp_cmd;
+	char **temp_env;
 
 	bkp = dup(1);
 	run_redirect(data);
 	set_path_command(data);
 	if (data->n_cmd - 1 != 0)
 		dup_pipe(i, data);
-	if (!exec_builtin(data))
-		execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
+	if (!exec_builtin(data) && data->cmd->cmd[0] != NULL)
+	{
+		temp_cmd = ft_arraydup(data->cmd->cmd);
+		temp_env = ft_arraydup(data->env);
+		ft_clear_data(data);
+		execve(temp_cmd[0], temp_cmd, temp_env);
+	}
 	dup2(bkp, 1);
-	printf("Error!\n");
+	printf("Error! execute_pid\n");
+	ft_clear_data(data);
 	exit(1);
 }
 

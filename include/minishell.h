@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 19:04:01 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:25:08 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void		config_pipe(t_data *data);
 void		execute_pid(t_data *data, int i);
 
 //HEREDOC
-void		ft_heredoc(char	*key_str);
+void		ft_heredoc(char	*key_str, t_data *data);
 void		ft_input(char *file, t_data *data);
 void		ft_output(char *file, t_data *data);
 void		ft_append(char *file, t_data *data);
@@ -224,7 +224,7 @@ char		*get_name_quoted(t_token *tokens, char *name, int len);
 char		*word_case(t_token *tokens);
 char		**freearray(char **array);
 char		**ft_arraydup(char **array);
-char		**ft_arraydup_size(char **array, int size);
+char		**ft_dup_size(char **array, int size);
 int			ft_array_size(char **array);
 int			*ft_intdup(int *array, int size);
 void		*return_error(void);

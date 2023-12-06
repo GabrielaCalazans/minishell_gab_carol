@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:03:30 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 15:40:43 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:54:46 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	is_builtins(char *check)
 {
+	if (check == NULL)
+		return (0);
 	if (ft_strncmp(check, "echo", 5) == 0)
 		return (1);
 	if (ft_strncmp(check, "cd", 3) == 0)
@@ -28,8 +30,7 @@ int	is_builtins(char *check)
 		return (6);
 	if (ft_strncmp(check, "exit", 5) == 0)
 		return (7);
-	else
-		return (0);
+	return (0);
 }
 
 int	exec_builtin(t_data *data)
