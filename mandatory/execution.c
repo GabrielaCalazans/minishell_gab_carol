@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 16:21:40 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:51:54 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,15 @@ void	execution(t_data *data)
 	config_pipe(data);
 	tmp_cmds = data->cmd;
 	tmp_rdcts = data->rdct;
-	if (data->n_cmd == 1 && exec_builtin(data))
+	data->bkp_fd[1] = dup(1);
+	data->bkp_fd[0] = dup(0);
+	if (data->n_cmd == 1 && is_builtins(data->cmd->cmd[0])) {	
+		run_redirect(data);
+		exec_builtin(data);
+		dup2(data->bkp_fd[0], 0);
+		dup2(data->bkp_fd[1], 1);
 		return ;
+	}
 	while (i < data->n_cmd)
 	{
 		pid[i] = fork();
@@ -65,11 +72,9 @@ void	execution(t_data *data)
 
 void	execute_pid(t_data *data, int i)
 {
-	int	bkp;
 	char **temp_cmd;
 	char **temp_env;
 
-	bkp = dup(1);
 	run_redirect(data);
 	set_path_command(data);
 	if (data->n_cmd - 1 != 0)
@@ -81,7 +86,7 @@ void	execute_pid(t_data *data, int i)
 		ft_clear_data(data);
 		execve(temp_cmd[0], temp_cmd, temp_env);
 	}
-	dup2(bkp, 1);
+	dup2(data->bkp_fd[1], 1);
 	printf("Error! execute_pid\n");
 	ft_clear_data(data);
 	exit(1);

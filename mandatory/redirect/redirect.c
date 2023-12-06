@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 13:29:46 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:00:35 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	create_redirect_lst(t_data *data)
 	t_token		*temp;
 	t_params	*params;
 
-	printf("create_redirect_lst\n");
 	if (first_check(data->tokens))
 	{
 		ft_error_redirect(C_ERROR);
@@ -99,5 +98,5 @@ void	create_redirect_lst(t_data *data)
 	if (params->files)
 		params->files = freearray(params->files);
 	free(params);
-	printlist(data->rdct, 2);
+	// printlist(data->rdct, 2);
 }

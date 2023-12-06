@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:04:33 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/05 16:09:36 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:19:36 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_echo(t_data *data)
 	temp = data->cmd;
 	if (temp->cmd[1] == NULL)
 		return ;
-	if (ft_strncmp(temp->cmd[i], "$?", 3) == 0) {
+	if (ft_strncmp(temp->cmd[i], "$?", 3) == 0)
+	{
 		free(temp->cmd[i]);
 		temp->cmd[i] = ft_itoa(data->exit_code);
 	}

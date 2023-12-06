@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/06 16:37:34 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:00:42 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ void	find_heredoc(t_data *data)
 	{
 		while (i < temp->nbr_rdcts)
 		{
-			if (temp->redirects[i] == HEREDOC){
+			if (temp->redirects[i] == HEREDOC)
 				ft_heredoc(temp->files[i], data);
-			}
 			i++;
 		}
 		temp = temp->next;
@@ -35,7 +34,7 @@ void	find_heredoc(t_data *data)
 void	run_redirect(t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	if (data->rdct == NULL)
 		return ;
@@ -69,25 +68,28 @@ void	ft_heredoc(char	*key_str, t_data *data)
 		fd = open(HEREDOC_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		bkpfd = dup(1);
 		str = readline("> ");
-		while ((str != NULL) && ft_strncmp(key_str, str, \
+		while ((str != NULL) && ft_strncmp(key_str, str,
 				(ft_strlen(key_str))) != 0)
 		{
 			dup2(fd, 1);
-			printf("%s\n", str);
+			ft_printf("%s\n", str);
 			dup2(bkpfd, 1);
 			free(str);
 			str = readline("> ");
 		}
-		ft_clear_data(data);
-		ft_clear_env(data->env_node);
-		rl_clear_history();
-		free(data);
-		exit(0);
+		finish_fork(data);
 	}
 	waitpid(pid, &status, 0);
-	// return (status);
 }
 
+void	finish_fork(t_data *data)
+{
+	ft_clear_data(data);
+	ft_clear_env(data->env_node);
+	rl_clear_history();
+	free(data);
+	exit(0);
+}
 /*
 1. colocar sinais heredoc
 2. excluir arquivo heredoc na hora da edição e execução

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printlist.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:51:16 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 18:53:15 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:58:33 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	printlst_cmd(t_cmd *head)
 	while (temp != NULL)
 	{
 		i = 1;
-		printf("NODE[%i]-CMD: %s", j, temp->cmd[0]);
+		// printf("NODE[%i]-CMD: %s", j, temp->cmd[0]);
 		if (temp->cmd[i] != NULL)
 		{
 			while (temp->cmd[i] != NULL)

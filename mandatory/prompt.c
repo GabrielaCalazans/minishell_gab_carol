@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 16:05:26 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:00:23 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	mini_start(t_data *data)
 		start_token(data);
 	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
 	{
-		printf("has_redirect\n");
 		create_redirect_lst(data);
 		//define_rdct(data);
 	}
