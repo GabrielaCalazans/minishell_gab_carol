@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 18:00:23 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 20:29:10 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	prompt(t_data *data)
 	run_signals(1);
 	data->prompt_in = readline(PROMPT);
 	signal(SIGINT, SIG_IGN);
-	// printf("ABRAKADABRA token: '%s'", data->prompt_in);
+//	printf("ABRAKADABRA token: '%s'\n", data->prompt_in);
 	if (data->prompt_in == NULL)
 	{
 		ft_clear_data(data);
@@ -128,6 +128,5 @@ void	prompt(t_data *data)
 	if (data->prompt_in && *data->prompt_in)
 	{
 		add_history(data->prompt_in);
-		// printf("ABRAKADABRA PROMPT: %s\n", data->prompt_in);
 	}
 }

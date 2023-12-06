@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 17:51:54 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:53:38 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	execute_pid(t_data *data, int i)
 		execve(temp_cmd[0], temp_cmd, temp_env);
 	}
 	dup2(data->bkp_fd[1], 1);
-	printf("Error! execute_pid\n");
+	printf("Error!\n");
 	ft_clear_data(data);
 	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 17:54:11 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 20:11:32 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		prompt(data);
-		mini_start(data);
+		if (ft_strlen(data->prompt_in) != 0)
+			mini_start(data);
 		ft_clear_data(data);
 	}
 	return (0);
