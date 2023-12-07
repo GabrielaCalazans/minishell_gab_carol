@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 00:01:28 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 03:41:04 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void		change_value(t_env *env_node, char *arg);
 void		execution(t_data *data);
 void		set_path_command(t_data *data);
 void		config_pipe(t_data *data);
-void		execute_pid(t_data *data, int i);
+void		execute_pid(t_data *data, int i, int ord);
 
 //HEREDOC
 void		ft_heredoc(char	*key_str, t_data *data);
@@ -190,7 +190,7 @@ void		find_heredoc(t_data *data);
 void		finish_fork(t_data *data);
 
 //PIPE
-void		dup_pipe(int ord, t_data *data);
+void		dup_pipe(int i, int ord, t_data *data);
 void		close_fd(t_data *data, int n_fd);
 
 // TOKENS
@@ -236,7 +236,7 @@ char		**ft_dup_size(char **array, int size);
 int			ft_array_size(char **array);
 int			*ft_intdup(int *array, int size);
 void		*return_error(void);
-void		run_redirect(t_data *data);
+void		run_redirect(t_data *data, int index);
 
 // DEALING REDIRECT LIST
 t_rdct		*createnode_rdct(char **files, int *redirects, int nbr_rdcts, int index);

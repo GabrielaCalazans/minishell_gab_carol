@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 00:04:55 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 03:33:59 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,21 @@ int	command_count(t_data *data)
 	return (command);
 }
 
+int	command_count2(t_data *data)
+{
+	int		command;
+	t_rdct	*tmp;
+
+	command = 0;
+	tmp = data->rdct;
+	while (tmp)
+	{
+		command++;
+		tmp = tmp->next;
+	}
+	return (command);
+}
+
 void	mini_start(t_data *data)
 {
 	extern char	**environ;
@@ -101,7 +116,7 @@ void	mini_start(t_data *data)
 	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
 	{
 		create_redirect_lst(data);
-		//define_rdct(data);
+		// define_rdct(data);
 	}
 	parsing_it(data);
 	data->n_cmd = command_count(data);

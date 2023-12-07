@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/06 17:00:42 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 03:40:11 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	find_heredoc(t_data *data)
 	}
 }
 
-void	run_redirect(t_data *data)
+void	run_redirect(t_data *data, int index)
 {
 	int	i;
 
 	i = 0;
-	if (data->rdct == NULL)
+	if (data->rdct == NULL || data->rdct->files == NULL || data->rdct->index != index)
 		return ;
 	while (i < data->rdct->nbr_rdcts)
 	{

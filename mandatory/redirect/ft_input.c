@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:17:01 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/06 21:59:51 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 04:04:58 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_input(char *file, t_data *data)
 {
-	close(data->rdct_fds[0]);
+	close(0);
 	if (access(file, F_OK) == -1)
 	{
 		perror(file);

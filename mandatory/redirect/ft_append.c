@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:13:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/06 22:49:59 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 04:08:05 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_append(char *file, t_data *data)
 {
-	close(data->rdct_fds[1]);
+	close(1);
 	if (access(file, F_OK) == 0)
 	{
 		if (access(file, W_OK) == 0)
@@ -33,4 +33,5 @@ void	ft_append(char *file, t_data *data)
 		exit(1);
 	}
 	dup2(data->rdct_fds[1], 1);
+	close(data->rdct_fds[1]);
 }

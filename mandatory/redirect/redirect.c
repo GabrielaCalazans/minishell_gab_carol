@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 00:08:24 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 03:53:28 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,5 @@ void	create_redirect_lst(t_data *data)
 	if (params->files)
 		params->files = freearray(params->files);
 	free(params);
-	// ABRAKADABRA printlist(data->rdct, 2);
+	// printlist(data->rdct, 2);
 }
