@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 05:02:05 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 05:08:27 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	parsing_it(t_data *data)
 			all_words = treat_backs(all_words);
 		if (all_words != NULL)
 		// ABRAKADABRA	print_array(all_words, "all_words");
-		all_words = process_vars(data, all_words);
+		// all_words = process_vars(data, all_words);
 		if (all_words == NULL)
 			finalizepipe_cmd(data, NULL, index);
 		if (all_words != NULL)

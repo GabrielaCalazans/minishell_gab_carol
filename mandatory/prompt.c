@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 03:33:59 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 05:20:05 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,15 @@ void	mini_start(t_data *data)
 
 void	prompt(t_data *data)
 {
+	char	*aux;
+	
 	run_signals(1);
 	data->prompt_in = readline(PROMPT);
+	aux = ft_strdup(data->prompt_in);
+	data->prompt_in = get_str_expand(data, data->prompt_in);
 	signal(SIGINT, SIG_IGN);
 //	printf("ABRAKADABRA token: '%s'\n", data->prompt_in);
-	if (data->prompt_in == NULL)
+	if (aux == NULL)
 	{
 		ft_clear_data(data);
 		ft_clear_env(data->env_node);
@@ -140,8 +144,9 @@ void	prompt(t_data *data)
 		free(data);
 		exit(1);
 	}
-	if (data->prompt_in && *data->prompt_in)
+	if (aux && *aux)
 	{
-		add_history(data->prompt_in);
+		add_history(aux);
 	}
+
 }

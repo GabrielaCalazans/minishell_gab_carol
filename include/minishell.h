@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 03:41:04 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 05:34:53 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,8 +266,9 @@ void		cmd_pipe(t_data *data, int index);
 void		*ft_error_parse(int error);
 void		return_error_parse(char *str);
 char		*process_backs(char *str, int len);
-char		**process_vars(t_data *data, char **words);
-int			check_vars(t_data *data, char **words);
+char		*process_vars(t_data *data, char *words);
+int			check_vars(t_data *data, char *words);
+char		*get_str_expand(t_data *data, char *str);
 
 // PARSE LIST
 t_cmd		*createnode_cmd(char **cmd, int index);
