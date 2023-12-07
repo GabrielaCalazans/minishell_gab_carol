@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:35:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 00:30:46 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:22:34 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token	*move_one(t_token *tokens)
 	tmp = jump_white_spaces(tokens);
 	while (tmp && tmp->type != PIPE)
 	{
-		if (tmp->type == QUOTED_WORD)
+		if (tmp && tmp->type == QUOTED_WORD)
 		{
 			if (tmp->next)
 			{
@@ -30,10 +30,10 @@ t_token	*move_one(t_token *tokens)
 			else
 				return (NULL);
 		}
-		if (tmp->type != WORD && tmp->type != SLASH
+		if (tmp && tmp->type != WORD && tmp->type != SLASH
 			&& is_special_case(tmp->type, 3))
 			break ;
-		if (tmp->next)
+		if (tmp && tmp->next)
 			tmp = tmp->next;
 		else
 			return (NULL);
@@ -61,7 +61,7 @@ int	nb_words_r(t_token *tokens)
 				tmp = tmp->next;
 			words++;
 		}
-		if (tmp->next && is_rd_case(tmp->type))
+		if (tmp && tmp->next && is_rd_case(tmp->type))
 			tmp = move_one(tmp->next);
 		else
 		{
@@ -137,7 +137,7 @@ char	**get_words_one(t_token *tokens)
 					words[i++] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
 			}
 		}
-		if (is_rd_case(tmp->type))
+		if (tmp && is_rd_case(tmp->type))
 			tmp = move_one(tmp->next);
 		else
 		{

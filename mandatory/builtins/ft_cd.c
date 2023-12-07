@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:03:28 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/11/28 19:39:22 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 11:36:24 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,28 @@ void	ft_cd(t_data *data)
 {
 	char	*go_home;
 
+	if (data->cmd->cmd[2])
+	{
+		perror("too many arguments");
+		data->exit_code = 1;
+	}
 	if (data->cmd->cmd[1] == NULL)
 	{
 		go_home = getenv("HOME");
 		if (go_home != NULL)
 		{
 			if (chdir(go_home) != 0)
+			{
 				perror("cd");
+				data->exit_code = 1;
+			}
 		}
 		else
 			ft_putendl_fd("cd: could not determine home directory\n", 2);
 	}
 	else if (data->cmd->cmd[1] != NULL && chdir(data->cmd->cmd[1]) != 0)
+	{
 		perror("cd");
+		data->exit_code = 1;
+	}
 }

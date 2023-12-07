@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_two.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:05:41 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 00:05:16 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:04:13 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int	nb_words_dr(t_token *tokens)
 				tmp = tmp->next;
 			words++;
 		}
-		if (tmp->next && is_drd_case(tmp->type))
+		if (tmp && tmp->next && is_drd_case(tmp->type))
 			tmp = move_two(tmp->next);
 		else
 		{
-			if (tmp->next)
+			if (tmp && tmp->next)
 				tmp = tmp->next;
 			else
 				break ;

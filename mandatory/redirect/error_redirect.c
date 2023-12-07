@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:31:51 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/25 15:02:56 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 11:49:10 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	ft_error_redirect(int error)
 {
 	if (error == 1)
-		printf("syntax error near unexpected token\n");
+		perror("syntax error near unexpected token\n");
 	else if (error == 3)
-		printf("ERROR! Missing quote\n");
+		perror("ERROR! Missing quote\n");
 	else if (error == 4)
-		printf("redirect file name error\n");
+		perror("redirect file name error\n");
 	else if (error == 5)
-		printf("moving TOKENS error\n");
+		perror("moving TOKENS error\n");
 	else
 	{
-		printf("undefined error\n");
+		perror("undefined error\n");
 	}
 }
 

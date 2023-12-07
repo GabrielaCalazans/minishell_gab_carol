@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:17:28 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/07 04:07:34 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:44:39 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_output(char *file, t_data *data)
 {
-	close(1);
+	//close(1);
 	if (access(file, F_OK) == 0)
 	{
 		if (access(file, W_OK) == 0)
@@ -34,4 +34,5 @@ void	ft_output(char *file, t_data *data)
 	}
 	dup2(data->rdct_fds[1], 1);
 	close(data->rdct_fds[1]);
+	data->exit_code = 1; 
 }

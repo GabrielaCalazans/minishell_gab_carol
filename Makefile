@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/12/05 20:37:26 by gacalaza         ###   ########.fr        #
+#    Updated: 2023/12/07 14:00:43 by ckunimur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,7 +95,7 @@ all:	comp_libft $(NAME)
 $(OBJS): $(HEADERM)
 
 $(NAME): $(OBJS)
-	cc $(FLAGS) -I $(INCL_DIR) $^ $(LIBFT) $(LIBS) -o $@
+	@cc $(FLAGS) -I $(INCL_DIR) $^ $(LIBFT) $(LIBS) -o $@
 
 comp_libft:
 			@make -C $(LIBFT_DIR) --no-print-directory

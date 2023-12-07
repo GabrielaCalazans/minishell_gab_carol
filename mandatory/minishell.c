@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 20:11:32 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 14:40:24 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,17 @@ int	main(int argc, char *argv[], char *envp[])
 		prompt(data);
 		if (ft_strlen(data->prompt_in) != 0)
 			mini_start(data);
+		else
+		{
+			rl_clear_history();
+			ft_clear_env(data->env_node);
+			ft_clear_data(data);
+			break;
+		}
 		ft_clear_data(data);
 	}
+	free(data);
+	ft_printf("exit\n");
 	return (0);
 }
 

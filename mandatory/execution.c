@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 04:02:21 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:05:53 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ void	execution(t_data *data)
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
 	i = 0;
-	if (data->n_cmd == 1 && is_builtins(data->cmd->cmd[0])) {	
+	//printf("'%p'\n", data->cmd->cmd);
+	if (data->cmd->cmd && data->n_cmd == 1 && is_builtins(data->cmd->cmd[0]))
+	{	
 		run_redirect(data, i);
 		exec_builtin(data);
 		dup2(data->bkp_fd[0], 0);
@@ -65,7 +67,7 @@ void	execution(t_data *data)
 	}
 	j = 0;
 	close_fd(data, (data->n_cmd - 1) * 2);
-	while (j <= i)
+	while (j < i)
 		waitpid(pid[j++], &status, 0);
 	if (WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);

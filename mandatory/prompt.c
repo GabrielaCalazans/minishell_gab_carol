@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 05:20:05 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:05:21 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ void	prompt(t_data *data)
 	
 	run_signals(1);
 	data->prompt_in = readline(PROMPT);
+	if (data->prompt_in == NULL)
+		return ;
 	aux = ft_strdup(data->prompt_in);
 	data->prompt_in = get_str_expand(data, data->prompt_in);
 	signal(SIGINT, SIG_IGN);
@@ -148,5 +150,4 @@ void	prompt(t_data *data)
 	{
 		add_history(aux);
 	}
-
 }

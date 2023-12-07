@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 06:51:52 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:24:27 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,15 @@ char	*get_str_expand(t_data *data, char *str)
 		}
 		if (str[i] == '$')
 		{
-			if (can_expand(data, &str[++i]))
+			if (str[++i] == '?')
+			{
+				new_str = ft_substr(str, 0, i - 1);
+				value = ft_itoa(data->exit_code);
+				new_str = ft_strjoin(new_str, value);
+				str = ft_strjoin(new_str, &str[++i]);
+				free(value);
+			}
+			else if (can_expand(data, &str[i]))
 			{
 				new_str = ft_substr(str, 0, i - 1);
 				value = get_var_value(data, &str[i], &i);
