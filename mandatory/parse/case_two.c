@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_two.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:05:41 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 16:04:13 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:04:45 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,7 @@ char	**get_words_two(t_token *tokens)
 		ft_error_parse(1);
 	while (tmp && tmp->type != PIPE)
 	{
-		if (i == 0 && tmp->type == 10)
-			words[i++] = ft_strdup(tmp->token);
-		else if (is_word(tmp->type, 2) && i != 0)
+		if (is_word(tmp->type, 2))
 		{
 			if (tmp->type == QUOTED_WORD)
 			{

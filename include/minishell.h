@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 05:34:53 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:31:00 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ int			asterick_case(t_token *tokens);
 int			check_file_name(t_token *tokens);
 char		*take_q_name(t_token *tokens);
 char		*find_file_name(t_token *tokens);
+char		*get_name(t_token *tokens);
 int			first_check(t_token *tokens);
 size_t		quoted_word_size(t_token *tokens, int len);
 char		*get_name_quoted(t_token *tokens, char *name, int len);

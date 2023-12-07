@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:38:24 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/09 15:48:28 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:30:37 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,56 @@ char	*take_q_name(t_token *tokens)
 	return (name);
 }
 
-char	*get_name_quoted(t_token *tokens, char *name, int len)
+char	*get_name(t_token *tokens)
 {
-	t_token	*temp;
-	int		i;
+	t_token	*tmp;
+	char	*new;
+	char	*aux;
 
-	temp = tokens->next;
-	i = 0;
-	while (len > i && temp)
+	tmp = tokens;
+	while (tmp && tmp->type != PIPE)
 	{
-		if (temp->type == QUOTE_DOUBLE || temp->type == QUOTE_SINGLE)
-			break ;
-		name = ft_strjoin(name, temp->token);
-		temp = temp->next;
-		i++;
+		if (is_word(tmp->type, 2))
+		{
+			if (tmp->type == QUOTED_WORD)
+			{
+				if (tmp)
+				{
+					new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+					tmp = tmp->next;
+					while (tmp && is_word(tmp->type, 3))
+					{
+						aux = ft_strdup(new);
+						free(new);
+						new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
+						free(aux);
+						tmp = tmp->next;
+					}
+				}
+				else
+					new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+			}
+			else
+			{
+				if (tmp)
+				{
+					new = ft_strdup(tmp->token);
+					tmp = tmp->next;
+					while (tmp && is_word(tmp->type, 3))
+					{
+						aux = ft_strdup(new);
+						free(new);
+						new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
+						free(aux);
+						tmp = tmp->next;
+					}
+				}
+				else
+					new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+			}
+		}
+		if (tmp && tmp->type != PIPE)
+			tmp = tmp->next;
 	}
-	return (name);
+	return (new);
 }

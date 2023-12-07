@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 12:24:27 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:38:14 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	is_fuckin_case(char c, char a)
 }
 
 
-// PENSAR COMO RETIRAR AS ASPAS DUPLAS EM CASO DE VARIAVEL EXPANSÃO
 int	can_expand(t_data *data, char *var)
 {
 	t_env	*tmp;

@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:47:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 19:37:43 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:04:26 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ void	process_tokens(t_token *tokens, int *i, char **words)
 	tmp = tokens;
 	while (tmp && tmp->type != PIPE)
 	{
-		
-		if (i == 0 && tmp->type == 10)
-			words[(*i)++] = ft_strdup(tmp->token);
-		else if (is_word(tmp->type, 2) && i != 0)
+		if (is_word(tmp->type, 2))
 		{
 			if (tmp->type == QUOTED_WORD)
 			{

@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:10:45 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 21:29:46 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:30:24 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,10 @@ char	*find_file_name(t_token *tokens)
 				temp = temp->next;
 		}
 		if (temp->type == QUOTED_WORD)
-			return (take_q_name(temp));
-		if (temp->type == EXIT_STATUS)
-			return (ft_strdup("0"));
+			return (get_name(temp));
 		if (temp->type == WORD || is_slashcase(temp->type)
 			|| is_special_case(temp->type, 2))
-			return (word_case(temp));
+			return (get_name(temp));
 		temp = temp->next;
 	}
 	ft_error_redirect(4);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 16:05:21 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:08:10 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,7 @@ void	mini_start(t_data *data)
 	if (ft_strlen(data->prompt_in) != 0)
 		start_token(data);
 	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
-	{
 		create_redirect_lst(data);
-		// define_rdct(data);
-	}
 	parsing_it(data);
 	data->n_cmd = command_count(data);
 	find_heredoc(data);
@@ -137,7 +134,6 @@ void	prompt(t_data *data)
 	aux = ft_strdup(data->prompt_in);
 	data->prompt_in = get_str_expand(data, data->prompt_in);
 	signal(SIGINT, SIG_IGN);
-//	printf("ABRAKADABRA token: '%s'\n", data->prompt_in);
 	if (aux == NULL)
 	{
 		ft_clear_data(data);

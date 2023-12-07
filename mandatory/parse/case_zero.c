@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:06:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 19:34:38 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:05:11 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ char	**get_words(t_token *tokens, int len)
 		ft_error_parse(1);
 	while (tmp && tmp->type != PIPE)
 	{
-		if (i == 0 && tmp->type == WORD)
-			words[i++] = ft_strdup(tmp->token);
-		else if (is_word(tmp->type, 2) && i != 0)
+		if (is_word(tmp->type, 2))
 		{
 			if (tmp->type == QUOTED_WORD)
 			{
