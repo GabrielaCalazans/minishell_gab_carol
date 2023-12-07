@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:13:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/06 17:55:47 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 22:49:59 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ void	ft_append(char *file, t_data *data)
 			data->rdct_fds[1] = open(file, O_WRONLY | O_APPEND);
 		else
 		{
-			printf("error1\n");
-			return ;
+			perror(file);
+			exit(1);
 		}
 	}
 	else
 		data->rdct_fds[1] = (open(file, O_WRONLY | O_CREAT | O_APPEND, 0644));
 	if (data->rdct_fds[1] == -1)
 	{
-		printf("error!2\n");
-		return ;
+		perror(file);
+		exit(1);
 	}
 	dup2(data->rdct_fds[1], 1);
 }
