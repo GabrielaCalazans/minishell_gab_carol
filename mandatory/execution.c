@@ -6,7 +6,7 @@
 /*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 19:53:38 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/06 22:03:48 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	execution(t_data *data)
 	close_fd(data, (data->n_cmd - 1) * 2);
 	while (i < data->n_cmd)
 		waitpid(pid[i++], &status, 0);
+	if (WIFEXITED(status))
+		data->exit_code = WEXITSTATUS(status);
 	free(pid);
 	free(data->fd);
 	data->cmd = tmp_cmds;
@@ -84,12 +86,14 @@ void	execute_pid(t_data *data, int i)
 		temp_cmd = ft_arraydup(data->cmd->cmd);
 		temp_env = ft_arraydup(data->env);
 		ft_clear_data(data);
-		execve(temp_cmd[0], temp_cmd, temp_env);
+		if (exec_builtin(data) == 0) {
+			execve(temp_cmd[0], temp_cmd, temp_env);
+			perror(temp_cmd[0]);
+			exit(127);
+		}
 	}
 	dup2(data->bkp_fd[1], 1);
-	printf("Error!\n");
 	ft_clear_data(data);
-	exit(1);
 }
 
 void	config_pipe(t_data *data)
