@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_two.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 16:06:20 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:06:28 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*trim_process(char *word, int type)
 	char	*name;
 
 	name = ft_strdup(word);
-	// ABRAKADRABA printf("type:%d\n", type);
 	if (type == QUOTE_DOUBLE)
 		name = ft_triming(name, "\"");
 	if (type == QUOTE_SINGLE)
@@ -63,11 +62,11 @@ void	*ft_error_parse(int error)
 	if (error == 1)
 		printf("erro malloc\n");
 	else if (error == 2)
-		printf("DEU RUIM.\n");
+		printf("not a valid identifier\n");
 	else if (error == 3)
 		printf("ERROR! Missing quote\n");
 	else if (error == 5)
-		printf("ELSE\n");
+		printf("ERROR! get_all_words\n");
 	else if (error == 6)
 		printf("ERROR! Missing backslash key\n");
 	else

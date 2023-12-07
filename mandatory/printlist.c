@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printlist.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:51:16 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 17:58:33 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:02:52 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ void	printlst_cmd(t_cmd *head)
 	while (temp != NULL)
 	{
 		i = 1;
-		// printf("NODE[%i]-CMD: %s", j, temp->cmd[0]);
-		if (temp->cmd[i] != NULL)
+		if (temp->cmd)
+			printf("NODE[%i]-CMD: %s\tindex[%i]", j, temp->cmd[0], temp->index);
+		else
+			printf("NODE[%i]-CMD: %p\tindex[%i]", j, temp->cmd, temp->index);
+		if (temp->cmd && temp->cmd[i] != NULL)
 		{
 			while (temp->cmd[i] != NULL)
 			{
@@ -57,11 +60,13 @@ void	printlst_rdct(t_rdct *head)
 	while (temp != NULL)
 	{
 		i = 0;
+		printf("NODE[%i]-RDCT: %p file: %p,index[%i]\n", j,
+		temp->redirects, temp->files, temp->index);
 		while (i < temp->nbr_rdcts)
 		{
-			printf("NODE[%i]-RDCT: %i file: %s, size str:%zu\n", j,
+			printf("NODE[%i]-RDCT: %i file: %s, size str:%zu\tindex[%i]\n", j,
 				temp->redirects[i], temp->files[i],
-				ft_strlen(temp->files[i]));
+				ft_strlen(temp->files[i]), temp->index);
 			i++;
 		}
 		j++;

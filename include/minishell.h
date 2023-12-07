@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 20:48:22 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:01:28 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@
 // **heredoc; // heredoc e seu delimitador/palavra
 // **rdct; // lista redirect e seu arquivo
 
-typedef struct s_tk_p {
+typedef struct s_tk_p
+{
 	int		check;
 	int		type;
 	int		i;
@@ -86,6 +87,7 @@ typedef struct s_rdct
 	int				nbr_rdcts;
 	int				*redirects;
 	char			**files;
+	int				index;
 	struct s_rdct	*next;
 }				t_rdct;
 
@@ -99,6 +101,7 @@ typedef struct s_env
 typedef struct s_cmd
 {
 	char			**cmd;
+	int				index;
 	struct s_cmd	*next;
 }				t_cmd;
 
@@ -130,11 +133,13 @@ typedef struct s_builtins {
 	void	(*built_in)(t_data *);
 }	t_builtins;
 
-typedef struct s_params {
+typedef struct s_params
+{
 	char	**files;
 	int		*redirects;
 	int		inside_pipe;
 	int		len;
+	int		index;
 	int		i;
 }	t_params;
 
@@ -234,7 +239,7 @@ void		*return_error(void);
 void		run_redirect(t_data *data);
 
 // DEALING REDIRECT LIST
-t_rdct		*createnode_rdct(char **files, int *redirects, int nbr_rdcts);
+t_rdct		*createnode_rdct(char **files, int *redirects, int nbr_rdcts, int index);
 t_rdct		*ft_last_rdct(t_rdct *lst);
 void		ft_add_back_rdct(t_rdct **lst, t_rdct *new);
 void		ft_add_front_rdct(t_rdct **lst, t_rdct *new);
@@ -256,14 +261,16 @@ int			nb_words(t_token *tokens);
 char		*trim_process(char *word, int type);
 char		**trim_quote(char **words);
 char		**fixwords(t_token *tokens, char **words);
-void		finalizepipe_cmd(t_data *data, char	**all_words);
-void		cmd_pipe(t_data *data);
+void		finalizepipe_cmd(t_data *data, char	**all_words, int index);
+void		cmd_pipe(t_data *data, int index);
 void		*ft_error_parse(int error);
 void		return_error_parse(char *str);
 char		*process_backs(char *str, int len);
+char		**process_vars(t_data *data, char **words);
+int			check_vars(t_data *data, char **words);
 
 // PARSE LIST
-t_cmd		*createnode_cmd(char **cmd);
+t_cmd		*createnode_cmd(char **cmd, int index);
 t_cmd		*ft_last_cmd(t_cmd *lst);
 int			ft_size_cmd(t_cmd *lst);
 void		ft_clear_cmd_lst(t_cmd **lst);

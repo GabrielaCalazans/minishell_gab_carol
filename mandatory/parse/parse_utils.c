@@ -6,13 +6,13 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 16:56:16 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:17:15 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	cmd_pipe(t_data *data)
+void	cmd_pipe(t_data *data, int index)
 {
 	t_token	*tmp;
 	char	**all_words;
@@ -23,9 +23,10 @@ void	cmd_pipe(t_data *data)
 	{
 		if (tmp->type == PIPE || tmp->next == NULL)
 		{
-			finalizepipe_cmd(data, all_words);
+			finalizepipe_cmd(data, all_words, index);
 			if (tmp->next != NULL)
 				all_words = fixwords(tmp->next, all_words);
+			index++;
 		}
 		tmp = tmp->next;
 	}

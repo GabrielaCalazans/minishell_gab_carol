@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_array.c                                      :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 16:20:08 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 19:27:59 by gacalaza         ###   ########.fr       */
+/*   Created: 2023/12/05 16:19:48 by gacalaza          #+#    #+#             */
+/*   Updated: 2023/12/05 16:21:58 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	print_array(char **array, char *type)
+void	ft_errors(t_data *data, int error)
 {
-	int	i;
-
-	i = 0;
-	if (!array)
-		return ;
-	while (array[i] != NULL)
-	{
-		printf("%s[%i]: %s\n", type, i, array[i]);
-		i++;
-	}
-	printf("\n");
+	
 }

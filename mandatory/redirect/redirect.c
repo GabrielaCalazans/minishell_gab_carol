@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 22:40:05 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:08:24 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	finalizepipe(t_data *data, t_params *ptr)
 {
 	t_rdct	*newnode;
 
-	newnode = createnode_rdct(ptr->files, ptr->redirects, ptr->len);
+	newnode = createnode_rdct(ptr->files, ptr->redirects, ptr->len, ptr->index);
 	ft_add_back_rdct(&data->rdct, newnode);
 }
 
@@ -61,10 +61,14 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 		if ((temp->type == PIPE || !has_pipe(temp)) && (!has_rdrct_pipe(temp)
 				&& !has_d_redirec_p(temp)))
 		{
-			ptr->files[ptr->i] = NULL;
+			if (ptr->files)
+				ptr->files[ptr->i] = NULL;
 			finalizepipe(data, ptr);
 			ptr->inside_pipe = 1;
+			if (temp->type == PIPE)
+				ptr->index++;
 		}
+		temp = temp->next;
 		if (ptr->inside_pipe == 1)
 		{
 			processclean(temp, ptr);
@@ -73,7 +77,6 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 		}
 		if (is_redrt_case(temp->type))
 			processredirect(temp, ptr);
-		temp = temp->next;
 	}
 }
 
@@ -98,5 +101,5 @@ void	create_redirect_lst(t_data *data)
 	if (params->files)
 		params->files = freearray(params->files);
 	free(params);
-	//printlist(data->rdct, 2);
+	// ABRAKADABRA printlist(data->rdct, 2);
 }

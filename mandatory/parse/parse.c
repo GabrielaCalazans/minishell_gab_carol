@@ -3,30 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 15:49:03 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:07:20 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	finalizepipe_cmd(t_data *data, char	**all_words)
+void	finalizepipe_cmd(t_data *data, char	**all_words, int index)
 {
 	t_cmd	*newnode;
 	char	**cmd;
-	int		len;
 
-	if (!all_words)
-	{
-		ft_error_parse(5);
-		return ;
-	}
-	len = ft_array_size(all_words);
+	printf("\nENTREI JESUS\n");
 	cmd = NULL;
-	cmd = ft_arraydup(all_words);
-	newnode = createnode_cmd(cmd);
+	if (all_words)
+	{
+		cmd = ft_arraydup(all_words);
+		newnode = createnode_cmd(cmd, index);
+	}
+	else
+	{
+		printf("\n\nentrei aqui 2\n");
+		newnode = createnode_cmd(NULL, index);
+	}
 	ft_add_back_cmd(&data->cmd, newnode);
 	freearray(cmd);
 }
@@ -61,7 +63,10 @@ char	**get_all_words(t_token *tokens)
 	if (check == 3)
 		all_words = get_words_three(tokens);
 	if (!all_words)
-		ft_error_parse(2);
+	{
+		printf("\nentrei aqui 1!\n");
+		return (NULL);
+	}
 	return (all_words);
 }
 
@@ -70,11 +75,14 @@ char	**treat_backs(char **words)
 	int	i;
 
 	i = 0;
-	while (words[i] != NULL)
+	if (words)
 	{
-		if (ft_strchr(words[i], '\\') != NULL)
-			words[i] = process_backs(words[i], ft_strlen(words[i]));
-		i++;
+		while (words[i] != NULL)
+		{
+			if (ft_strchr(words[i], '\\') != NULL)
+				words[i] = process_backs(words[i], ft_strlen(words[i]));
+			i++;
+		}
 	}
 	return (words);
 }
@@ -83,16 +91,26 @@ char	**treat_backs(char **words)
 void	parsing_it(t_data *data)
 {
 	char	**all_words;
+	int		index;
 
+	index = 0;
 	if (has_pipe(data->tokens) > 0)
-		cmd_pipe(data);
+		cmd_pipe(data, index);
 	else
 	{
 		all_words = get_all_words(data->tokens);
-		all_words = treat_backs(all_words);
-		// ABRAKADABRA print_array(all_words, "all_words");
-		finalizepipe_cmd(data, all_words);
-		freearray(all_words);
+		if (all_words != NULL)
+			all_words = treat_backs(all_words);
+		if (all_words != NULL)
+		// ABRAKADABRA	print_array(all_words, "all_words");
+		// if (check_vars(data, all_words))
+		// 	all_words = process_vars(data, all_words);
+		if (all_words == NULL)
+			finalizepipe_cmd(data, NULL, index);
+		if (all_words != NULL)
+			finalizepipe_cmd(data, all_words, index);
+		if (all_words != NULL)
+			freearray(all_words);
 	}
 	// ABRAKADABRA printlist(data->cmd, 3);
 }

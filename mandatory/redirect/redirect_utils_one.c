@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:10:45 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 11:45:36 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/06 21:29:46 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_params	*inicialize_rd_params(void)
 		exit(1);
 	}
 	params->i = 0;
+	params->index = 0;
 	params->len = 0;
 	params->inside_pipe = 0;
 	params->files = NULL;

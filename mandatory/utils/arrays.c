@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:37:56 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/01 11:37:59 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/06 22:49:31 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	**ft_copy_array(char **array, int length)
 	int		i;
 	char	**array_copy;
 
+	if (length < 1)
+		return (NULL);
 	array_copy = (char **)malloc(sizeof(char *) * (length + 1));
 	if (array_copy == NULL)
 		return (NULL);

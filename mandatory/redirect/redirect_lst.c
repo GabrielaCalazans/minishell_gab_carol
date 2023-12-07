@@ -3,32 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_lst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:11:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/13 22:03:41 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/06 23:03:19 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // Func to create a new node
-t_rdct	*createnode_rdct(char **files, int *redirects, int nbr_rdcts)
+t_rdct	*createnode_rdct(char **files, int *redirects, int nbr_rdcts, int index)
 {
 	t_rdct	*newnode;
 
-	newnode = (t_rdct *)malloc(sizeof(t_rdct));
+	newnode = (t_rdct *)ft_calloc(sizeof(t_rdct), 1);
 	if (!newnode)
-		perror("malloc");
-	newnode->files = ft_arraydup(files);
-	newnode->redirects = ft_intdup(redirects, nbr_rdcts);
-	newnode->nbr_rdcts = nbr_rdcts;
-	if (!newnode->redirects || !newnode->files)
 	{
-		perror("ft_strdup");
-		ft_clear_rdct(&newnode);
+		perror("malloc");
 		return (NULL);
 	}
+	if (files)
+	{
+		newnode->files = ft_arraydup(files);
+		newnode->redirects = ft_intdup(redirects, nbr_rdcts);
+		newnode->nbr_rdcts = nbr_rdcts;
+	}
+	newnode->index = index;
+	// if (!newnode->redirects || !newnode->files)
+	// {
+	// 	perror("ft_strdup");
+	// 	ft_clear_rdct(&newnode);
+	// 	return (NULL);
+	// }
 	newnode->next = NULL;
 	return (newnode);
 }

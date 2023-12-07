@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_one.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:35:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/15 13:58:20 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:37:14 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ t_token	*move_one(t_token *tokens)
 		if (tmp->type == QUOTED_WORD)
 		{
 			if (tmp->next)
-				tmp = tmp->next;
+			{
+				while (tmp && is_word(tmp->type, 3))
+					tmp = tmp->next;
+			}	
 			else
 				return (NULL);
 		}
@@ -53,17 +56,20 @@ int	nb_words_r(t_token *tokens)
 		if (tmp == NULL)
 			break ;
 		if (tmp && is_word(tmp->type, 2))
+		{
+			while (tmp && is_word(tmp->type, 3))
+				tmp = tmp->next;
 			words++;
+		}
 		if (tmp->next && is_rd_case(tmp->type))
 			tmp = move_one(tmp->next);
 		else
 		{
-			if (tmp->next)
+			if (tmp && tmp->type != PIPE)
 				tmp = tmp->next;
-			else
-				break ;
 		}
 	}
+	printf("\nwords:%i\n", words);
 	return (words);
 }
 
@@ -71,27 +77,72 @@ int	nb_words_r(t_token *tokens)
 		// 	tmp = tmp->next;
 char	**get_words_one(t_token *tokens)
 {
+	char	**words;
+	char	*aux;
 	t_token	*tmp;
 	int		i;
-	char	**words;
+	int		len;
 
 	i = 0;
 	tmp = tokens;
-	words = malloc(sizeof(char **) * (nb_words_r(tokens) + 1));
+	aux = NULL;
+	len = nb_words_r(tokens);
+	if (len < 1)
+		return (NULL);
+	words = malloc(sizeof(char **) * (len + 1));
 	if (!words)
 		ft_error_parse(1);
 	while (tmp && tmp->type != PIPE)
 	{
-		if (is_word(tmp->type, 2))
+		if (i == 0 && tmp->type == 10)
 			words[i++] = ft_strdup(tmp->token);
+		else if (is_word(tmp->type, 2) && i != 0)
+		{
+			if (tmp->type == QUOTED_WORD)
+			{
+				if (tmp->next)
+				{
+					words[i] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+					tmp = tmp->next;
+					while (tmp && is_word(tmp->type, 3))
+					{
+						aux = ft_strdup(words[i]);
+						free(words[i]);
+						words[i] = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
+						free(aux);
+						tmp = tmp->next;
+					}
+					i++;
+				}
+				else
+					words[i++] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+			}
+			else
+			{
+				if (tmp->next)
+				{
+					words[i] = ft_strdup(tmp->token);
+					tmp = tmp->next;
+					while (tmp && is_word(tmp->type, 3))
+					{
+						aux = ft_strdup(words[i]);
+						free(words[i]);
+						words[i] = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
+						free(aux);
+						tmp = tmp->next;
+					}
+					i++;
+				}
+				else
+					words[i++] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+			}
+		}
 		if (is_rd_case(tmp->type))
 			tmp = move_one(tmp->next);
 		else
 		{
-			if (tmp->next)
+			if (tmp && tmp->type != PIPE)
 				tmp = tmp->next;
-			else
-				break ;
 		}
 	}
 	words[i] = NULL;

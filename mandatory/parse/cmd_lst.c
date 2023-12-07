@@ -6,30 +6,49 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:11:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 19:03:57 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/06 22:45:44 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // Func to create a new node
-t_cmd	*createnode_cmd(char **cmd)
+t_cmd	*createnode_cmd(char **cmd, int index)
 {
 	t_cmd	*newnode;
 
+	printf("\nHELP ME ZEUS!!!!\n");
 	newnode = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!newnode)
 	{
 		perror("malloc");
 		free(newnode);
 	}
-	newnode->cmd = ft_arraydup(cmd);
-	if (!newnode->cmd)
+	if (cmd)
 	{
-		perror("ft_arraydup-cmd");
-		ft_clear_cmd_lst(&newnode);
-		return (NULL);
+		newnode->cmd = ft_arraydup(cmd);
+		if (!newnode->cmd)
+		{
+			perror("ft_arraydup-cmd");
+			ft_clear_cmd_lst(&newnode);
+			return (NULL);
+		}
 	}
+	else
+	{
+		newnode->cmd = NULL;
+		// printf("\nENTREI\n");
+		// newnode->cmd = (char **)malloc(sizeof(char *));
+		// if (!newnode->cmd)
+		// {
+		// 	perror("malloc");
+		// 	free(newnode);
+		// 	return (NULL);
+		// }
+		// if (newnode->cmd)
+		// 	newnode->cmd[0] = (char *)NULL;
+	}
+	newnode->index = index;
 	newnode->next = NULL;
 	return (newnode);
 }
