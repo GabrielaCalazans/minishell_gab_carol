@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 00:07:20 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:11:18 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	finalizepipe_cmd(t_data *data, char	**all_words, int index)
 	t_cmd	*newnode;
 	char	**cmd;
 
-	printf("\nENTREI JESUS\n");
 	cmd = NULL;
 	if (all_words)
 	{

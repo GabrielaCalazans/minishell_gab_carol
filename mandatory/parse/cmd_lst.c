@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:11:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 22:45:44 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:11:29 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_cmd	*createnode_cmd(char **cmd, int index)
 {
 	t_cmd	*newnode;
 
-	printf("\nHELP ME ZEUS!!!!\n");
 	newnode = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!newnode)
 	{
