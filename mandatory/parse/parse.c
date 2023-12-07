@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 00:11:18 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/07 05:02:05 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	finalizepipe_cmd(t_data *data, char	**all_words, int index)
 		newnode = createnode_cmd(cmd, index);
 	}
 	else
-	{
-		printf("\n\nentrei aqui 2\n");
 		newnode = createnode_cmd(NULL, index);
-	}
 	ft_add_back_cmd(&data->cmd, newnode);
 	freearray(cmd);
 }
@@ -62,10 +59,7 @@ char	**get_all_words(t_token *tokens)
 	if (check == 3)
 		all_words = get_words_three(tokens);
 	if (!all_words)
-	{
-		printf("\nentrei aqui 1!\n");
 		return (NULL);
-	}
 	return (all_words);
 }
 
@@ -102,8 +96,7 @@ void	parsing_it(t_data *data)
 			all_words = treat_backs(all_words);
 		if (all_words != NULL)
 		// ABRAKADABRA	print_array(all_words, "all_words");
-		// if (check_vars(data, all_words))
-		// 	all_words = process_vars(data, all_words);
+		all_words = process_vars(data, all_words);
 		if (all_words == NULL)
 			finalizepipe_cmd(data, NULL, index);
 		if (all_words != NULL)
