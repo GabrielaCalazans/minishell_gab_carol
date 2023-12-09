@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 20:27:39 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:51:37 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,5 @@ void	parsing_it(t_data *data)
 		if (all_words != NULL)
 			freearray(all_words);
 	}
-	// ABRAKADABRA printlist(data->cmd, 3);
+	// printlist(data->cmd, 3);
 }

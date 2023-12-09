@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 22:28:30 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:37:08 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 			if (temp->type == PIPE)
 				ptr->index++;
 		}
+		else
+		{
+			if (is_redrt_case(temp->type))
+				processredirect(temp, ptr);
+		}
 		// if (temp->prev != NULL && temp->next)
 		temp = temp->next;
 		if (ptr->inside_pipe == 1)
@@ -79,8 +84,6 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 			if (ptr->len < 1)
 				break ;
 		}
-		if (is_redrt_case(temp->type))
-			processredirect(temp, ptr);
 	}
 }
 
@@ -105,5 +108,5 @@ void	create_redirect_lst(t_data *data)
 	if (params->files)
 		params->files = freearray(params->files);
 	free(params);
-	//printlist(data->rdct, 2);
+	// printlist(data->rdct, 2);
 }

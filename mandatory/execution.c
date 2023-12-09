@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 19:17:20 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:50:39 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ void	execution(t_data *data)
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
 	i = 0;
+	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
+	{	
+		run_redirect(data, i, 0);
+		exec_builtin(data);
+		close(1);
+		close(0);
+		dup2(data->bkp_fd[0], 0);
+		close(data->bkp_fd[0]);
+		dup2(data->bkp_fd[1], 1);
+		close(data->bkp_fd[1]);
+		return ;
+	}
 	if (!data->cmd->cmd && data->n_cmd == 1)
 	{
 		run_redirect(data, i, 0);
@@ -51,17 +63,6 @@ void	execution(t_data *data)
 		dup2(data->bkp_fd[1], 1);
 		close(data->bkp_fd[1]);
 	}
-	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
-	{	
-		exec_builtin(data);
-		close(1);
-		close(0);
-		dup2(data->bkp_fd[0], 0);
-		close(data->bkp_fd[0]);
-		dup2(data->bkp_fd[1], 1);
-		close(data->bkp_fd[1]);
-		return ;
-	}
 	while (data->rdct || data->cmd)
 	{
 		pid[i] = fork();
@@ -70,7 +71,7 @@ void	execution(t_data *data)
 			run_signals(2);
 			execute_pid(data, i, ord);
 		}
-		if (data->rdct)
+		if (data->rdct && data->rdct->index == i)
 			data->rdct = data->rdct->next;
 		if (data->cmd)
 			data->cmd = data->cmd->next;
@@ -91,12 +92,10 @@ void	execution(t_data *data)
 
 void	execute_pid(t_data *data, int i, int ord)
 {
-	if (data->cmd->cmd == NULL)
-		return ;
 	if (data->n_cmd - 1 != 0)
 		dup_pipe(i, ord, data);
 	run_redirect(data, i, 1);
-	if (exec_builtin(data) == 0)
+	if (exec_builtin(data) == 0 && data->cmd->cmd)
 	{
 		set_path_command(data);
 		execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
@@ -107,6 +106,8 @@ void	execute_pid(t_data *data, int i, int ord)
 		ft_clear_data(data);
 		exit(127);
 	}
+	else
+		exit(data->exit_code);
 }
 
 void	config_pipe(t_data *data)
