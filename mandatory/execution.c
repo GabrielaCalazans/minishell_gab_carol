@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 16:05:53 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:17:20 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,25 @@ void	execution(t_data *data)
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
 	i = 0;
-	//printf("'%p'\n", data->cmd->cmd);
-	if (data->cmd->cmd && data->n_cmd == 1 && is_builtins(data->cmd->cmd[0]))
-	{	
-		run_redirect(data, i);
-		exec_builtin(data);
+	if (!data->cmd->cmd && data->n_cmd == 1)
+	{
+		run_redirect(data, i, 0);
+		close(1);
+		close(0);
 		dup2(data->bkp_fd[0], 0);
+		close(data->bkp_fd[0]);
 		dup2(data->bkp_fd[1], 1);
+		close(data->bkp_fd[1]);
+	}
+	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
+	{	
+		exec_builtin(data);
+		close(1);
+		close(0);
+		dup2(data->bkp_fd[0], 0);
+		close(data->bkp_fd[0]);
+		dup2(data->bkp_fd[1], 1);
+		close(data->bkp_fd[1]);
 		return ;
 	}
 	while (data->rdct || data->cmd)
@@ -83,12 +95,14 @@ void	execute_pid(t_data *data, int i, int ord)
 		return ;
 	if (data->n_cmd - 1 != 0)
 		dup_pipe(i, ord, data);
-	run_redirect(data, i);
+	run_redirect(data, i, 1);
 	if (exec_builtin(data) == 0)
 	{
 		set_path_command(data);
 		execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
 		dup2(data->bkp_fd[1], 1);
+		close(1);
+		close(0);
 		perror(data->cmd->cmd[0]);
 		ft_clear_data(data);
 		exit(127);
@@ -114,17 +128,21 @@ void	dup_pipe(int i, int ord, t_data *data)
 	{
 		dup2(data->fd[1], 1);
 		close_fd(data, (data->n_cmd - 1) * 2);
+		close(data->fd[1]);
 	}
 	else if (i == data->n_cmd - 1)
 	{
 		dup2(data->fd[ord - 2], 0);
 		close_fd(data, (data->n_cmd - 1) * 2);
+		close(data->fd[ord - 2]);
 	}
 	else
 	{
 		dup2(data->fd[ord - 2], 0);
 		dup2(data->fd[ord + 1], 1);
 		close_fd(data, (data->n_cmd - 1) * 2);
+		close(data->fd[ord - 2]);
+		close(data->fd[ord + 1]);
 	}
 }
 

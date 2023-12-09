@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 19:17:15 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/08 20:23:39 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	cmd_pipe(t_data *data, int index)
 		if (tmp->type == PIPE || tmp->next == NULL)
 		{
 			finalizepipe_cmd(data, all_words, index);
-			if (tmp->next != NULL)
+			if (tmp->next != NULL && all_words != NULL)
 				all_words = fixwords(tmp->next, all_words);
 			index++;
 		}

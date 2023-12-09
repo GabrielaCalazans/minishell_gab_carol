@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 19:08:10 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/08 20:45:01 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ void	mini_start(t_data *data)
 	if (ft_strlen(data->prompt_in) != 0)
 		start_token(data);
 	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
+	{
+		
 		create_redirect_lst(data);
+	}
 	parsing_it(data);
 	data->n_cmd = command_count(data);
 	find_heredoc(data);
@@ -122,6 +125,31 @@ void	mini_start(t_data *data)
 	execution(data);
 	return ;
 }
+
+// void	prompt(t_data *data)
+// {
+// 	char	*aux;
+	
+// 	run_signals(1);
+// 	data->prompt_in = readline(PROMPT);
+// 	// if (aux == NULL)
+// 	// 	return ;
+// 	signal(SIGINT, SIG_IGN);
+// 	if (data->prompt_in == NULL)
+// 	{
+// 		ft_clear_data(data);
+// 		ft_clear_env(data->env_node);
+// 		rl_clear_history();
+// 		free(data);
+// 		exit(1);
+// 	}
+// 	aux = ft_strdup(data->prompt_in);
+// 	data->prompt_in = get_str_expand(data, data->prompt_in);
+// 	if (aux && *aux)
+// 	{
+// 		add_history(aux);
+// 	}
+// }
 
 void	prompt(t_data *data)
 {

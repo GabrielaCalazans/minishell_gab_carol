@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/07 03:40:11 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:18:49 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	find_heredoc(t_data *data)
 	}
 }
 
-void	run_redirect(t_data *data, int index)
+void	run_redirect(t_data *data, int index, int check)
 {
 	int	i;
 
@@ -41,13 +41,13 @@ void	run_redirect(t_data *data, int index)
 	while (i < data->rdct->nbr_rdcts)
 	{
 		if (data->rdct->redirects[i] == HEREDOC)
-			ft_input(HEREDOC_FILE, data);
+			ft_input(HEREDOC_FILE, data, check);
 		if (data->rdct->redirects[i] == APPEND)
-			ft_append(data->rdct->files[i], data);
+			ft_append(data->rdct->files[i], data, check);
 		if (data->rdct->redirects[i] == REDIRECT_IN)
-			ft_input(data->rdct->files[i], data);
+			ft_input(data->rdct->files[i], data, check);
 		if (data->rdct->redirects[i] == REDIRECT_OUT)
-			ft_output(data->rdct->files[i], data);
+			ft_output(data->rdct->files[i], data, check);
 		i++;
 	}
 }

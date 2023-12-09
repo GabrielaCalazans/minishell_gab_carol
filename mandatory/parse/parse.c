@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 19:06:45 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/08 20:27:39 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	**fixwords(t_token *tokens, char **words)
 	if (words)
 		freearray(words);
 	words = get_all_words(tokens);
-	if (!words)
-		words = ft_error_parse(5);
+	// if (!words)
+	// 	words = ft_error_parse(5);
 	return (words);
 }
 

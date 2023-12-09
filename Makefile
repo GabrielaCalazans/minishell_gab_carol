@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/12/07 14:00:43 by ckunimur         ###   ########.fr        #
+#    Updated: 2023/12/08 13:51:19 by gacalaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,8 @@ VALGRIND		=	valgrind \
 					--suppressions=readline.supp \
 					--keep-debuginfo=yes \
 					--trace-children=yes \
-					--trace-children-skip='*/bin/*,*/sbin/*'
+					--trace-children-skip='*/bin/*,*/sbin/*' \
+					--track-fds=yes
 
 # =================== Rules ==========================
 

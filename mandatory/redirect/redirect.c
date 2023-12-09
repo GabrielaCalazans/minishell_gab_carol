@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 15:16:51 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:28:30 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	processclean(t_token *temp, t_params *ptr)
 
 void	processredirect(t_token *temp, t_params *ptr)
 {
+	//printf("PROCESS i:%i, len:%i", ptr->i, ptr->len);
 	if (ptr->inside_pipe == 0)
 	{
 		ptr->redirects = malloc(sizeof (int) * (ptr->len + 1));
@@ -56,8 +57,10 @@ void	processredirect(t_token *temp, t_params *ptr)
 void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 {
 	ptr->len = has_rdrct_pipe(temp) + has_d_redirec_p(temp);
+	//printf("token:%s, len:%i\n", temp->token, temp->type);
 	while (temp)
 	{
+		//printf("ENTREI%s, type:%i\n", temp->token, temp->type);
 		if ((temp->type == PIPE || !has_pipe(temp)) && (!has_rdrct_pipe(temp)
 				&& !has_d_redirec_p(temp)))
 		{
@@ -68,6 +71,7 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 			if (temp->type == PIPE)
 				ptr->index++;
 		}
+		// if (temp->prev != NULL && temp->next)
 		temp = temp->next;
 		if (ptr->inside_pipe == 1)
 		{

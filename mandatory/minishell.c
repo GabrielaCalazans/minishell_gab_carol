@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 14:40:24 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/08 20:45:53 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		ft_clear_data(data);
 	}
+	// rl_clear_history();
+	// ft_clear_env(data->env_node);
+	// ft_clear_data(data);
+	printf("exit");
 	free(data);
-	ft_printf("exit\n");
 	return (0);
 }
 

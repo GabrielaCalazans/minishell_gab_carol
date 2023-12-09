@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:38:24 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 19:30:37 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:25:59 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,49 +99,57 @@ char	*get_name(t_token *tokens)
 	char	*aux;
 
 	tmp = tokens;
-	while (tmp && tmp->type != PIPE)
+	new = NULL;
+	aux = NULL;
+	//printf("0 NAME:%s", tokens->token);
+	if (tmp->type == QUOTED_WORD)
 	{
-		if (is_word(tmp->type, 2))
+		//printf("2 NAME:%s", tokens->token);
+		if (tmp)
 		{
-			if (tmp->type == QUOTED_WORD)
+			//printf("3 NAME:%s", tokens->token);
+			new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+			tmp = tmp->next;
+			while (tmp && is_word(tmp->type, 3))
 			{
-				if (tmp)
-				{
-					new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-					tmp = tmp->next;
-					while (tmp && is_word(tmp->type, 3))
-					{
-						aux = ft_strdup(new);
-						free(new);
-						new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
-						free(aux);
-						tmp = tmp->next;
-					}
-				}
-				else
-					new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-			}
-			else
-			{
-				if (tmp)
-				{
-					new = ft_strdup(tmp->token);
-					tmp = tmp->next;
-					while (tmp && is_word(tmp->type, 3))
-					{
-						aux = ft_strdup(new);
-						free(new);
-						new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
-						free(aux);
-						tmp = tmp->next;
-					}
-				}
-				else
-					new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+				//printf("4 NAME:%s", tokens->token);
+				aux = ft_strdup(new);
+				free(new);
+				new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
+				free(aux);
+				tmp = tmp->next;
 			}
 		}
-		if (tmp && tmp->type != PIPE)
-			tmp = tmp->next;
+		else
+		{
+			//printf("5 NAME:%s", tokens->token);
+			new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+		}
 	}
+	else
+	{
+		//printf("6 NAME:%s", tokens->token);
+		if (tmp)
+		{
+			//printf("7 NAME:%s", tokens->token);
+			new = ft_strdup(tmp->token);
+			tmp = tmp->next;
+			while (tmp && is_word(tmp->type, 3))
+			{
+				//printf("8 NAME:%s", tokens->token);
+				aux = ft_strdup(new);
+				free(new);
+				new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
+				free(aux);
+				tmp = tmp->next;
+			}
+		}
+		else
+		{
+			//printf("9 NAME:%s", tokens->token);
+			new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+		}
+	}
+	//printf("10 NAME:%s", tokens->token);
 	return (new);
 }
