@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 20:45:53 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:42:06 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char *argv[], char *envp[])
 		prompt(data);
 		if (ft_strlen(data->prompt_in) != 0)
 			mini_start(data);
-		else
+		else if (data->prompt_in[0] != '\0')
 		{
 			rl_clear_history();
 			ft_clear_env(data->env_node);
@@ -52,7 +52,7 @@ int	main(int argc, char *argv[], char *envp[])
 	// rl_clear_history();
 	// ft_clear_env(data->env_node);
 	// ft_clear_data(data);
-	printf("exit");
+	printf("exit\n");
 	free(data);
 	return (0);
 }

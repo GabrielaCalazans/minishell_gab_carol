@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_lst_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:33:10 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 16:34:10 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:53:09 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_clear_rdct(t_rdct **lst)
 		freearray(temp->files);
 		temp->files = NULL;
 		free(temp->redirects);
-		temp->redirects = NULL;
 		next = temp->next;
 		free(temp);
 		temp = next;

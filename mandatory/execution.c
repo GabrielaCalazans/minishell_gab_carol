@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 14:50:39 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 21:35:24 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	execution(t_data *data)
 	t_rdct	*tmp_rdcts;
 
 	status = 0;
+	i = 0;
 	pid = ft_calloc(data->n_cmd, sizeof(int));
 	config_pipe(data);
 	tmp_cmds = data->cmd;
 	tmp_rdcts = data->rdct;
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
-	i = 0;
 	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
 	{	
 		run_redirect(data, i, 0);
@@ -69,6 +69,7 @@ void	execution(t_data *data)
 		if (pid[i] == 0)
 		{
 			run_signals(2);
+			free(pid);
 			execute_pid(data, i, ord);
 		}
 		if (data->rdct && data->rdct->index == i)
@@ -85,7 +86,7 @@ void	execution(t_data *data)
 	if (WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);
 	free(pid);
-	free(data->fd);
+	// free(data->fd);
 	data->cmd = tmp_cmds;
 	data->rdct = tmp_rdcts;
 }
@@ -95,7 +96,7 @@ void	execute_pid(t_data *data, int i, int ord)
 	if (data->n_cmd - 1 != 0)
 		dup_pipe(i, ord, data);
 	run_redirect(data, i, 1);
-	if (exec_builtin(data) == 0 && data->cmd->cmd)
+	if (data->cmd->cmd && exec_builtin(data) == 0)
 	{
 		set_path_command(data);
 		execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
@@ -107,7 +108,16 @@ void	execute_pid(t_data *data, int i, int ord)
 		exit(127);
 	}
 	else
+	{
+		rl_clear_history();
+		ft_clear_env(data->env_node);
+		ft_clear_data(data);
+		// free(data);
+		// close(0);
+		// close(1);
+		// close(2);
 		exit(data->exit_code);
+	}
 }
 
 void	config_pipe(t_data *data)

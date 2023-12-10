@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 14:30:33 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 21:58:20 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void		ft_unset(t_data *data);
 //ENV
 t_env		*create_list(char *str);
 t_env		*node_last(t_env *list);
-t_env		*linkar(char *arg);
+t_env		*link(char *arg);
 void		link_end(t_env **list, t_env *current);
 void		create_env(t_data **data, char **envp);
 
@@ -240,7 +240,8 @@ void		*return_error(void);
 void		run_redirect(t_data *data, int index, int check);
 
 // DEALING REDIRECT LIST
-t_rdct		*createnode_rdct(char **files, int *redirects, int nbr_rdcts, int index);
+t_rdct		*createnode_rdct(char **files, int *redirects,
+				int nbr_rdcts, int index);
 t_rdct		*ft_last_rdct(t_rdct *lst);
 void		ft_add_back_rdct(t_rdct **lst, t_rdct *new);
 void		ft_add_front_rdct(t_rdct **lst, t_rdct *new);

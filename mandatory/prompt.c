@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 20:45:01 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 21:39:30 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,6 @@ void	prompt(t_data *data)
 	run_signals(1);
 	data->prompt_in = readline(PROMPT);
 	if (data->prompt_in == NULL)
-		return ;
-	aux = ft_strdup(data->prompt_in);
-	data->prompt_in = get_str_expand(data, data->prompt_in);
-	signal(SIGINT, SIG_IGN);
-	if (aux == NULL)
 	{
 		ft_clear_data(data);
 		ft_clear_env(data->env_node);
@@ -170,8 +165,21 @@ void	prompt(t_data *data)
 		free(data);
 		exit(1);
 	}
+		// return ;
+	aux = ft_strdup(data->prompt_in);
+	data->prompt_in = get_str_expand(data, data->prompt_in);
+	signal(SIGINT, SIG_IGN);
+	// if (aux == NULL)
+	// {
+		// ft_clear_data(data);
+		// ft_clear_env(data->env_node);
+		// rl_clear_history();
+		// free(data);
+		// exit(1);
+	// }
 	if (aux && *aux)
 	{
 		add_history(aux);
 	}
+	free(aux);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 19:44:35 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/02/23 17:12:02 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:36:29 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ char	*ft_strchr(const char *str, int c)
 
 	size = ft_strlen(str);
 	count = 0;
-	if (count == size)
-		return ((char *)str);
+	if ((unsigned char)c == '\0')
+		return (&((char *)str)[ft_strlen(str)]);
 	while (count < size)
 	{
 		if (str[count] == (unsigned char)c)

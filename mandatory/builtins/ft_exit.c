@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:26 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/06 21:14:49 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/09 21:35:50 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ void	ft_exit(t_data *data)
 	if (!data->cmd->cmd[1])
 	{
 		ft_clear_data(data);
+		ft_clear_env(data->env_node);
+		free(data);
+		rl_clear_history();
 		ft_printf("exit\n");
+		// close(0);
+		// close(1);
+		// close(2);
 		exit(err);
 	}
 	else if (data->cmd->cmd[2])
@@ -37,9 +43,12 @@ void	ft_exit(t_data *data)
 		}
 		else if (ft_strlen(data->cmd->cmd[1]) < 19)
 			err = ft_atoi(data->cmd->cmd[1]);
+		// printf("error: %li\n", err);
 		data->exit_code = err;
 		ft_clear_data(data);
 		ft_clear_env(data->env_node);
+		free(data);
+		rl_clear_history();
 		ft_printf("exit\n");
 		exit(err);
 	}

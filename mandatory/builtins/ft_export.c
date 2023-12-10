@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/05 16:56:26 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/09 21:56:33 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_env	*have_var(t_data *data, char *arg)
 
 void	create_var(t_data *data, char *arg)
 {
-	link_end(&data->env_node, linkar(arg));
+	link_end(&data->env_node, link(arg));
 }
 
 void	change_value(t_env *env_node, char *arg)
