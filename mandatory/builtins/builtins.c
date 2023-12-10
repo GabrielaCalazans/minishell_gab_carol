@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:03:30 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/06 17:29:51 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:52:53 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int	exec_builtin(t_data *data)
 	index = 0;
 	if (data->cmd)
 		index = is_builtins(data->cmd->cmd[0]);
-	if (index != 0) {
+	if (index != 0)
 		builtins[index].built_in(data);
-	}
 	return (index);
 }

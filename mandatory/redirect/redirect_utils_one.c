@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils_one.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:10:45 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 22:26:50 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:47:35 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ char	*find_file_name(t_token *tokens)
 	temp = tokens;
 	if (check_file_name(tokens))
 		return_error();
-	//printf("NAME:%s", tokens->token);
 	while (temp)
 	{
 		if (temp->type == C_SPACE || temp->type == H_TAB)

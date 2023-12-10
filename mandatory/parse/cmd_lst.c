@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:11:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 00:11:29 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:43:43 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,7 @@ t_cmd	*createnode_cmd(char **cmd, int index)
 		}
 	}
 	else
-	{
 		newnode->cmd = NULL;
-		// printf("\nENTREI\n");
-		// newnode->cmd = (char **)malloc(sizeof(char *));
-		// if (!newnode->cmd)
-		// {
-		// 	perror("malloc");
-		// 	free(newnode);
-		// 	return (NULL);
-		// }
-		// if (newnode->cmd)
-		// 	newnode->cmd[0] = (char *)NULL;
-	}
 	newnode->index = index;
 	newnode->next = NULL;
 	return (newnode);

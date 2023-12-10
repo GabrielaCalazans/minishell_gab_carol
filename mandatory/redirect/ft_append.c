@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_append.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:13:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/08 14:25:22 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:00:46 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_append(char *file, t_data *data, int check)
 {
-	//close(1);
 	if (access(file, F_OK) == 0)
 	{
 		if (access(file, W_OK) == 0)

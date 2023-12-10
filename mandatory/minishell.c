@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 13:23:28 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:14:48 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,23 @@ void	set_data(t_data *data, char *envp[])
 	data->bkp_fd[1] = dup(1);
 	data->exit_code = 0;
 	create_env(&data, envp);
+}
+
+void	mini_start(t_data *data)
+{
+	extern char	**environ;
+
+	data->env = environ;
+	get_path(data);
+	if (ft_strlen(data->prompt_in) != 0)
+		start_token(data);
+	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
+		create_redirect_lst(data);
+	parsing_it(data);
+	data->n_cmd = command_count(data);
+	find_heredoc(data);
+	execution(data);
+	return ;
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -57,15 +74,3 @@ int	main(int argc, char *argv[], char *envp[])
 	return (0);
 	(void)argv;
 }
-
-	// find_token(argv[1], &tokens);
-	// printf("MAIN:");
-	// printlist(tokens);
-	// find_token("dasda*");
-	// find_token("da s da *");
-	// find_token("? *");
-	// find_token("cat black dog > ");
-	// find_token("cat oi, tudo bem? > oi.txt");
-	// printf("%d\n", is_redirect('>'));
-	// printf("%d\n", is_redirect('<'));
-	// printf("%d\n", is_redirect('!'));

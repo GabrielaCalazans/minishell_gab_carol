@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printlist.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:51:16 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 00:02:52 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:27:47 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	printlst_rdct(t_rdct *head)
 	{
 		i = 0;
 		printf("NODE[%i]-RDCT: %p file: %p,index[%i]\n", j,
-		temp->redirects, temp->files, temp->index);
+			temp->redirects, temp->files, temp->index);
 		while (i < temp->nbr_rdcts)
 		{
 			printf("NODE[%i]-RDCT: %i file: %s, size str:%zu\tindex[%i]\n", j,

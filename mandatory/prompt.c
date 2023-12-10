@@ -6,16 +6,12 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 13:27:30 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:14:42 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// Adiciona o comando à história se não estiver vazio
-// add_history(tmp->prompt_input);
-// Agora 'input' contém o comando digitado pelo usuário
-// VERIFICAR LEAK DE MEMORIA??
 char	*create_command_path(char *path, char *command)
 {
 	char	*tmp1;
@@ -88,27 +84,6 @@ int	command_count(t_data *data)
 		tmp = tmp->next;
 	}
 	return (command);
-}
-
-void	mini_start(t_data *data)
-{
-	extern char	**environ;
-
-	data->env = environ;
-	get_path(data);
-	if (ft_strlen(data->prompt_in) != 0)
-		start_token(data);
-	if (has_redirect(data->tokens) || has_dredirect(data->tokens))
-	{
-		
-		create_redirect_lst(data);
-	}
-	parsing_it(data);
-	data->n_cmd = command_count(data);
-	find_heredoc(data);
-	// ABRAKADABRA printf("commands: %i\n", data->n_cmd);
-	execution(data);
-	return ;
 }
 
 void	prompt(t_data *data)
