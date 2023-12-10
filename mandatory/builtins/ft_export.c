@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/09 21:56:33 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 22:04:33 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_env	*have_var(t_data *data, char *arg)
 
 void	create_var(t_data *data, char *arg)
 {
-	link_end(&data->env_node, link(arg));
+	link_end(&data->env_node, link_ed(arg));
 }
 
 void	change_value(t_env *env_node, char *arg)

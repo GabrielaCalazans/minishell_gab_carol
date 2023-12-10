@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 21:58:20 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 22:04:14 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void		ft_unset(t_data *data);
 //ENV
 t_env		*create_list(char *str);
 t_env		*node_last(t_env *list);
-t_env		*link(char *arg);
+t_env		*link_ed(char *arg);
 void		link_end(t_env **list, t_env *current);
 void		create_env(t_data **data, char **envp);
 
