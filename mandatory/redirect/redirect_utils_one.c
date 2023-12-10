@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:10:45 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 14:47:35 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:41:11 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ char	*find_file_name(t_token *tokens)
 				temp = temp->next;
 		}
 		if (temp->type == QUOTED_WORD)
-			return (get_name(temp));
+			return (get_name(&temp));
 		if (temp->type == WORD || is_slashcase(temp->type)
 			|| is_special_case(temp->type, 2))
-			return (get_name(temp));
+			return (get_name(&temp));
 		temp = temp->next;
 	}
 	ft_error_redirect(4);

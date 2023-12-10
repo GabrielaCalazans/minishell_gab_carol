@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:38:24 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 15:03:22 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:42:45 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,54 +92,45 @@ char	*take_q_name(t_token *tokens)
 	return (name);
 }
 
-char	*get_name(t_token *tokens)
+char	*exec_trim_process(t_token **tmp, char *value)
 {
-	t_token	*tmp;
 	char	*new;
-	char	*aux;
+	char	*aux[2];
+
+	new = ft_strdup(value);
+	(*tmp) = (*tmp)->next;
+	while ((*tmp) && is_word((*tmp)->type, 3))
+	{
+		aux[0] = new;
+		aux[1] = trim_process((*tmp)->token, find_type((*tmp)->token));
+		new = ft_strjoin(aux[0], aux[1]);
+		if (aux[0])
+			free(aux[0]);
+		if (aux[1])
+			free(aux[1]);
+		(*tmp) = (*tmp)->next;
+	}
+	return (new);
+}
+
+char	*get_name(t_token **tokens)
+{
+	t_token	**tmp;
+	char	*new;
 
 	tmp = tokens;
 	new = NULL;
-	aux = NULL;
-	if (tmp->type == QUOTED_WORD)
+	if ((*tmp)->type == QUOTED_WORD)
 	{
-		if (tmp)
-		{
-			new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-			tmp = tmp->next;
-			while (tmp && is_word(tmp->type, 3))
-			{
-				aux = ft_strdup(new);
-				free(new);
-				new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
-				free(aux);
-				tmp = tmp->next;
-			}
-		}
-		else
-		{
-			new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-		}
+		new = trim_process((*tmp)->token, find_type((*tmp)->token));
+		if ((*tmp))
+			new = exec_trim_process(tmp, new);
 	}
 	else
 	{
-		if (tmp)
-		{
-			new = ft_strdup(tmp->token);
-			tmp = tmp->next;
-			while (tmp && is_word(tmp->type, 3))
-			{
-				aux = ft_strdup(new);
-				free(new);
-				new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
-				free(aux);
-				tmp = tmp->next;
-			}
-		}
-		else
-		{
-			new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-		}
+		new = trim_process((*tmp)->token, find_type((*tmp)->token));
+		if ((*tmp))
+			new = exec_trim_process(tmp, (*tmp)->token);
 	}
 	return (new);
 }

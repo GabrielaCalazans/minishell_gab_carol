@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/12/08 13:51:19 by gacalaza         ###   ########.fr        #
+#    Updated: 2023/12/10 16:38:03 by dapaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ LEXER += lexical_four.c lexical_five.c lexical_six.c
 
 PARSE = parse.c parse_utils.c parse_utils_two.c
 PARSE += case_zero.c case_one.c case_two.c case_three.c
-PARSE += cmd_lst.c cmd_lst_utils.c expansion_var.c
+PARSE += cmd_lst.c cmd_lst_utils.c expansion_var.c expansion_var_utils.c
 
 BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c
 BUILTINS += ft_cd.c ft_exit.c ft_unset.c

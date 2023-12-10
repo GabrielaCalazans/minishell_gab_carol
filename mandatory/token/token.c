@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 15:07:04 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:51:27 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*create_word_token(char *str, int len, int check)
 	if (len < 1 && check == 2)
 	{
 		ft_error_parse(3);
-		exit (1);
+		return (NULL);
 	}
 	token = ft_substr(str, 0, len);
 	if (check == 1)

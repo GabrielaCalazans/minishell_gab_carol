@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 15:20:47 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:41:02 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ int			ft_size(t_token *lst);
 void		ft_clear_token(t_token **lst);
 
 // REDIRECT
+char		*exec_trim_process(t_token **tmp, char *value);
 t_params	*inicialize_rd_params(void);
 t_token		*jump_white_spaces(t_token *tokens);
 void		create_redirect_lst(t_data *data);
@@ -225,7 +226,7 @@ int			asterick_case(t_token *tokens);
 int			check_file_name(t_token *tokens);
 char		*take_q_name(t_token *tokens);
 char		*find_file_name(t_token *tokens);
-char		*get_name(t_token *tokens);
+char		*get_name(t_token **tokens);
 int			first_check(t_token *tokens);
 size_t		quoted_word_size(t_token *tokens, int len);
 char		*get_name_quoted(t_token *tokens, char *name, int len);
@@ -270,6 +271,13 @@ char		*process_backs(char *str, int len);
 char		*process_vars(t_data *data, char *words);
 int			check_vars(t_data *data, char *words);
 char		*get_str_expand(t_data *data, char *str);
+
+// EXPASION
+int			has_variable(char c);
+char		*get_var_value(t_data *data, char *var, int *i);
+char		*join_strings(t_data *data, char *str, int *i, int must_increment);
+char		*dont_find_variable_expand(char *str, int *i, int *identify_break);
+void		check_quotes(int *flag, int *i, char *str);
 
 // PARSE LIST
 t_cmd		*createnode_cmd(char **cmd, int index);
