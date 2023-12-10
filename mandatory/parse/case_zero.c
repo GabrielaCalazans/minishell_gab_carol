@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:06:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 19:05:11 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:48:19 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**get_words(t_token *tokens, int len)
 					i++;
 				}
 				else
-					words[i++] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
+					words[i++] = trim_process(tmp->token, find_type(tmp->token));
 			}
 		}
 		if (tmp && tmp->type != PIPE)

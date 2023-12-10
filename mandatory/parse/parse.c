@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 14:51:37 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:41:03 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**treat_backs(char **words)
 	{
 		while (words[i] != NULL)
 		{
-			if (ft_strchr(words[i], '\\') != NULL)
+			if (ft_strchr(words[i], '\\') != NULL && *words[i] != '\0')
 				words[i] = process_backs(words[i], ft_strlen(words[i]));
 			i++;
 		}

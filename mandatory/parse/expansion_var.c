@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 19:38:14 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:49:51 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,24 @@ char	*get_var_value(t_data *data, char *var, int *i)
 		}
 		tmp = tmp->next;
 	}
-	return (NULL);
+	return (ft_strdup(""));
+}
+
+int	has_variable(char c)
+{
+	if (ft_isalpha(c))
+		return (TRUE);
+	if (ft_isdigit(c))
+		return (TRUE);
+	if (c == 95)
+		return (TRUE);
+	return (FALSE);
 }
 
 char	*get_str_expand(t_data *data, char *str)
 {
 	int		i;
+	int		j;
 	char	*value;
 	char	*new_str;
 	int		flag;
@@ -96,32 +108,29 @@ char	*get_str_expand(t_data *data, char *str)
 				value = get_var_value(data, &str[i], &i);
 				new_str = ft_strjoin(new_str, value);
 				str = ft_strjoin(new_str, &str[i]);
-				//i = 0;
-				// i += ft_strlen(value);
-				// str = get_str_expand_process(str, &str[i], value, i);
+			}
+			else
+			{
+				j = 0;
+				// printf("STR:\n%c\n",str[i]);
+				if (ft_isdigit(str[i + j]))
+					break ;
+				if (str[i] == 32 || str[i] == '\0')
+					break ;
+				while (has_variable(str[i + j]))
+					j++;
+				if (j > 0)
+					new_str = ft_substr(str, 0, i - 1);
+				else
+					new_str = ft_substr(str, 0, i);
+				i += j;
+				str = ft_strjoin(new_str, &str[i]);
 			}
 		}
 		i++;
 	}
 	return (str);
 }
-
-// int	has_variable(t_data *data, char *str)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (str[i] != '\0')
-// 	{
-// 		if (str[i] == '$')
-// 		{
-// 			if (can_expand(data, &str[++i]))
-// 				return (TRUE);
-// 		}
-// 		i++;
-// 	}
-// 	return (FALSE);
-// }
 
 // char	*process_vars(t_data *data, char *words)
 // {
@@ -147,8 +156,6 @@ char	*get_str_expand(t_data *data, char *str)
 // {
 
 // }
-
-
 
 char	*get_str_expand_process(char *str, char *var, char *value, int i)
 {

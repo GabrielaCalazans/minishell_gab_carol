@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/08 19:18:49 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:28:21 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_heredoc(char	*key_str, t_data *data)
 		bkpfd = dup(1);
 		str = readline("> ");
 		while ((str != NULL) && ft_strncmp(key_str, str,
-				(ft_strlen(key_str))) != 0)
+				(ft_strlen(key_str) + 1)) != 0)
 		{
 			dup2(fd, 1);
 			ft_printf("%s\n", str);

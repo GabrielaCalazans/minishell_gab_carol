@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 05:12:39 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:08:02 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ char	*ft_triming(char const *s1, char const *set)
 	size_t	size_s1;
 	char	*newstr;
 
+	if (ft_strlen(s1) == 0)
+	{
+		newstr = (char *)ft_calloc(sizeof(char), 1);
+		return (newstr);
+	}
 	size_s1 = ft_strlen(s1) - 1;
 	if (!s1 || !set)
 		return (NULL);
