@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 21:35:24 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:57:35 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ void	execution(t_data *data)
 	int		status;
 	int		i;
 	int		j;
-	int ord = 0;
+	int		ord;
 	t_cmd	*tmp_cmds;
 	t_rdct	*tmp_rdcts;
 
+	ord = 0;
 	status = 0;
 	i = 0;
 	pid = ft_calloc(data->n_cmd, sizeof(int));
@@ -77,7 +78,7 @@ void	execution(t_data *data)
 		if (data->cmd)
 			data->cmd = data->cmd->next;
 		i++;
-		ord+=2;
+		ord += 2;
 	}
 	j = 0;
 	close_fd(data, (data->n_cmd - 1) * 2);
@@ -86,7 +87,6 @@ void	execution(t_data *data)
 	if (WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);
 	free(pid);
-	// free(data->fd);
 	data->cmd = tmp_cmds;
 	data->rdct = tmp_rdcts;
 }
@@ -112,10 +112,6 @@ void	execute_pid(t_data *data, int i, int ord)
 		rl_clear_history();
 		ft_clear_env(data->env_node);
 		ft_clear_data(data);
-		// free(data);
-		// close(0);
-		// close(1);
-		// close(2);
 		exit(data->exit_code);
 	}
 }
@@ -156,4 +152,3 @@ void	dup_pipe(int i, int ord, t_data *data)
 		close(data->fd[ord + 1]);
 	}
 }
-

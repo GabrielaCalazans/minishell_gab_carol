@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 12:57:06 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:20:47 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,4 +322,8 @@ void		ft_clear_env(t_env *env_node);
 // SIGNAL
 void		run_signals(int sig);
 
+// PROMPT
+void		get_path(t_data *data);
+int			command_count(t_data *data);
+void		clean_exit(t_data *data);
 #endif

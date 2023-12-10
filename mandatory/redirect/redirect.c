@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 14:37:08 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:54:53 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	processclean(t_token *temp, t_params *ptr)
 
 void	processredirect(t_token *temp, t_params *ptr)
 {
-	//printf("PROCESS i:%i, len:%i", ptr->i, ptr->len);
 	if (ptr->inside_pipe == 0)
 	{
 		ptr->redirects = malloc(sizeof (int) * (ptr->len + 1));
@@ -57,10 +56,8 @@ void	processredirect(t_token *temp, t_params *ptr)
 void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 {
 	ptr->len = has_rdrct_pipe(temp) + has_d_redirec_p(temp);
-	//printf("token:%s, len:%i\n", temp->token, temp->type);
 	while (temp)
 	{
-		//printf("ENTREI%s, type:%i\n", temp->token, temp->type);
 		if ((temp->type == PIPE || !has_pipe(temp)) && (!has_rdrct_pipe(temp)
 				&& !has_d_redirec_p(temp)))
 		{
@@ -76,7 +73,6 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 			if (is_redrt_case(temp->type))
 				processredirect(temp, ptr);
 		}
-		// if (temp->prev != NULL && temp->next)
 		temp = temp->next;
 		if (ptr->inside_pipe == 1)
 		{
@@ -108,5 +104,4 @@ void	create_redirect_lst(t_data *data)
 	if (params->files)
 		params->files = freearray(params->files);
 	free(params);
-	// printlist(data->rdct, 2);
 }

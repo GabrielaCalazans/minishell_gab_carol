@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 17:49:51 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 16:07:07 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	is_fuckin_case(char c, char a)
 		return (1);
 	return (0);
 }
-
 
 int	can_expand(t_data *data, char *var)
 {
@@ -44,6 +43,8 @@ char	*get_var_value(t_data *data, char *var, int *i)
 	t_env	*tmp;
 
 	tmp = data->env_node;
+	if (*var == '?')
+		return (ft_itoa(data->exit_code));
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->var, var, ft_strlen(tmp->var)) == 0)
@@ -51,7 +52,7 @@ char	*get_var_value(t_data *data, char *var, int *i)
 			if (is_fuckin_case(var[ft_strlen(tmp->var)], tmp->var[ft_strlen(tmp->var)]))
 			{
 				(*i) += ft_strlen(tmp->var);
-				return (tmp->value);
+				return (ft_strdup(tmp->value));
 			}
 		}
 		tmp = tmp->next;
@@ -70,15 +71,65 @@ int	has_variable(char c)
 	return (FALSE);
 }
 
+char	*join_strings(t_data *data, char *str, int *i, int must_increment)
+{
+	char	*new_str[3];
+	char	*value;
+
+	new_str[0] = ft_substr(str, 0, (*i) - 1);
+	value = get_var_value(data, &str[(*i)], i);
+	new_str[1] = ft_strjoin(new_str[0], value);
+	if (must_increment)
+		++(*i);
+	new_str[2] = ft_strjoin(new_str[1], &str[(*i)]);
+	if (new_str[0])
+		free(new_str[0]);
+	if (new_str[1])
+		free(new_str[1]);
+	if (value)
+		free(value);
+	return (new_str[2]);
+}
+
+char	*dont_find_variable_expand(char *str, int *i, int *identify_break)
+{
+	int		j;
+	char	*new2;
+	char	*new1;
+
+	j = 0;
+	new2 = NULL;
+	new1 = NULL;
+	if ((ft_isdigit(str[(*i) + j])) || (str[(*i)] == 32 || str[(*i)] == '\0'))
+	{
+		*identify_break = 1;
+		return (str);
+	}
+	while (has_variable(str[(*i) + j]))
+		j++;
+	if (j > 0)
+		new1 = ft_substr(str, 0, (*i) - 1);
+	else
+		new1 = ft_substr(str, 0, (*i));
+	(*i) += j;
+	new2 = ft_strjoin(new1, &str[(*i)]);
+	if (new1)
+		free(new1);
+	if (str)
+		free(str);
+	return (new2);
+}
+
 char	*get_str_expand(t_data *data, char *str)
 {
 	int		i;
-	int		j;
 	char	*value;
 	char	*new_str;
 	int		flag;
 	char	*aux;
+	int		identify_break;
 
+	identify_break = 0;
 	value = NULL;
 	new_str = NULL;
 	i = 0;
@@ -95,37 +146,13 @@ char	*get_str_expand(t_data *data, char *str)
 		if (str[i] == '$')
 		{
 			if (str[++i] == '?')
-			{
-				new_str = ft_substr(str, 0, i - 1);
-				value = ft_itoa(data->exit_code);
-				new_str = ft_strjoin(new_str, value);
-				str = ft_strjoin(new_str, &str[++i]);
-				free(value);
-			}
+				str = join_strings(data, str, &i, 1);
 			else if (can_expand(data, &str[i]))
-			{
-				new_str = ft_substr(str, 0, i - 1);
-				value = get_var_value(data, &str[i], &i);
-				new_str = ft_strjoin(new_str, value);
-				str = ft_strjoin(new_str, &str[i]);
-			}
+				str = join_strings(data, str, &i, 0);
 			else
-			{
-				j = 0;
-				// printf("STR:\n%c\n",str[i]);
-				if (ft_isdigit(str[i + j]))
-					break ;
-				if (str[i] == 32 || str[i] == '\0')
-					break ;
-				while (has_variable(str[i + j]))
-					j++;
-				if (j > 0)
-					new_str = ft_substr(str, 0, i - 1);
-				else
-					new_str = ft_substr(str, 0, i);
-				i += j;
-				str = ft_strjoin(new_str, &str[i]);
-			}
+				str = dont_find_variable_expand(str, &i, &identify_break);
+			if (identify_break)
+				break ;
 		}
 		i++;
 	}

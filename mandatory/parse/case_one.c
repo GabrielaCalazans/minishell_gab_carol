@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_one.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:35:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 19:03:20 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:59:58 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	nb_words_r(t_token *tokens)
 				tmp = tmp->next;
 		}
 	}
-	//printf("\nwords:%i\n", );
 	return (words);
 }
 

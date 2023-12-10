@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils_two.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:38:24 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 22:25:59 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:03:22 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,14 @@ char	*get_name(t_token *tokens)
 	tmp = tokens;
 	new = NULL;
 	aux = NULL;
-	//printf("0 NAME:%s", tokens->token);
 	if (tmp->type == QUOTED_WORD)
 	{
-		//printf("2 NAME:%s", tokens->token);
 		if (tmp)
 		{
-			//printf("3 NAME:%s", tokens->token);
 			new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
 			tmp = tmp->next;
 			while (tmp && is_word(tmp->type, 3))
 			{
-				//printf("4 NAME:%s", tokens->token);
 				aux = ft_strdup(new);
 				free(new);
 				new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
@@ -122,21 +118,17 @@ char	*get_name(t_token *tokens)
 		}
 		else
 		{
-			//printf("5 NAME:%s", tokens->token);
 			new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
 		}
 	}
 	else
 	{
-		//printf("6 NAME:%s", tokens->token);
 		if (tmp)
 		{
-			//printf("7 NAME:%s", tokens->token);
 			new = ft_strdup(tmp->token);
 			tmp = tmp->next;
 			while (tmp && is_word(tmp->type, 3))
 			{
-				//printf("8 NAME:%s", tokens->token);
 				aux = ft_strdup(new);
 				free(new);
 				new = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
@@ -146,10 +138,8 @@ char	*get_name(t_token *tokens)
 		}
 		else
 		{
-			//printf("9 NAME:%s", tokens->token);
 			new = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
 		}
 	}
-	//printf("10 NAME:%s", tokens->token);
 	return (new);
 }
