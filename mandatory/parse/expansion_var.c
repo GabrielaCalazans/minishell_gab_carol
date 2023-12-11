@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 17:49:51 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:59:21 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	is_fuckin_case(char c, char a)
 	return (0);
 }
 
-
 int	can_expand(t_data *data, char *var)
 {
 	t_env	*tmp;
@@ -31,7 +30,8 @@ int	can_expand(t_data *data, char *var)
 	{
 		if (ft_strncmp(tmp->var, var, ft_strlen(tmp->var)) == 0)
 		{
-			if (is_fuckin_case(var[ft_strlen(tmp->var)], tmp->var[ft_strlen(tmp->var)]))
+			if (is_fuckin_case(var[ft_strlen(tmp->var)], \
+				tmp->var[ft_strlen(tmp->var)]))
 				return (1);
 		}
 		tmp = tmp->next;
@@ -44,14 +44,17 @@ char	*get_var_value(t_data *data, char *var, int *i)
 	t_env	*tmp;
 
 	tmp = data->env_node;
+	if (*var == '?')
+		return (ft_itoa(data->exit_code));
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->var, var, ft_strlen(tmp->var)) == 0)
 		{
-			if (is_fuckin_case(var[ft_strlen(tmp->var)], tmp->var[ft_strlen(tmp->var)]))
+			if (is_fuckin_case(var[ft_strlen(tmp->var)], \
+				tmp->var[ft_strlen(tmp->var)]))
 			{
 				(*i) += ft_strlen(tmp->var);
-				return (tmp->value);
+				return (ft_strdup(tmp->value));
 			}
 		}
 		tmp = tmp->next;
@@ -73,110 +76,27 @@ int	has_variable(char c)
 char	*get_str_expand(t_data *data, char *str)
 {
 	int		i;
-	int		j;
-	char	*value;
-	char	*new_str;
 	int		flag;
-	char	*aux;
+	int		identify_break;
 
-	value = NULL;
-	new_str = NULL;
 	i = 0;
 	flag = 0;
-	while (str[i] != '\0')
+	identify_break = 0;
+	while (str[i] && str[i] != '\0')
 	{
-		if (str[i] == '\"')
-			flag = flag ^ 1;
-		if (str[i] == '\'' && flag == 0)
-		{
-			aux = ft_strchr(&str[++i], '\'');
-			i += aux - &str[i] + 1;
-		}
+		check_quotes(&flag, &i, str);
 		if (str[i] == '$')
 		{
 			if (str[++i] == '?')
-			{
-				new_str = ft_substr(str, 0, i - 1);
-				value = ft_itoa(data->exit_code);
-				new_str = ft_strjoin(new_str, value);
-				str = ft_strjoin(new_str, &str[++i]);
-				free(value);
-			}
+				str = join_strings(data, str, &i, 1);
 			else if (can_expand(data, &str[i]))
-			{
-				new_str = ft_substr(str, 0, i - 1);
-				value = get_var_value(data, &str[i], &i);
-				new_str = ft_strjoin(new_str, value);
-				str = ft_strjoin(new_str, &str[i]);
-			}
+				str = join_strings(data, str, &i, 0);
 			else
-			{
-				j = 0;
-				// printf("STR:\n%c\n",str[i]);
-				if (ft_isdigit(str[i + j]))
-					break ;
-				if (str[i] == 32 || str[i] == '\0')
-					break ;
-				while (has_variable(str[i + j]))
-					j++;
-				if (j > 0)
-					new_str = ft_substr(str, 0, i - 1);
-				else
-					new_str = ft_substr(str, 0, i);
-				i += j;
-				str = ft_strjoin(new_str, &str[i]);
-			}
+				str = dont_find_variable_expand(str, &i, &identify_break);
+			if (identify_break)
+				break ;
 		}
 		i++;
 	}
 	return (str);
-}
-
-// char	*process_vars(t_data *data, char *words)
-// {
-// 	char	*aux;
-
-// 	if (has_variable(data, words))
-// 	{
-// 		aux = words;
-// 		words = get_str_expand(data, aux);
-// 		free(aux);
-// 	}
-// 	return (words);
-// }
-
-// int	check_vars(t_data *data, char *words)
-// {
-// 	if (has_variable(data, words))
-// 		return (TRUE);
-// 	return (FALSE);
-// }
-
-// char	*revise_str(t_data *data, char *word)
-// {
-
-// }
-
-char	*get_str_expand_process(char *str, char *var, char *value, int i)
-{
-	int		j;
-	int		k;
-	int		len;
-	char	*new_str;
-
-	k = 0;
-	j = 0;
-	len = ((ft_strlen(str) - ft_strlen(var)) + ft_strlen(value));
-	new_str = malloc(sizeof(char) * len + 1);
-	while (j++ < i && str[j] != '$')
-		new_str[j] = str[j];
-	if (ft_strncmp(&str[i], var, ft_strlen(var) + 1) == 0)
-	{
-		while (value[k] != '\0')
-			new_str[j++] = value[k++];
-	}
-	i += ft_strlen(var);
-	while (str[i] && str[i] != '\0')
-		new_str[j++] = str[i++];
-	return (new_str);
 }

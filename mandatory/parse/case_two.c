@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_two.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:05:41 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 19:04:45 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:56:21 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,10 @@ int	nb_words_dr(t_token *tokens)
 		}
 		if (tmp && tmp->next && is_drd_case(tmp->type))
 			tmp = move_two(tmp->next);
+		else if (tmp && tmp->next)
+			tmp = tmp->next;
 		else
-		{
-			if (tmp && tmp->next)
-				tmp = tmp->next;
-			else
-				break ;
-		}
+			break ;
 	}
 	return (words);
 }
@@ -75,7 +72,6 @@ int	nb_words_dr(t_token *tokens)
 char	**get_words_two(t_token *tokens)
 {
 	t_token	*tmp;
-	char	*aux;
 	char	**words;
 	int		i;
 	int		len;
@@ -85,60 +81,18 @@ char	**get_words_two(t_token *tokens)
 	if (len < 1)
 		return (NULL);
 	tmp = tokens;
-	words = malloc(sizeof(char **) * (len + 1));
+	words = ft_calloc(sizeof(char **), (len + 1));
 	if (!words)
 		ft_error_parse(1);
 	while (tmp && tmp->type != PIPE)
 	{
 		if (is_word(tmp->type, 2))
-		{
-			if (tmp->type == QUOTED_WORD)
-			{
-				if (tmp->next)
-				{
-					words[i] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-					tmp = tmp->next;
-					while (tmp && is_word(tmp->type, 3))
-					{
-						aux = ft_strdup(words[i]);
-						free(words[i]);
-						words[i] = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
-						free(aux);
-						tmp = tmp->next;
-					}
-					i++;
-				}
-				else
-					words[i++] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-			}
-			else
-			{
-				if (tmp->next)
-				{
-					words[i] = ft_strdup(tmp->token);
-					tmp = tmp->next;
-					while (tmp && is_word(tmp->type, 3))
-					{
-						aux = ft_strdup(words[i]);
-						free(words[i]);
-						words[i] = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
-						free(aux);
-						tmp = tmp->next;
-					}
-					i++;
-				}
-				else
-					words[i++] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-			}
-		}
-		if (is_drd_case(tmp->type))
+			words[i++] = get_name(&tmp);
+		if (tmp && is_drd_case(tmp->type))
 			tmp = move_two(tmp->next);
 		else
-		{
 			if (tmp && tmp->type != PIPE)
 				tmp = tmp->next;
-		}
 	}
-	words[i] = NULL;
 	return (words);
 }

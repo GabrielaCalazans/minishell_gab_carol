@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 21:35:24 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:42:32 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,72 +25,27 @@ void	close_fd(t_data *data, int n_fd)
 
 void	execution(t_data *data)
 {
-	int		*pid;
-	int		status;
-	int		i;
-	int		j;
-	int ord = 0;
+	int		len;
 	t_cmd	*tmp_cmds;
 	t_rdct	*tmp_rdcts;
 
-	status = 0;
-	i = 0;
-	pid = ft_calloc(data->n_cmd, sizeof(int));
+	len = 0;
 	config_pipe(data);
 	tmp_cmds = data->cmd;
 	tmp_rdcts = data->rdct;
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
-	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
-	{	
-		run_redirect(data, i, 0);
-		exec_builtin(data);
-		close(1);
-		close(0);
-		dup2(data->bkp_fd[0], 0);
-		close(data->bkp_fd[0]);
-		dup2(data->bkp_fd[1], 1);
-		close(data->bkp_fd[1]);
+	if (run_one_builtin(data))
 		return ;
-	}
-	if (!data->cmd->cmd && data->n_cmd == 1)
-	{
-		run_redirect(data, i, 0);
-		close(1);
-		close(0);
-		dup2(data->bkp_fd[0], 0);
-		close(data->bkp_fd[0]);
-		dup2(data->bkp_fd[1], 1);
-		close(data->bkp_fd[1]);
-	}
-	while (data->rdct || data->cmd)
-	{
-		pid[i] = fork();
-		if (pid[i] == 0)
-		{
-			run_signals(2);
-			free(pid);
-			execute_pid(data, i, ord);
-		}
-		if (data->rdct && data->rdct->index == i)
-			data->rdct = data->rdct->next;
-		if (data->cmd)
-			data->cmd = data->cmd->next;
-		i++;
-		ord+=2;
-	}
-	j = 0;
-	close_fd(data, (data->n_cmd - 1) * 2);
-	while (j < i)
-		waitpid(pid[j++], &status, 0);
-	if (WIFEXITED(status))
-		data->exit_code = WEXITSTATUS(status);
-	free(pid);
-	// free(data->fd);
+	data->pid = ft_calloc(data->n_cmd, sizeof(int));
+	run_only_redirects(data);
+	len = run_process(data, &data->pid);
+	run_waitpid(data, &data->pid, len);
 	data->cmd = tmp_cmds;
 	data->rdct = tmp_rdcts;
 }
 
+// Verificar se é um diretorio ou se o executavel pode ser executado.
 void	execute_pid(t_data *data, int i, int ord)
 {
 	if (data->n_cmd - 1 != 0)
@@ -104,7 +59,7 @@ void	execute_pid(t_data *data, int i, int ord)
 		close(1);
 		close(0);
 		perror(data->cmd->cmd[0]);
-		ft_clear_data(data);
+		clean_exit(data);
 		exit(127);
 	}
 	else
@@ -112,10 +67,6 @@ void	execute_pid(t_data *data, int i, int ord)
 		rl_clear_history();
 		ft_clear_env(data->env_node);
 		ft_clear_data(data);
-		// free(data);
-		// close(0);
-		// close(1);
-		// close(2);
 		exit(data->exit_code);
 	}
 }
@@ -156,4 +107,3 @@ void	dup_pipe(int i, int ord, t_data *data)
 		close(data->fd[ord + 1]);
 	}
 }
-

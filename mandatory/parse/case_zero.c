@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_zero.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:06:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 19:48:19 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:54:11 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,46 +51,7 @@ char	**get_words(t_token *tokens, int len)
 	while (tmp && tmp->type != PIPE)
 	{
 		if (is_word(tmp->type, 2))
-		{
-			if (tmp->type == QUOTED_WORD)
-			{
-				if (tmp->next)
-				{
-					words[i] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-					tmp = tmp->next;
-					while (tmp && is_word(tmp->type, 3))
-					{
-						aux = ft_strdup(words[i]);
-						free(words[i]);
-						words[i] = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
-						free(aux);
-						tmp = tmp->next;
-					}
-					i++;
-				}
-				else
-					words[i++] = ft_strdup(trim_process(tmp->token, find_type(tmp->token)));
-			}
-			else
-			{
-				if (tmp->next)
-				{
-					words[i] = ft_strdup(tmp->token);
-					tmp = tmp->next;
-					while (tmp && is_word(tmp->type, 3))
-					{
-						aux = ft_strdup(words[i]);
-						free(words[i]);
-						words[i] = ft_strjoin(aux, trim_process(tmp->token, find_type(tmp->token)));
-						free(aux);
-						tmp = tmp->next;
-					}
-					i++;
-				}
-				else
-					words[i++] = trim_process(tmp->token, find_type(tmp->token));
-			}
-		}
+			words[i++] = get_name(&tmp);
 		if (tmp && tmp->type != PIPE)
 			tmp = tmp->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/09 22:04:14 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:47:09 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_data
 	int				rdct_fds[2];
 	int				bkp_fd[2];
 	int				exit_code;
-	struct s_data	*next;
+	int				*pid;
 }			t_data;
 
 typedef struct s_prompt
@@ -157,6 +157,7 @@ void		ft_cd(t_data *data);
 void		ft_echo(t_data *data);
 void		ft_env(t_data *data);
 void		ft_exit(t_data *data);
+int			ft_str_isdigit(char *str);
 void		ft_export(t_data *data);
 void		ft_pwd(t_data *data);
 void		ft_unset(t_data *data);
@@ -176,6 +177,10 @@ void		create_var(t_data *data, char *arg);
 void		change_value(t_env *env_node, char *arg);
 
 //EXECUTION
+int			run_one_builtin(t_data *data);
+void		run_only_redirects(t_data *data);
+int			run_process(t_data *data, int **pid);
+void		run_waitpid(t_data *data, int **pid, int len);
 void		execution(t_data *data);
 void		set_path_command(t_data *data);
 void		config_pipe(t_data *data);
@@ -213,6 +218,7 @@ int			ft_size(t_token *lst);
 void		ft_clear_token(t_token **lst);
 
 // REDIRECT
+char		*exec_trim_process(t_token **tmp, char *value);
 t_params	*inicialize_rd_params(void);
 t_token		*jump_white_spaces(t_token *tokens);
 void		create_redirect_lst(t_data *data);
@@ -226,7 +232,7 @@ int			asterick_case(t_token *tokens);
 int			check_file_name(t_token *tokens);
 char		*take_q_name(t_token *tokens);
 char		*find_file_name(t_token *tokens);
-char		*get_name(t_token *tokens);
+char		*get_name(t_token **tokens);
 int			first_check(t_token *tokens);
 size_t		quoted_word_size(t_token *tokens, int len);
 char		*get_name_quoted(t_token *tokens, char *name, int len);
@@ -271,6 +277,13 @@ char		*process_backs(char *str, int len);
 char		*process_vars(t_data *data, char *words);
 int			check_vars(t_data *data, char *words);
 char		*get_str_expand(t_data *data, char *str);
+
+// EXPASION
+int			has_variable(char c);
+char		*get_var_value(t_data *data, char *var, int *i);
+char		*join_strings(t_data *data, char *str, int *i, int must_increment);
+char		*dont_find_variable_expand(char *str, int *i, int *identify_break);
+void		check_quotes(int *flag, int *i, char *str);
 
 // PARSE LIST
 t_cmd		*createnode_cmd(char **cmd, int index);
@@ -323,4 +336,8 @@ void		ft_clear_env(t_env *env_node);
 // SIGNAL
 void		run_signals(int sig);
 
+// PROMPT
+void		get_path(t_data *data);
+int			command_count(t_data *data);
+void		clean_exit(t_data *data);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/09 19:28:21 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:09:57 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	run_redirect(t_data *data, int index, int check)
 	int	i;
 
 	i = 0;
-	if (data->rdct == NULL || data->rdct->files == NULL || data->rdct->index != index)
+	if (data->rdct == NULL || data->rdct->files == NULL \
+		|| data->rdct->index != index)
 		return ;
 	while (i < data->rdct->nbr_rdcts)
 	{
@@ -52,11 +53,17 @@ void	run_redirect(t_data *data, int index, int check)
 	}
 }
 
-void	ft_heredoc(char	*key_str, t_data *data)
+/*
+1. colocar sinais heredoc
+2. excluir arquivo heredoc na hora da edição e execução
+3. implementar execução de multiplos heredoc(s)
+4. implementar exit code pro heredoc
+*/
+// Criar o exit code do heredoc
+void	ft_heredoc(char	*ks, t_data *data)
 {
 	char	*str;
-	int		fd;
-	int		bkpfd;
+	int		fds[2];
 	int		pid;
 	int		status;
 
@@ -65,15 +72,14 @@ void	ft_heredoc(char	*key_str, t_data *data)
 	if (pid == 0)
 	{
 		run_signals(1);
-		fd = open(HEREDOC_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		bkpfd = dup(1);
+		fds[0] = open(HEREDOC_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		fds[1] = dup(1);
 		str = readline("> ");
-		while ((str != NULL) && ft_strncmp(key_str, str,
-				(ft_strlen(key_str) + 1)) != 0)
+		while ((str != NULL) && ft_strncmp(ks, str, (ft_strlen(ks) + 1)))
 		{
-			dup2(fd, 1);
+			dup2(fds[0], 1);
 			ft_printf("%s\n", str);
-			dup2(bkpfd, 1);
+			dup2(fds[1], 1);
 			free(str);
 			str = readline("> ");
 		}
@@ -90,9 +96,3 @@ void	finish_fork(t_data *data)
 	free(data);
 	exit(0);
 }
-/*
-1. colocar sinais heredoc
-2. excluir arquivo heredoc na hora da edição e execução
-3. implementar execução de multiplos heredoc(s)
-4. implementar exit code pro heredoc
-*/

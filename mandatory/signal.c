@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 02:32:53 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/04 17:56:23 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:28:56 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	restore_prompt(int sig)
 {
-	// g_ret = 130;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -24,14 +23,12 @@ void	restore_prompt(int sig)
 
 void	ctrl_c(int sig)
 {
-	// g_ret = 130;
 	write(1, "\n", 1);
 	(void)sig;
 }
 
 void	back_slash(int sig)
 {
-	// g_ret = 131;
 	(void)sig;
 }
 

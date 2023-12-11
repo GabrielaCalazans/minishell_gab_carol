@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils_one.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:10:45 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 22:26:50 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:41:11 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ char	*find_file_name(t_token *tokens)
 	temp = tokens;
 	if (check_file_name(tokens))
 		return_error();
-	//printf("NAME:%s", tokens->token);
 	while (temp)
 	{
 		if (temp->type == C_SPACE || temp->type == H_TAB)
@@ -64,10 +63,10 @@ char	*find_file_name(t_token *tokens)
 				temp = temp->next;
 		}
 		if (temp->type == QUOTED_WORD)
-			return (get_name(temp));
+			return (get_name(&temp));
 		if (temp->type == WORD || is_slashcase(temp->type)
 			|| is_special_case(temp->type, 2))
-			return (get_name(temp));
+			return (get_name(&temp));
 		temp = temp->next;
 	}
 	ft_error_redirect(4);

@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/09 22:04:33 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/10 22:01:00 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	only_export(t_data *data, t_env **env_node)
+{
+	if (!data->cmd->cmd[1])
+	{
+		while ((*env_node) != NULL)
+		{
+			if ((*env_node)->value)
+				ft_printf("declare -x %s=%s\n", (*env_node)->var, \
+				(*env_node)->value);
+			else
+				ft_printf("declare -x %s\n", (*env_node)->var);
+			(*env_node) = (*env_node)->next;
+		}
+		return (1);
+	}
+	return (0);
+}
 
 void	ft_export(t_data *data)
 {
@@ -21,18 +39,8 @@ void	ft_export(t_data *data)
 	i = 1;
 	env_node = data->env_node;
 	tmp = data->cmd;
-	if (!data->cmd->cmd[1])
-	{
-		while (env_node != NULL)
-		{
-			if (env_node->value)
-				ft_printf("declare -x %s=%s\n", env_node->var, env_node->value);
-			else
-				ft_printf("declare -x %s\n", env_node->var);
-			env_node = env_node->next;
-		}
+	if (only_export(data, &env_node))
 		return ;
-	}
 	if (is_valid_var(data))
 	{
 		perror("invalid var\n");
@@ -48,32 +56,6 @@ void	ft_export(t_data *data)
 			change_value(env_node, tmp->cmd[i]);
 		i++;
 	}
-}
-
-int	is_valid_var(t_data	*data)
-{
-	int		i;
-	int		j;
-
-	i = 1;
-	j = 0;
-	while (data->cmd->cmd[i])
-	{
-		if ((data->cmd->cmd[i][0] >= '0' && data->cmd->cmd[i][0] <= '9') || data->cmd->cmd[i][0] == '=')
-			return (1);
-		while (data->cmd->cmd[i][j] && data->cmd->cmd[i][j] != '=')
-		{
-			if ((data->cmd->cmd[i][j] >= 'A' && data->cmd->cmd[i][j] <= 'Z') \
-				|| (data->cmd->cmd[i][j] >= 'a' && data->cmd->cmd[i][j] <= 'z') \
-				|| (data->cmd->cmd[i][j] >= '0' && data->cmd->cmd[i][j] <= '9') \
-				|| data->cmd->cmd[i][j] == '_')
-				j++;
-			else
-				return (1);
-		}
-		i++;
-	}
-	return (0);
 }
 
 t_env	*have_var(t_data *data, char *arg)
