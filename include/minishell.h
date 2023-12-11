@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 20:41:02 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 22:27:16 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,10 @@ void		create_var(t_data *data, char *arg);
 void		change_value(t_env *env_node, char *arg);
 
 //EXECUTION
+int			run_one_builtin(t_data *data);
+void		run_only_redirects(t_data *data);
+int			run_process(t_data *data, int **pid);
+void		run_waitpid(t_data *data, int **pid, int len);
 void		execution(t_data *data);
 void		set_path_command(t_data *data);
 void		config_pipe(t_data *data);

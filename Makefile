@@ -6,7 +6,7 @@
 #    By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/12/10 22:01:47 by dapaulin         ###   ########.fr        #
+#    Updated: 2023/12/10 22:26:05 by dapaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME =	minishell
 
 # ======= Sources ========
-SRCS = minishell.c prompt.c execution.c printlist.c signal.c print_array.c
+SRCS = minishell.c prompt.c execution.c printlist.c signal.c print_array.c run_process.c
 
 TOKEN = token.c token_utils_one.c token_utils_two.c token_utils_three.c
 TOKEN += token_lst.c token_lst_utils.c

@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 22:13:00 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 22:30:48 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,36 +23,14 @@ void	close_fd(t_data *data, int n_fd)
 		close(data->fd[i++]);
 }
 
-int	run_one_builtin(t_data *data)
-{
-	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
-	{	
-		run_redirect(data, 0, 0);
-		exec_builtin(data);
-		close(1);
-		close(0);
-		dup2(data->bkp_fd[0], 0);
-		close(data->bkp_fd[0]);
-		dup2(data->bkp_fd[1], 1);
-		close(data->bkp_fd[1]);
-		return (1);
-	}
-	return(0);
-}
-
 void	execution(t_data *data)
 {
 	int		*pid;
-	int		status;
-	int		i;
-	int		j;
-	int		ord;
+	int		len;
 	t_cmd	*tmp_cmds;
 	t_rdct	*tmp_rdcts;
 
-	ord = 0;
-	status = 0;
-	i = 0;
+	len = 0;
 	pid = ft_calloc(data->n_cmd, sizeof(int));
 	config_pipe(data);
 	tmp_cmds = data->cmd;
@@ -61,43 +39,14 @@ void	execution(t_data *data)
 	data->bkp_fd[0] = dup(0);
 	if (run_one_builtin(data))
 		return ;
-	if (!data->cmd->cmd && data->n_cmd == 1)
-	{
-		run_redirect(data, i, 0);
-		close(1);
-		close(0);
-		dup2(data->bkp_fd[0], 0);
-		close(data->bkp_fd[0]);
-		dup2(data->bkp_fd[1], 1);
-		close(data->bkp_fd[1]);
-	}
-	while (data->rdct || data->cmd)
-	{
-		pid[i] = fork();
-		if (pid[i] == 0)
-		{
-			run_signals(2);
-			free(pid);
-			execute_pid(data, i, ord);
-		}
-		if (data->rdct && data->rdct->index == i)
-			data->rdct = data->rdct->next;
-		if (data->cmd)
-			data->cmd = data->cmd->next;
-		i++;
-		ord += 2;
-	}
-	j = 0;
-	close_fd(data, (data->n_cmd - 1) * 2);
-	while (j < i)
-		waitpid(pid[j++], &status, 0);
-	if (WIFEXITED(status))
-		data->exit_code = WEXITSTATUS(status);
-	free(pid);
+	run_only_redirects(data);
+	len = run_process(data, &pid);
+	run_waitpid(data, &pid, len);
 	data->cmd = tmp_cmds;
 	data->rdct = tmp_rdcts;
 }
 
+// Verificar se é um diretorio ou se o executavel pode ser executado.
 void	execute_pid(t_data *data, int i, int ord)
 {
 	if (data->n_cmd - 1 != 0)
