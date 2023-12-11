@@ -6,7 +6,7 @@
 #    By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/12/10 16:38:03 by dapaulin         ###   ########.fr        #
+#    Updated: 2023/12/10 22:01:47 by dapaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ PARSE += case_zero.c case_one.c case_two.c case_three.c
 PARSE += cmd_lst.c cmd_lst_utils.c expansion_var.c expansion_var_utils.c
 
 BUILTINS = builtins.c ft_pwd.c ft_echo.c ft_env.c ft_export.c
-BUILTINS += ft_cd.c ft_exit.c ft_unset.c
+BUILTINS += ft_cd.c ft_exit.c ft_unset.c builtins_utils.c
 
 CLEAR_DATA = clear_data.c
 

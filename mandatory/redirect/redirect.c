@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 14:54:53 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 22:02:42 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,8 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 			if (temp->type == PIPE)
 				ptr->index++;
 		}
-		else
-		{
-			if (is_redrt_case(temp->type))
-				processredirect(temp, ptr);
-		}
+		else if (is_redrt_case(temp->type))
+			processredirect(temp, ptr);
 		temp = temp->next;
 		if (ptr->inside_pipe == 1)
 		{

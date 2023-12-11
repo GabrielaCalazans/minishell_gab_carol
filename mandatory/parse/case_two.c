@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:05:41 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 20:59:08 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:56:21 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,10 @@ int	nb_words_dr(t_token *tokens)
 		}
 		if (tmp && tmp->next && is_drd_case(tmp->type))
 			tmp = move_two(tmp->next);
+		else if (tmp && tmp->next)
+			tmp = tmp->next;
 		else
-		{
-			if (tmp && tmp->next)
-				tmp = tmp->next;
-			else
-				break ;
-		}
+			break ;
 	}
 	return (words);
 }

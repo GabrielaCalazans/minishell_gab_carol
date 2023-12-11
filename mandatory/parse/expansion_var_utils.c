@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 16:39:46 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:59:53 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,26 @@ void	check_quotes(int *flag, int *i, char *str)
 		aux = ft_strchr(&str[++(*i)], '\'');
 		*i += aux - &str[(*i)] + 1;
 	}
+}
+
+char	*get_name(t_token **tokens)
+{
+	t_token	**tmp;
+	char	*new;
+
+	tmp = tokens;
+	new = NULL;
+	if ((*tmp)->type == QUOTED_WORD)
+	{
+		new = trim_process((*tmp)->token, find_type((*tmp)->token));
+		if ((*tmp))
+			new = exec_trim_process(tmp, new);
+	}
+	else
+	{
+		new = trim_process((*tmp)->token, find_type((*tmp)->token));
+		if ((*tmp))
+			new = exec_trim_process(tmp, (*tmp)->token);
+	}
+	return (new);
 }

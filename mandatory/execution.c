@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 14:57:35 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/10 22:13:00 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@ void	close_fd(t_data *data, int n_fd)
 		return ;
 	while (i <= n_fd)
 		close(data->fd[i++]);
+}
+
+int	run_one_builtin(t_data *data)
+{
+	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
+	{	
+		run_redirect(data, 0, 0);
+		exec_builtin(data);
+		close(1);
+		close(0);
+		dup2(data->bkp_fd[0], 0);
+		close(data->bkp_fd[0]);
+		dup2(data->bkp_fd[1], 1);
+		close(data->bkp_fd[1]);
+		return (1);
+	}
+	return(0);
 }
 
 void	execution(t_data *data)
@@ -42,18 +59,8 @@ void	execution(t_data *data)
 	tmp_rdcts = data->rdct;
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
-	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
-	{	
-		run_redirect(data, i, 0);
-		exec_builtin(data);
-		close(1);
-		close(0);
-		dup2(data->bkp_fd[0], 0);
-		close(data->bkp_fd[0]);
-		dup2(data->bkp_fd[1], 1);
-		close(data->bkp_fd[1]);
+	if (run_one_builtin(data))
 		return ;
-	}
 	if (!data->cmd->cmd && data->n_cmd == 1)
 	{
 		run_redirect(data, i, 0);
