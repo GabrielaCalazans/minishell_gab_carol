@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_var_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 21:59:53 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:12:27 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ char	*get_name(t_token **tokens)
 	{
 		new = trim_process((*tmp)->token, find_type((*tmp)->token));
 		if ((*tmp))
+		{
+			free(new);
 			new = exec_trim_process(tmp, (*tmp)->token);
+		}
 	}
 	return (new);
 }

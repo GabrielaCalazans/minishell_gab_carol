@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 19:44:03 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:45:04 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void	set_data(t_data *data, char *envp[])
 	data->env_node = NULL;
 	data->rdct_fds[0] = -1;
 	data->rdct_fds[1] = -1;
-	data->bkp_fd[0] = dup(0);
-	data->bkp_fd[1] = dup(1);
+	data->bkp_fd[0] = -1;
+	data->bkp_fd[1] = -1;
 	data->exit_code = 0;
+	data->pid = NULL;
 	create_env(&data, envp);
 }
 

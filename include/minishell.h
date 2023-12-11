@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 22:27:16 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:47:09 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_data
 	int				rdct_fds[2];
 	int				bkp_fd[2];
 	int				exit_code;
+	int				*pid;
 }			t_data;
 
 typedef struct s_prompt
@@ -156,6 +157,7 @@ void		ft_cd(t_data *data);
 void		ft_echo(t_data *data);
 void		ft_env(t_data *data);
 void		ft_exit(t_data *data);
+int			ft_str_isdigit(char *str);
 void		ft_export(t_data *data);
 void		ft_pwd(t_data *data);
 void		ft_unset(t_data *data);

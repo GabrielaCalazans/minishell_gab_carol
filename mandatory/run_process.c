@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:25:12 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/12/10 22:28:37 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:23:14 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	run_one_builtin(t_data *data)
 		close(1);
 		close(0);
 		dup2(data->bkp_fd[0], 0);
-		close(data->bkp_fd[0]);
 		dup2(data->bkp_fd[1], 1);
+		close(data->bkp_fd[0]);
 		close(data->bkp_fd[1]);
 		return (1);
 	}
@@ -56,8 +56,9 @@ int	run_process(t_data *data, int **pid)
 		if ((*pid)[i] == 0)
 		{
 			run_signals(2);
-			free((*pid));
 			execute_pid(data, i, ord);
+			ft_clear_env(data->env_node);
+			free((*pid));
 		}
 		if (data->rdct && data->rdct->index == i)
 			data->rdct = data->rdct->next;

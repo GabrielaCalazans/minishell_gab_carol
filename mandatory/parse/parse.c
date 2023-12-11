@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 14:21:27 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:20:37 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ char	**get_all_words(t_token *tokens)
 
 char	**treat_backs(char **words)
 {
-	int	i;
+	int		i;
+	char	*temp;
 
 	i = 0;
 	if (words)
@@ -71,7 +72,11 @@ char	**treat_backs(char **words)
 		while (words[i] != NULL)
 		{
 			if (ft_strchr(words[i], '\\') != NULL && *words[i] != '\0')
+			{
+				temp = words[i];
 				words[i] = process_backs(words[i], ft_strlen(words[i]));
+				free(temp);
+			}
 			i++;
 		}
 	}

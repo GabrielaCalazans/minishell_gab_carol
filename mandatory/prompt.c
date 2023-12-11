@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 15:14:42 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:40:41 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	set_path_command(t_data *data)
 		command_path = create_command_path(path[i], data->cmd->cmd[0]);
 		if (command_path)
 		{
-			printf("%s", data->cmd->cmd[0]);
 			if (data->cmd->cmd[0])
 				free(data->cmd->cmd[0]);
 			data->cmd->cmd[0] = command_path;
