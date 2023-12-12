@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 02:59:06 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/12 05:09:58 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ char	*dont_find_variable_expand(char *str, int *i, int *identify_break)
 	new_str[1] = ft_strjoin(new_str[0], &str[(*i)]);
 	if (new_str[0])
 		free(new_str[0]);
-	if (str)
-		free(str);
 	return (new_str[1]);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/11 22:55:43 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/12 09:01:57 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*get_str_expand(t_data *data, char *str)
 	int		i;
 	int		flag;
 	int		identify_break;
+	char	*aux;
 
 	i = 0;
 	flag = 0;
@@ -87,12 +88,22 @@ char	*get_str_expand(t_data *data, char *str)
 		check_quotes(&flag, &i, str);
 		if (str[i] == '$')
 		{
-			if (str[++i] == '?')
-				str = join_strings(data, str, &i, 1);
-			else if (can_expand(data, &str[i]))
-				str = join_strings(data, str, &i, 0);
+			aux = str;
+			if (aux[++i] == '?')
+			{
+				str = join_strings(data, aux, &i, 1);
+				if (aux)
+					free(aux);
+				i = 0;
+			}
+			else if (can_expand(data, &aux[i]))
+			{
+				str = join_strings(data, aux, &i, 0);
+				if (aux)
+					free(aux);
+			}
 			else
-				str = dont_find_variable_expand(str, &i, &identify_break);
+				str = dont_find_variable_expand(aux, &i, &identify_break);
 			if (identify_break)
 				break ;
 		}

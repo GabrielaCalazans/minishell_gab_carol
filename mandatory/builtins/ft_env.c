@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:06 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/05 15:40:35 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/12 06:04:36 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	ft_env(t_data *data)
 		ft_printf("%s=%s\n", env_node->var, env_node->value);
 		env_node = env_node->next;
 	}
+	data->exit_code = 0;
 }

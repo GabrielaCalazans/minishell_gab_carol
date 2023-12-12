@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_append.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:13:16 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/10 15:00:46 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 06:34:58 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_append(char *file, t_data *data, int check)
+int	ft_append(char *file, t_data *data, int check)
 {
 	if (access(file, F_OK) == 0)
 	{
@@ -24,7 +24,7 @@ void	ft_append(char *file, t_data *data, int check)
 			if (check == 1)
 				exit(1);
 			data->exit_code = 1;
-			return ;
+			return (1);
 		}
 	}
 	else
@@ -35,8 +35,9 @@ void	ft_append(char *file, t_data *data, int check)
 		if (check == 1)
 			exit(1);
 		data->exit_code = 1;
-		return ;
+		return (1);
 	}
 	dup2(data->rdct_fds[1], 1);
 	close(data->rdct_fds[1]);
+	return (0);
 }

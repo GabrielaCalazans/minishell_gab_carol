@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 01:35:03 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/12 04:53:46 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	set_data(t_data *data, char *envp[])
 	data->n_cmd = 0;
 	data->cmd = NULL;
 	data->rdct = NULL;
+	data->head_cmd = NULL;
+	data->head_rdct = NULL;
 	data->tokens = NULL;
 	data->env_node = NULL;
 	data->rdct_fds[0] = -1;

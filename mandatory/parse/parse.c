@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:42:19 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 03:55:06 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/12 06:22:51 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ char	**treat_backs(char **words)
 	return (words);
 }
 
-	// data->cmd = ft_arraydup(all_words);
 void	parsing_it(t_data *data)
 {
 	char	**all_words;

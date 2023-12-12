@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:25:12 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/12/12 01:41:15 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/12 06:41:59 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	run_one_builtin(t_data *data)
 {
 	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
 	{	
-		run_redirect(data, 0, 0);
-		exec_builtin(data);
+		if (!run_redirect(data, 0, 0))
+			exec_builtin(data);
 		close(1);
 		close(0);
 		dup2(data->bkp_fd[0], 0);

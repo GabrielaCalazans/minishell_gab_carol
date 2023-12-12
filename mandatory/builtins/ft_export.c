@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/10 22:01:00 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 06:06:01 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int	only_export(t_data *data, t_env **env_node)
 				ft_printf("declare -x %s\n", (*env_node)->var);
 			(*env_node) = (*env_node)->next;
 		}
+		data->exit_code = 1;
 		return (1);
 	}
+	data->exit_code = 0;
 	return (0);
 }
 
@@ -56,6 +58,7 @@ void	ft_export(t_data *data)
 			change_value(env_node, tmp->cmd[i]);
 		i++;
 	}
+	data->exit_code = 0;
 }
 
 t_env	*have_var(t_data *data, char *arg)

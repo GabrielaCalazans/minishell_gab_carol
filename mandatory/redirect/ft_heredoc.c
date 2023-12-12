@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/10 21:09:57 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 07:06:01 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	find_heredoc(t_data *data)
 	}
 }
 
-void	run_redirect(t_data *data, int index, int check)
+int	run_redirect(t_data *data, int index, int check)
 {
 	int	i;
 
 	i = 0;
 	if (data->rdct == NULL || data->rdct->files == NULL \
 		|| data->rdct->index != index)
-		return ;
+		return (0);
 	while (i < data->rdct->nbr_rdcts)
 	{
 		if (data->rdct->redirects[i] == HEREDOC)
@@ -51,6 +51,7 @@ void	run_redirect(t_data *data, int index, int check)
 			ft_output(data->rdct->files[i], data, check);
 		i++;
 	}
+	return (data->exit_code);
 }
 
 /*

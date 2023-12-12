@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 02:52:08 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/12 06:34:28 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,9 +190,9 @@ void		execute_pid(t_data *data, int i, int ord);
 
 //HEREDOC
 void		ft_heredoc(char	*key_str, t_data *data);
-void		ft_input(char *file, t_data *data, int check);
-void		ft_output(char *file, t_data *data, int check);
-void		ft_append(char *file, t_data *data, int check);
+int			ft_input(char *file, t_data *data, int check);
+int			ft_output(char *file, t_data *data, int check);
+int			ft_append(char *file, t_data *data, int check);
 void		find_heredoc(t_data *data);
 void		finish_fork(t_data *data);
 
@@ -245,7 +245,7 @@ char		**ft_dup_size(char **array, int size);
 int			ft_array_size(char **array);
 int			*ft_intdup(int *array, int size);
 void		*return_error(void);
-void		run_redirect(t_data *data, int index, int check);
+int			run_redirect(t_data *data, int index, int check);
 
 // DEALING REDIRECT LIST
 t_rdct		*createnode_rdct(char **files, int *redirects,
