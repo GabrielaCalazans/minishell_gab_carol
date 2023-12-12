@@ -3,30 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:26 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/10 15:25:26 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 01:17:47 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	clean_exit(t_data *data)
+void	clean_exit(t_data *data, int check)
 {
+	int	exit_code;
+
+	exit_code = data->exit_code;
 	ft_clear_data(data);
 	ft_clear_env(data->env_node);
 	free(data);
 	rl_clear_history();
-	ft_printf("exit\n");
-	exit(data->exit_code);
+	if (check)
+		ft_printf("exit\n");
+	exit(exit_code);
 }
 
 void	ft_exit(t_data *data)
 {
 	data->exit_code = 1;
 	if (!data->cmd->cmd[1])
-		clean_exit(data);
+		clean_exit(data, 1);
 	else if (data->cmd->cmd[2])
 	{
 		perror("exit: too many arguments\n");
@@ -41,6 +45,6 @@ void	ft_exit(t_data *data)
 		}
 		else if (ft_strlen(data->cmd->cmd[1]) < 19)
 			data->exit_code = ft_atoi(data->cmd->cmd[1]);
-		clean_exit(data);
+		clean_exit(data, 1);
 	}
 }

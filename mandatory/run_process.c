@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:25:12 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/12/10 22:28:37 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 01:41:15 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	run_process(t_data *data, int **pid)
 		if ((*pid)[i] == 0)
 		{
 			run_signals(2);
-			free((*pid));
 			execute_pid(data, i, ord);
 		}
 		if (data->rdct && data->rdct->index == i)
@@ -80,5 +79,4 @@ void	run_waitpid(t_data *data, int **pid, int len)
 		waitpid((*pid)[j++], &status, 0);
 	if (WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);
-	free((*pid));
 }

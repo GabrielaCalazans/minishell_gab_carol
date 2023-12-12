@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_two.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 21:59:35 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 01:24:35 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,24 @@ char	*ft_triming(char const *s1, char const *set)
 char	*trim_process(char *word, int type)
 {
 	char	*name;
+	char	*aux;
 
+	aux = NULL;
 	name = ft_strdup(word);
 	if (type == QUOTE_DOUBLE)
+	{
+		aux = name;
 		name = ft_triming(name, "\"");
+		if (aux)
+			free(aux);
+	}
 	if (type == QUOTE_SINGLE)
+	{
+		aux = name;
 		name = ft_triming(name, "\'");
+		if (aux)
+			free(aux);
+	}
 	return (name);
 }
 

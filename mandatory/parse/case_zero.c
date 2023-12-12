@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_zero.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:06:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 20:54:11 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 01:45:58 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ char	**get_words(t_token *tokens, int len)
 		if (tmp && tmp->type != PIPE)
 			tmp = tmp->next;
 	}
-	words[i] = NULL;
 	return (words);
 }

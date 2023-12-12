@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:16:14 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 13:21:21 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 02:53:04 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ void	ft_clear_data(t_data *data)
 {
 	ft_clear_token(&data->tokens);
 	data->tokens = NULL;
-	ft_clear_rdct(&data->rdct);
+	ft_clear_rdct(&data->head_rdct);
 	data->rdct = NULL;
-	ft_clear_cmd_lst(&data->cmd);
+	ft_clear_cmd_lst(&data->head_cmd);
 	data->cmd = NULL;
+	free(data->pid);
+	data->pid = NULL;
 	free(data->prompt_in);
 	data->prompt_in = NULL;
 	free(data->fd);

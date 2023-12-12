@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 22:27:16 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 02:52:08 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ typedef struct s_data
 	char			**env;
 	char			*path;
 	int				*fd;
+	int				no_exec;
 	int				n_cmd;
+	int				*pid;
 	int				amount_heredocs;
 	t_cmd			*cmd;
 	t_rdct			*rdct;
@@ -120,6 +122,8 @@ typedef struct s_data
 	int				rdct_fds[2];
 	int				bkp_fd[2];
 	int				exit_code;
+	t_rdct			*head_rdct;
+	t_cmd			*head_cmd;
 }			t_data;
 
 typedef struct s_prompt
@@ -337,5 +341,5 @@ void		run_signals(int sig);
 // PROMPT
 void		get_path(t_data *data);
 int			command_count(t_data *data);
-void		clean_exit(t_data *data);
+void		clean_exit(t_data *data, int check);
 #endif

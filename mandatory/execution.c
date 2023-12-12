@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 22:30:48 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 02:56:21 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,22 @@ void	close_fd(t_data *data, int n_fd)
 
 void	execution(t_data *data)
 {
-	int		*pid;
 	int		len;
-	t_cmd	*tmp_cmds;
-	t_rdct	*tmp_rdcts;
 
 	len = 0;
-	pid = ft_calloc(data->n_cmd, sizeof(int));
+	data->pid = ft_calloc(data->n_cmd, sizeof(int));
 	config_pipe(data);
-	tmp_cmds = data->cmd;
-	tmp_rdcts = data->rdct;
+	data->head_cmd = data->cmd;
+	data->head_rdct = data->rdct;
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
 	if (run_one_builtin(data))
 		return ;
 	run_only_redirects(data);
-	len = run_process(data, &pid);
-	run_waitpid(data, &pid, len);
-	data->cmd = tmp_cmds;
-	data->rdct = tmp_rdcts;
+	len = run_process(data, &data->pid);
+	run_waitpid(data, &data->pid, len);
 }
 
-// Verificar se é um diretorio ou se o executavel pode ser executado.
 void	execute_pid(t_data *data, int i, int ord)
 {
 	if (data->n_cmd - 1 != 0)
@@ -60,16 +54,11 @@ void	execute_pid(t_data *data, int i, int ord)
 		close(1);
 		close(0);
 		perror(data->cmd->cmd[0]);
-		ft_clear_data(data);
-		exit(127);
+		data->exit_code = 127;
+		clean_exit(data, 0);
 	}
 	else
-	{
-		rl_clear_history();
-		ft_clear_env(data->env_node);
-		ft_clear_data(data);
-		exit(data->exit_code);
-	}
+		clean_exit(data, 0);
 }
 
 void	config_pipe(t_data *data)
