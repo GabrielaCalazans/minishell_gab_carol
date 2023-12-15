@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:37:56 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 02:37:06 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:58:45 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**freearray(char **array)
 	i = 0;
 	if (i < sizearray)
 	{
-		while (array[i])
+		while (array[i] && array[i] != NULL)
 		{
 			free(array[i]);
 			array[i] = NULL;

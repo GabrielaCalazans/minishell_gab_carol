@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 06:34:28 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:42:47 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,17 +166,18 @@ void		ft_unset(t_data *data);
 //void		print_echo(t_data *data, int i);
 
 //ENV
-t_env		*create_list(char *str);
+t_env		*create_node(char *str);
 t_env		*node_last(t_env *list);
-t_env		*link_ed(char *arg);
-void		link_end(t_env **list, t_env *current);
+t_env		*append_env(char *arg);
+void		link_lst(t_env **list, t_env *current);
 void		create_env(t_data **data, char **envp);
+int			ft_size_lst_env(t_data *data);
+void		ft_set_env(t_data *data);
 
 //EXPORT
-int			is_valid_var(t_data	*data);
 t_env		*have_var(t_data *data, char *arg);
-void		create_var(t_data *data, char *arg);
 void		change_value(t_env *env_node, char *arg);
+int			is_valid_var(t_data	*data);
 
 //EXECUTION
 int			run_one_builtin(t_data *data);
@@ -330,6 +331,7 @@ int			is_word_q(int check);
 // PRINT LIST
 void		printlist(void *head, int check);
 void		print_array(char **array, char *type);
+void		printarray(char **array);
 
 // CLEAR DATA
 void		ft_clear_data(t_data *data);

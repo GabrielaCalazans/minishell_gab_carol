@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 04:53:46 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:55:15 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@ void	set_data(t_data *data, char *envp[])
 	data->exit_code = 0;
 	data->pid = NULL;
 	create_env(&data, envp);
+	ft_set_env(data);
 }
 
 void	mini_start(t_data *data)
 {
-	extern char	**environ;
-
-	data->env = environ;
 	get_path(data);
 	data->no_exec = 0;
 	if (ft_strlen(data->prompt_in) != 0)
@@ -59,8 +57,11 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_data	*data;
 
-	if (argc != 1)
-		return (1);
+	if (argv && argc > 1)
+	{
+		ft_putstr_fd("Minishell can't take arguments\n", 1);
+		return (EXIT_FAILURE);
+	}
 	data = malloc(sizeof(t_data));
 	set_data(data, envp);
 	while (1)
@@ -74,5 +75,4 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	free(data);
 	return (0);
-	(void)argv;
 }

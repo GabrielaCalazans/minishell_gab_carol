@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:26 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/12 04:36:21 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/14 22:25:19 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	clean_exit(t_data *data, int check)
 	exit_code = data->exit_code;
 	ft_clear_data(data);
 	ft_clear_env(data->env_node);
+	freearray(data->env);
+	data->env = NULL;
 	free(data);
 	rl_clear_history();
 	if (check)
