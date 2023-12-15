@@ -3,63 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:03:28 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/10 22:05:19 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:28:57 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-/*
-int	check_cd(t_data *data)
+
+t_env	*get_node_var(t_data *data, char *var)
 {
-	if (!ft_strncmp(data->cmd_args[0], "..", 2))
+	t_env	*tmp;
+
+	tmp = data->env_node;
+	while (tmp)
 	{
-		if (ft_strncmp(data->cmd_args[0], "../", 3))
-		{
-			if (!ft_strncmp(data->cmd_args[0], "..", 3))
-				return (TRUE);
-		}
-		else if (!ft_strncmp(data->cmd_args[0], "../", 3))
-			return (TRUE);
+		if (ft_strncmp(tmp->var, var, ft_strlen(var) + 1) == 0)
+			return (tmp);
+		tmp = tmp->next;
 	}
-	return (printf("NEET A RETURN VALUE HERE LINE 27 ft_cd\n"));
+	return (NULL);
 }
 
-int	check_valid_dir(char *str)
+
+int	pwd_update(t_data *data, char *path)
 {
-	if (!access(str, F_OK))
+	t_env	*node_pwd;
+	t_env	*node_old_pwd;
+	char	*old_pwd;
+
+	node_pwd = get_node_var(data, "PWD");
+	if (node_pwd)
+		old_pwd = node_pwd->value;
+	if (chdir(path) != 0)
+		return (1);
+	node_pwd->value = getcwd(NULL, 0);
+	node_old_pwd = get_node_var(data, "OLDPWD");
+	if (node_old_pwd)
 	{
-		if (!access(str, X_OK))
-		{
-			printf("nothing done yet.");
-		}
+		if (node_old_pwd->value)
+			free(node_old_pwd->value);
+		node_old_pwd->value = old_pwd;
 	}
-	return (printf("NEET A RETURN VALUE HERE LINE 43 ft_cd\n"));
+	freearray(data->env);
+	data->env = NULL;
+	ft_set_env(data);
+	data->exit_code = 0;
+	return (0);
 }
-*/
 
 void	ft_cd(t_data *data)
 {
-	char	*go_home;
+	t_env	*go_home;
 
 	data->exit_code = 1;
-	if (data->cmd->cmd[2])
-		perror("too many arguments");
+	if (data->cmd->cmd && data->cmd->cmd[0]
+		&& data->cmd->cmd[1] && data->cmd->cmd[2])
+		ft_putendl_fd(" too many arguments", 2);
 	else if (data->cmd->cmd[1] == NULL)
 	{
-		go_home = getenv("HOME");
+		go_home = get_node_var(data, "HOME");
 		if (go_home != NULL)
 		{
-			if (chdir(go_home) != 0)
+			if (pwd_update(data, go_home->value))
 				perror("cd");
+			
 		}
 		else
-			ft_putendl_fd("cd: could not determine home directory\n", 2);
+			ft_putendl_fd("cd: could not determine home directory", 2);
 	}
-	else if (data->cmd->cmd[1] != NULL && chdir(data->cmd->cmd[1]) != 0)
+	else if (data->cmd->cmd[1] != NULL && pwd_update(data, data->cmd->cmd[1]))
 		perror("cd");
-	else
-		data->exit_code = 0;
 }

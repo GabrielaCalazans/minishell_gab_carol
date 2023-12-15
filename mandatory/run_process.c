@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/10 22:25:12 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/12/11 16:23:14 by ckunimur         ###   ########.fr       */
+/*   Created: 2023/12/10 22:25:12 by gacalaza          #+#    #+#             */
+/*   Updated: 2023/12/15 13:59:44 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	run_one_builtin(t_data *data)
 {
 	if (data->n_cmd == 1 && data->cmd->cmd && is_builtins(data->cmd->cmd[0]))
 	{	
-		run_redirect(data, 0, 0);
-		exec_builtin(data);
+		if (!run_redirect(data, 0, 0))
+			exec_builtin(data);
 		close(1);
 		close(0);
 		dup2(data->bkp_fd[0], 0);
-		dup2(data->bkp_fd[1], 1);
 		close(data->bkp_fd[0]);
+		dup2(data->bkp_fd[1], 1);
 		close(data->bkp_fd[1]);
 		return (1);
 	}
@@ -57,8 +57,6 @@ int	run_process(t_data *data, int **pid)
 		{
 			run_signals(2);
 			execute_pid(data, i, ord);
-			ft_clear_env(data->env_node);
-			free((*pid));
 		}
 		if (data->rdct && data->rdct->index == i)
 			data->rdct = data->rdct->next;
@@ -81,5 +79,4 @@ void	run_waitpid(t_data *data, int **pid, int len)
 		waitpid((*pid)[j++], &status, 0);
 	if (WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);
-	free((*pid));
 }

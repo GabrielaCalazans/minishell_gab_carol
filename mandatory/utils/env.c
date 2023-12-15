@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:39:53 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/10 13:02:11 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:36:01 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	create_env(t_data **data, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		link_end(&(*data)->env_node, create_list(envp[i]));
+		link_lst(&(*data)->env_node, create_node(envp[i]));
 		i++;
 	}
 }
 
-t_env	*create_list(char *str)
+t_env	*create_node(char *str)
 {
 	t_env	*aux;
 	char	**split;
@@ -48,24 +48,7 @@ t_env	*node_last(t_env *list)
 	return (last);
 }
 
-t_env	*link_ed(char *arg)
-{
-	t_env	*new_node;
-	char	**split;
-
-	new_node = ft_calloc(sizeof(t_env), 1);
-	split = ft_split(arg, '=');
-	new_node->var = split[0];
-	if (split[1])
-		new_node->value = split[1];
-	else
-		new_node->value = NULL;
-	free(split);
-	new_node->next = NULL;
-	return (new_node);
-}
-
-void	link_end(t_env **list, t_env *current)
+void	link_lst(t_env **list, t_env *current)
 {
 	t_env	*aux;
 
@@ -78,4 +61,19 @@ void	link_end(t_env **list, t_env *current)
 	}
 	aux = node_last(*list);
 	aux->next = current;
+}
+
+int	ft_size_lst_env(t_data *data)
+{
+	t_env	*tmp;
+	int		len;
+
+	len = 0;
+	tmp = data->env_node;
+	while (tmp != NULL)
+	{
+		tmp = tmp->next;
+		len++;
+	}
+	return (len);
 }

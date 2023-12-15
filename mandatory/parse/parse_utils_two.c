@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_two.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:14:38 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/11 17:11:45 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:24:23 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*ft_triming(char *s1, char const *set)
+char	*ft_triming(char const *s1, char const *set)
 {
 	size_t	size_s1;
 	char	*newstr;
@@ -29,7 +29,6 @@ char	*ft_triming(char *s1, char const *set)
 	if (!newstr)
 		return (NULL);
 	ft_strlcpy(newstr, &s1[1], size_s1);
-	free(s1);
 	return (newstr);
 }
 
@@ -38,19 +37,21 @@ char	*trim_process(char *word, int type)
 	char	*name;
 	char	*aux;
 
-	name = ft_strdup(word);
 	aux = NULL;
+	name = ft_strdup(word);
 	if (type == QUOTE_DOUBLE)
 	{
 		aux = name;
 		name = ft_triming(name, "\"");
-		free(aux);
+		if (aux)
+			free(aux);
 	}
 	if (type == QUOTE_SINGLE)
 	{
 		aux = name;
 		name = ft_triming(name, "\'");
-		free(aux);
+		if (aux)
+			free(aux);
 	}
 	return (name);
 }

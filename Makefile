@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 16:01:26 by gacalaza          #+#    #+#              #
-#    Updated: 2023/12/10 22:26:05 by dapaulin         ###   ########.fr        #
+#    Updated: 2023/12/14 20:37:14 by gacalaza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

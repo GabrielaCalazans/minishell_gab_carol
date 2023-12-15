@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 22:02:42 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:11:32 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 		if (ptr->inside_pipe == 1)
 		{
 			processclean(temp, ptr);
-			if (ptr->len < 1)
-				break ;
+			// if (ptr->len < 1)
+			// 	break ;
 		}
 	}
 }

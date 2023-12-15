@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/11 15:59:21 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:16:36 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,46 @@ char	*get_str_expand(t_data *data, char *str)
 {
 	int		i;
 	int		flag;
-	int		identify_break;
+	char	*aux;
+	int		index_dolar;
+	int		j;
 
 	i = 0;
 	flag = 0;
-	identify_break = 0;
-	while (str[i] && str[i] != '\0')
+	index_dolar = 0;
+	while (str && str[i] != '\0')
 	{
 		check_quotes(&flag, &i, str);
 		if (str[i] == '$')
 		{
-			if (str[++i] == '?')
-				str = join_strings(data, str, &i, 1);
-			else if (can_expand(data, &str[i]))
-				str = join_strings(data, str, &i, 0);
+			aux = str;
+			j = i;
+			if (aux[++i] == '?')
+			{
+				str = join_strings(data, aux, &i, 1);
+				if (aux)
+					free(aux);
+			}
+			else if (can_expand(data, &aux[i]))
+			{
+				str = join_strings(data, aux, &i, 0);
+				if (aux)
+					free(aux);
+			}
+			else if (!aux[i])
+				i++;
 			else
-				str = dont_find_variable_expand(str, &i, &identify_break);
-			if (identify_break)
-				break ;
+			{
+				str = dont_find_variable_expand(aux, &i);
+				if (aux)
+					free(aux);
+				if ((size_t)i > ft_strlen(str))
+				{
+					i = 0;
+					continue ;
+				}
+			}
+			i = j;
 		}
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:06:15 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/10 15:06:31 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/14 22:36:09 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ void	ft_unset(t_data *data)
 		temp_node->next = NULL;
 		ft_clear_env(temp_node);
 	}
+	freearray(data->env);
+	data->env = NULL;
+	ft_set_env(data);
 	data->exit_code = 0;
 }

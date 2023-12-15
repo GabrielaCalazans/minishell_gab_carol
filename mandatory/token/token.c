@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:12:20 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/10 19:51:27 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/12/12 00:54:12 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_token	*create_word_token(char *str, int len, int check)
+t_token	*create_word_token(t_data *data, char *str, int len, int check)
 {
 	t_token	*newnode;
 	char	*token;
@@ -23,6 +23,8 @@ t_token	*create_word_token(char *str, int len, int check)
 	if (len < 1 && check == 2)
 	{
 		ft_error_parse(3);
+		ft_clear_data(data);
+		data->no_exec = 1;
 		return (NULL);
 	}
 	token = ft_substr(str, 0, len);
@@ -60,7 +62,7 @@ int	sub_creating_token(t_data *data, t_token *newnode, t_tk_p *p)
 {
 	if (p->check == WORD)
 	{
-		newnode = create_word_token(&data->prompt_in[p->i],
+		newnode = create_word_token(data, &data->prompt_in[p->i],
 				word_len(&data->prompt_in[p->i], p->back), 1);
 		if (!newnode)
 			return (C_ERROR);
@@ -68,7 +70,7 @@ int	sub_creating_token(t_data *data, t_token *newnode, t_tk_p *p)
 	}
 	if (p->check == QUOTE_DOUBLE || p->check == QUOTE_SINGLE)
 	{
-		newnode = create_word_token(&data->prompt_in[p->i],
+		newnode = create_word_token(data, &data->prompt_in[p->i],
 				qword_len(&data->prompt_in[p->i], p->check, p->back), 2);
 		if (!newnode)
 			return (C_ERROR);

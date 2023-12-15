@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils_two.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:38:24 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/11 17:09:18 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/12 01:44:29 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ char	*exec_trim_process(t_token **tmp, char *value)
 	{
 		aux[0] = new;
 		aux[1] = trim_process((*tmp)->token, find_type((*tmp)->token));
-		printf("aux[0]: %s\taux[1]: %s\n", aux[0], aux[1]);
 		new = ft_strjoin(aux[0], aux[1]);
 		if (aux[0])
 			free(aux[0]);

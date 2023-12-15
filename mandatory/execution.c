@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/11 16:42:32 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/15 20:21:54 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,48 @@ void	close_fd(t_data *data, int n_fd)
 void	execution(t_data *data)
 {
 	int		len;
-	t_cmd	*tmp_cmds;
-	t_rdct	*tmp_rdcts;
 
 	len = 0;
+	data->pid = ft_calloc(data->n_cmd, sizeof(int));
 	config_pipe(data);
-	tmp_cmds = data->cmd;
-	tmp_rdcts = data->rdct;
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
 	if (run_one_builtin(data))
 		return ;
-	data->pid = ft_calloc(data->n_cmd, sizeof(int));
 	run_only_redirects(data);
 	len = run_process(data, &data->pid);
 	run_waitpid(data, &data->pid, len);
-	data->cmd = tmp_cmds;
-	data->rdct = tmp_rdcts;
 }
 
-// Verificar se é um diretorio ou se o executavel pode ser executado.
+int	valid_stat(t_data *data)
+{
+	struct stat path_stat;
+	if (access(data->cmd->cmd[0], F_OK) == -1)
+	{
+		ft_putendl_fd(" command not found", 2);
+		data->exit_code = 127;
+		return (0);
+	}
+	if (stat(data->cmd->cmd[0], &path_stat) != 0)
+	{
+		perror("stat");
+		return (0);
+	}
+	if (S_ISDIR(path_stat.st_mode))
+	{
+		ft_putstr_fd(" Is a directory\n", 2);
+		data->exit_code = 126;
+		return (0);
+	}
+	if (access(data->cmd->cmd[0], X_OK) == -1)
+	{
+		ft_putendl_fd(" Permission denied", 2);
+		data->exit_code = 126;
+		return (0);
+	}
+	return (1);
+}
+
 void	execute_pid(t_data *data, int i, int ord)
 {
 	if (data->n_cmd - 1 != 0)
@@ -54,21 +76,22 @@ void	execute_pid(t_data *data, int i, int ord)
 	if (data->cmd->cmd && exec_builtin(data) == 0)
 	{
 		set_path_command(data);
-		execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
-		dup2(data->bkp_fd[1], 1);
+		if (valid_stat(data))
+		{
+			execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
+			dup2(data->bkp_fd[1], 1);
+			perror(data->cmd->cmd[0]);
+		}
+		else
+			dup2(data->bkp_fd[1], 1);
 		close(1);
 		close(0);
-		perror(data->cmd->cmd[0]);
-		clean_exit(data);
-		exit(127);
+		if (data->exit_code != 126)
+			data->exit_code = 127;
+		clean_exit(data, 0);
 	}
 	else
-	{
-		rl_clear_history();
-		ft_clear_env(data->env_node);
-		ft_clear_data(data);
-		exit(data->exit_code);
-	}
+		clean_exit(data, 0);
 }
 
 void	config_pipe(t_data *data)

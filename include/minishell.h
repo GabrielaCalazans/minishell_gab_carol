@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/11 16:47:09 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:06:58 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ typedef struct s_data
 	char			**env;
 	char			*path;
 	int				*fd;
+	int				no_exec;
 	int				n_cmd;
+	int				*pid;
 	int				amount_heredocs;
 	t_cmd			*cmd;
 	t_rdct			*rdct;
@@ -120,7 +122,8 @@ typedef struct s_data
 	int				rdct_fds[2];
 	int				bkp_fd[2];
 	int				exit_code;
-	int				*pid;
+	t_rdct			*head_rdct;
+	t_cmd			*head_cmd;
 }			t_data;
 
 typedef struct s_prompt
@@ -157,24 +160,24 @@ void		ft_cd(t_data *data);
 void		ft_echo(t_data *data);
 void		ft_env(t_data *data);
 void		ft_exit(t_data *data);
-int			ft_str_isdigit(char *str);
 void		ft_export(t_data *data);
 void		ft_pwd(t_data *data);
 void		ft_unset(t_data *data);
 //void		print_echo(t_data *data, int i);
 
 //ENV
-t_env		*create_list(char *str);
+t_env		*create_node(char *str);
 t_env		*node_last(t_env *list);
-t_env		*link_ed(char *arg);
-void		link_end(t_env **list, t_env *current);
+t_env		*append_env(char *arg);
+void		link_lst(t_env **list, t_env *current);
 void		create_env(t_data **data, char **envp);
+int			ft_size_lst_env(t_data *data);
+void		ft_set_env(t_data *data);
 
 //EXPORT
-int			is_valid_var(t_data	*data);
 t_env		*have_var(t_data *data, char *arg);
-void		create_var(t_data *data, char *arg);
 void		change_value(t_env *env_node, char *arg);
+int			is_valid_var(t_data	*data);
 
 //EXECUTION
 int			run_one_builtin(t_data *data);
@@ -188,9 +191,9 @@ void		execute_pid(t_data *data, int i, int ord);
 
 //HEREDOC
 void		ft_heredoc(char	*key_str, t_data *data);
-void		ft_input(char *file, t_data *data, int check);
-void		ft_output(char *file, t_data *data, int check);
-void		ft_append(char *file, t_data *data, int check);
+int			ft_input(char *file, t_data *data, int check);
+int			ft_output(char *file, t_data *data, int check);
+int			ft_append(char *file, t_data *data, int check);
 void		find_heredoc(t_data *data);
 void		finish_fork(t_data *data);
 
@@ -243,7 +246,7 @@ char		**ft_dup_size(char **array, int size);
 int			ft_array_size(char **array);
 int			*ft_intdup(int *array, int size);
 void		*return_error(void);
-void		run_redirect(t_data *data, int index, int check);
+int			run_redirect(t_data *data, int index, int check);
 
 // DEALING REDIRECT LIST
 t_rdct		*createnode_rdct(char **files, int *redirects,
@@ -282,7 +285,7 @@ char		*get_str_expand(t_data *data, char *str);
 int			has_variable(char c);
 char		*get_var_value(t_data *data, char *var, int *i);
 char		*join_strings(t_data *data, char *str, int *i, int must_increment);
-char		*dont_find_variable_expand(char *str, int *i, int *identify_break);
+char		*dont_find_variable_expand(char *str, int *i);
 void		check_quotes(int *flag, int *i, char *str);
 
 // PARSE LIST
@@ -328,6 +331,7 @@ int			is_word_q(int check);
 // PRINT LIST
 void		printlist(void *head, int check);
 void		print_array(char **array, char *type);
+void		printarray(char **array);
 
 // CLEAR DATA
 void		ft_clear_data(t_data *data);
@@ -339,5 +343,5 @@ void		run_signals(int sig);
 // PROMPT
 void		get_path(t_data *data);
 int			command_count(t_data *data);
-void		clean_exit(t_data *data);
+void		clean_exit(t_data *data, int check);
 #endif

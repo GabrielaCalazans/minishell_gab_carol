@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:55:06 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/11 17:40:41 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/15 17:57:02 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	set_path_command(t_data *data)
 	char	*command_path;
 	int		i;
 
+	if (!data->path)
+		return ;
 	path = ft_split(data->path, ':');
 	i = 0;
 	while (path[i])
@@ -43,15 +45,16 @@ void	set_path_command(t_data *data)
 		command_path = create_command_path(path[i], data->cmd->cmd[0]);
 		if (command_path)
 		{
+			printf("%s", data->cmd->cmd[0]);
 			if (data->cmd->cmd[0])
 				free(data->cmd->cmd[0]);
 			data->cmd->cmd[0] = command_path;
-			ft_clean_lst(path);
+			freearray(path);
 			return ;
 		}
 		i++;
 	}
-	ft_clean_lst(path);
+	freearray(path);
 }
 
 void	get_path(t_data *data)
@@ -59,6 +62,7 @@ void	get_path(t_data *data)
 	t_env	*tmp;
 
 	tmp = data->env_node;
+	data->path = NULL;
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->var, "PATH", 5) == 0)
