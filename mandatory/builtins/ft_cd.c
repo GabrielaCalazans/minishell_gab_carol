@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:03:28 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/15 16:10:55 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:28:57 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,23 @@ int	pwd_update(t_data *data, char *path)
 
 void	ft_cd(t_data *data)
 {
-	char	*go_home;
+	t_env	*go_home;
 
 	data->exit_code = 1;
 	if (data->cmd->cmd && data->cmd->cmd[0]
 		&& data->cmd->cmd[1] && data->cmd->cmd[2])
-		ft_putstr_fd(" too many arguments", 2);
+		ft_putendl_fd(" too many arguments", 2);
 	else if (data->cmd->cmd[1] == NULL)
 	{
-		go_home = getenv("HOME");
+		go_home = get_node_var(data, "HOME");
 		if (go_home != NULL)
 		{
-			if (pwd_update(data, go_home))
+			if (pwd_update(data, go_home->value))
 				perror("cd");
 			
 		}
 		else
-			ft_putendl_fd("cd: could not determine home directory\n", 2);
+			ft_putendl_fd("cd: could not determine home directory", 2);
 	}
 	else if (data->cmd->cmd[1] != NULL && pwd_update(data, data->cmd->cmd[1]))
 		perror("cd");

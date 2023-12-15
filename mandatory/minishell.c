@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/15 13:46:57 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 20:24:09 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ void	mini_start(t_data *data)
 			create_redirect_lst(data);
 		parsing_it(data);
 		data->n_cmd = command_count(data);
+		data->head_cmd = data->cmd;
+		data->head_rdct = data->rdct;
 		find_heredoc(data);
 		execution(data);
 	}
-	return ;
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -71,6 +72,8 @@ int	main(int argc, char *argv[], char *envp[])
 			mini_start(data);
 		else if (data->prompt_in == NULL || data->prompt_in[0] != '\0')
 			clean_exit(data, 1);
+		else
+			data->exit_code = 0;
 		ft_clear_data(data);
 	}
 	free(data);

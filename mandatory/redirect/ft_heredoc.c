@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/12 07:06:01 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:56:59 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	find_heredoc(t_data *data)
 
 	i = 0;
 	temp = data->rdct;
+	data->head_rdct = data->rdct;
 	while (temp)
 	{
 		while (i < temp->nbr_rdcts)
@@ -91,9 +92,5 @@ void	ft_heredoc(char	*ks, t_data *data)
 
 void	finish_fork(t_data *data)
 {
-	ft_clear_data(data);
-	ft_clear_env(data->env_node);
-	rl_clear_history();
-	free(data);
-	exit(0);
+	clean_exit(data, 0);
 }

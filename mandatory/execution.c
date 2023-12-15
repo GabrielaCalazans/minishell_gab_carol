@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/15 16:54:50 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 20:21:54 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ void	execution(t_data *data)
 	len = 0;
 	data->pid = ft_calloc(data->n_cmd, sizeof(int));
 	config_pipe(data);
-	data->head_cmd = data->cmd;
-	data->head_rdct = data->rdct;
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
-	
 	if (run_one_builtin(data))
 		return ;
 	run_only_redirects(data);

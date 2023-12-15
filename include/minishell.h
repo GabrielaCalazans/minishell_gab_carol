@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/14 21:42:47 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:06:58 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ char		*get_str_expand(t_data *data, char *str);
 int			has_variable(char c);
 char		*get_var_value(t_data *data, char *var, int *i);
 char		*join_strings(t_data *data, char *str, int *i, int must_increment);
-char		*dont_find_variable_expand(char *str, int *i, int *identify_break);
+char		*dont_find_variable_expand(char *str, int *i);
 void		check_quotes(int *flag, int *i, char *str);
 
 // PARSE LIST

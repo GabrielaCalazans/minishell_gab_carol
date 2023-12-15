@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/15 17:08:40 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:06:21 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*join_strings(t_data *data, char *str, int *i, int must_increment)
 	return (new_str[2]);
 }
 
-char	*dont_find_variable_expand(char *str, int *i, int *identify_break)
+char	*dont_find_variable_expand(char *str, int *i)
 {
 	int		j;
 	char	*new_str[2];
@@ -40,11 +40,6 @@ char	*dont_find_variable_expand(char *str, int *i, int *identify_break)
 	j = 0;
 	new_str[0] = NULL;
 	new_str[1] = NULL;
-	if ((ft_isdigit(str[(*i) + j])) || (str[(*i)] == 32 || str[(*i)] == '\0'))
-	{
-		*identify_break = 1;
-		return (str);
-	}
 	while (has_variable(str[(*i) + j]))
 		j++;
 	if (j > 0)
@@ -52,6 +47,8 @@ char	*dont_find_variable_expand(char *str, int *i, int *identify_break)
 	else
 		new_str[0] = ft_substr(str, 0, (*i));
 	(*i) += j;
+	if ((size_t)(*i) > ft_strlen(str))
+		return (new_str[0]);
 	new_str[1] = ft_strjoin(new_str[0], &str[(*i)]);
 	if (new_str[0])
 		free(new_str[0]);
