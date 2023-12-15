@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 06:52:10 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:54:50 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,41 @@ void	execution(t_data *data)
 	data->head_rdct = data->rdct;
 	data->bkp_fd[1] = dup(1);
 	data->bkp_fd[0] = dup(0);
+	
 	if (run_one_builtin(data))
 		return ;
 	run_only_redirects(data);
 	len = run_process(data, &data->pid);
 	run_waitpid(data, &data->pid, len);
+}
+
+int	valid_stat(t_data *data)
+{
+	struct stat path_stat;
+	if (access(data->cmd->cmd[0], F_OK) == -1)
+	{
+		ft_putendl_fd(" command not found", 2);
+		data->exit_code = 127;
+		return (0);
+	}
+	if (stat(data->cmd->cmd[0], &path_stat) != 0)
+	{
+		perror("stat");
+		return (0);
+	}
+	if (S_ISDIR(path_stat.st_mode))
+	{
+		ft_putstr_fd(" Is a directory\n", 2);
+		data->exit_code = 126;
+		return (0);
+	}
+	if (access(data->cmd->cmd[0], X_OK) == -1)
+	{
+		ft_putendl_fd(" Permission denied", 2);
+		data->exit_code = 126;
+		return (0);
+	}
+	return (1);
 }
 
 void	execute_pid(t_data *data, int i, int ord)
@@ -49,12 +79,18 @@ void	execute_pid(t_data *data, int i, int ord)
 	if (data->cmd->cmd && exec_builtin(data) == 0)
 	{
 		set_path_command(data);
-		execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
-		dup2(data->bkp_fd[1], 1);
+		if (valid_stat(data))
+		{
+			execve(data->cmd->cmd[0], data->cmd->cmd, data->env);
+			dup2(data->bkp_fd[1], 1);
+			perror(data->cmd->cmd[0]);
+		}
+		else
+			dup2(data->bkp_fd[1], 1);
 		close(1);
 		close(0);
-		perror(data->cmd->cmd[0]);
-		data->exit_code = 127;
+		if (data->exit_code != 126)
+			data->exit_code = 127;
 		clean_exit(data, 0);
 	}
 	else

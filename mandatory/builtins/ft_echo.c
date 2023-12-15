@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:04:33 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/12 06:04:22 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:16:09 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	has_n_flag(char *cmd_param)
 {
 	int	i;
 
-	if (cmd_param[0] != '-')
+	if (cmd_param[0] != '-' || (cmd_param[0] == '-' && !cmd_param[1]))
 		return (0);
 	i = 1;
 	while (cmd_param[i])

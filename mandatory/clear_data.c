@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:16:14 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 09:02:48 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:58:07 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	ft_clear_data(t_data *data)
 	data->cmd = NULL;
 	free(data->pid);
 	data->pid = NULL;
-	free(data->prompt_in);
+	if (data->prompt_in)
+		free(data->prompt_in);
 	data->prompt_in = NULL;
 	ft_close_fds();
 	free(data->fd);

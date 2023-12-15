@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:11:03 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/08 19:24:27 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:23:40 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_rdct	*createnode_rdct(char **files, int *redirects, int nbr_rdcts, int index)
 	newnode->index = index;
 	if (!newnode->redirects || !newnode->files)
 	{
-		perror("ft_strdup");
+		//perror("ft_strdup");
 		ft_clear_rdct(&newnode);
 		return (NULL);
 	}

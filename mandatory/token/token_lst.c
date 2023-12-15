@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:12:33 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/28 20:18:39 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:23:52 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_token	*createnode(char *token, int type)
 	newnode->prev = NULL;
 	if (!newnode->token || !newnode->type)
 	{
-		perror("ft_strdup");
+		//perror("ft_strdup");
 		free(newnode);
 		return (NULL);
 	}

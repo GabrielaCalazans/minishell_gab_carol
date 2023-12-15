@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:26 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/14 22:25:19 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:10:49 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_exit(t_data *data)
 		clean_exit(data, 1);
 	else if (data->cmd->cmd[2])
 	{
-		perror("exit: too many arguments\n");
+		ft_putendl_fd("exit: too many arguments", 2);
 		data->exit_code = 1;
 	}
 	else if (data->cmd->cmd[1])
@@ -43,7 +43,7 @@ void	ft_exit(t_data *data)
 		if (ft_atoi(data->cmd->cmd[1]) == 0 && (data->cmd->cmd[1][0] != '0'))
 		{
 			data->exit_code = 2;
-			perror("numeric argument is required\n");
+			ft_putendl_fd(" numeric argument required", 2);
 		}
 		else if (ft_strlen(data->cmd->cmd[1]) < 19)
 			data->exit_code = ft_atoi(data->cmd->cmd[1]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:31:51 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/07 11:49:10 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:24:13 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

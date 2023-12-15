@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/14 22:58:01 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:09:37 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_export(t_data *data)
 		return ;
 	if (is_valid_var(data))
 	{
-		perror("invalid var\n");
+		ft_putendl_fd(" not a valid identifier", 2);
 		data->exit_code = 1;
 		return ;
 	}
