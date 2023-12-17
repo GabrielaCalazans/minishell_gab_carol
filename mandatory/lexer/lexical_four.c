@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical_four.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:45:41 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/05 13:16:22 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:39:53 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_quote(char c)
 int	is_space(char c)
 {
 	if (c == ' ')
-		return (C_SPACE);
+		return (SPACE_E);
 	if (c == '\t')
 		return (H_TAB);
 	return (0);

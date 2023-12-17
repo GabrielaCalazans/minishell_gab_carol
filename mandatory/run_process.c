@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:25:12 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/15 13:59:44 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 19:39:05 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,28 @@ void	run_waitpid(t_data *data, int **pid, int len)
 		waitpid((*pid)[j++], &status, 0);
 	if (WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);
+}
+
+void	dup_pipe(int i, int ord, t_data *data)
+{
+	if (i == 0)
+	{
+		dup2(data->fd[1], 1);
+		close_fd(data, (data->n_cmd - 1) * 2);
+		close(data->fd[1]);
+	}
+	else if (i == data->n_cmd - 1)
+	{
+		dup2(data->fd[ord - 2], 0);
+		close_fd(data, (data->n_cmd - 1) * 2);
+		close(data->fd[ord - 2]);
+	}
+	else
+	{
+		dup2(data->fd[ord - 2], 0);
+		dup2(data->fd[ord + 1], 1);
+		close_fd(data, (data->n_cmd - 1) * 2);
+		close(data->fd[ord - 2]);
+		close(data->fd[ord + 1]);
+	}
 }

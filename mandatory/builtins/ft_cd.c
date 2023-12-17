@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:03:28 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/15 19:28:57 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 21:34:47 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_env	*get_node_var(t_data *data, char *var)
 	return (NULL);
 }
 
-
 int	pwd_update(t_data *data, char *path)
 {
 	t_env	*node_pwd;
@@ -34,18 +33,21 @@ int	pwd_update(t_data *data, char *path)
 	char	*old_pwd;
 
 	node_pwd = get_node_var(data, "PWD");
-	if (node_pwd)
-		old_pwd = node_pwd->value;
+	if (!node_pwd)
+		return (1);
+	old_pwd = node_pwd->value;
 	if (chdir(path) != 0)
 		return (1);
 	node_pwd->value = getcwd(NULL, 0);
 	node_old_pwd = get_node_var(data, "OLDPWD");
-	if (node_old_pwd)
+	if (!node_old_pwd)
 	{
-		if (node_old_pwd->value)
-			free(node_old_pwd->value);
-		node_old_pwd->value = old_pwd;
+		free(old_pwd);
+		return (1);
 	}
+	if (node_old_pwd->value)
+		free(node_old_pwd->value);
+	node_old_pwd->value = old_pwd;
 	freearray(data->env);
 	data->env = NULL;
 	ft_set_env(data);
@@ -67,12 +69,11 @@ void	ft_cd(t_data *data)
 		if (go_home != NULL)
 		{
 			if (pwd_update(data, go_home->value))
-				perror("cd");
-			
+				ft_putendl_fd("cd", 2);
 		}
 		else
 			ft_putendl_fd("cd: could not determine home directory", 2);
 	}
 	else if (data->cmd->cmd[1] != NULL && pwd_update(data, data->cmd->cmd[1]))
-		perror("cd");
+		ft_putendl_fd(" No such file or directory", 2);
 }

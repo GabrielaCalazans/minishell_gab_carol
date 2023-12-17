@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:08:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/15 14:11:32 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:36:55 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,7 @@ void	processtoken(t_data *data, t_token *temp, t_params *ptr)
 			processredirect(temp, ptr);
 		temp = temp->next;
 		if (ptr->inside_pipe == 1)
-		{
 			processclean(temp, ptr);
-			// if (ptr->len < 1)
-			// 	break ;
-		}
 	}
 }
 
@@ -87,7 +83,7 @@ void	create_redirect_lst(t_data *data)
 
 	if (first_check(data->tokens))
 	{
-		ft_error_redirect(C_ERROR);
+		ft_error_redirect(ERROR_R);
 		return ;
 	}
 	params = inicialize_rd_params();

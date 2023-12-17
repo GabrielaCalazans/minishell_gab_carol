@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:31:51 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/15 14:24:13 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:39:53 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ void	ft_error_redirect(int error)
 int	is_syntax_error(int type)
 {
 	if (type == REDIRECT_IN || type == REDIRECT_OUT)
-		return (C_ERROR);
+		return (ERROR_R);
 	if (type == PIPE || type == APPEND || type == HEREDOC)
-		return (C_ERROR);
-	return (C_SUCCESS);
+		return (ERROR_R);
+	return (SUCESS_S);
 }
 
 int	is_possible_error(int type)
 {
 	if (type == DOT || type == SLASH)
-		return (C_ERROR);
+		return (ERROR_R);
 	if (type == TILDE || type == BACKSLASH || type == ASTERISK)
-		return (C_ERROR);
+		return (ERROR_R);
 	return (0);
 }
 
@@ -53,7 +53,7 @@ int	check_error(t_token *tokens)
 	temp = tokens->next;
 	while (temp)
 	{
-		if (temp->type == C_SPACE || temp->type == H_TAB)
+		if (temp->type == SPACE_E || temp->type == H_TAB)
 			temp = jump_white_spaces(temp);
 		if (temp->type == DOT)
 			return (is_path(temp));

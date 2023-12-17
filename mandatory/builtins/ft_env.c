@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:06 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/14 22:57:07 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 21:43:32 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ void	ft_env(t_data *data)
 {
 	t_env	*env_node;
 
+	if (data->cmd->cmd[1])
+	{
+		ft_putstr_fd("env: '", 2);
+		ft_putstr_fd(data->cmd->cmd[1], 2);
+		ft_putstr_fd("': No such file or directory\n", 2);
+		return ;
+	}
 	env_node = data->env_node;
 	while (env_node != NULL)
 	{
@@ -40,7 +47,8 @@ void	ft_set_env(t_data *data)
 	while (tmp && i < len)
 	{
 		aux = NULL;
-		if (tmp->value) {
+		if (tmp->value)
+		{
 			aux = ft_strjoin(tmp->var, "=");
 			data->env[i] = ft_strjoin(aux, tmp->value);
 			i++;

@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:48:47 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/11/09 16:47:19 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:36:55 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 int	tilde_case(t_token *tokens)
 {
 	if (tokens->next->type != WORD)
-		return (C_ERROR);
+		return (ERROR_R);
 	return (0);
 }
 
 int	asterick_case(t_token *tokens)
 {
 	if (tokens->next->type != WORD)
-		return (C_ERROR);
+		return (ERROR_R);
 	return (0);
 }
 

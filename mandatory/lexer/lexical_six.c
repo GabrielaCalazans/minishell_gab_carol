@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:48:16 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/12 04:07:26 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:39:53 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ int	is_word(int type, int check)
 	{
 		if (type != REDIRECT_IN && type != REDIRECT_OUT
 			&& type != HEREDOC && type != APPEND
-			&& type != C_SPACE && type != H_TAB)
+			&& type != SPACE_E && type != H_TAB)
 			return (TRUE);
 	}
 	if (check == 3)
 	{
 		if (type != REDIRECT_IN && type != REDIRECT_OUT
 			&& type != HEREDOC && type != APPEND
-			&& type != C_SPACE && type != PIPE)
+			&& type != SPACE_E && type != PIPE)
 			return (TRUE);
 	}
 	return (FALSE);

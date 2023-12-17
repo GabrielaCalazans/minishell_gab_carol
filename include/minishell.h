@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/15 19:06:58 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 21:42:29 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <string.h>
-# include <errno.h>
-# include <dirent.h>
-# include <termios.h>
-# include <termcap.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -43,7 +39,7 @@
 # define QUOTE_DOUBLE	8
 # define QUOTE_SINGLE	9
 # define WORD			10
-# define C_SPACE		11
+# define SPACE_E		11
 # define APPEND			12
 # define HEREDOC		13
 # define AMPERSAND		14
@@ -57,14 +53,9 @@
 # define H_TAB			22
 # define QUOTED_WORD	23
 # define EXIT_STATUS	24
-# define C_ERROR		1
-# define C_SUCCESS		0
+# define ERROR_R		1
+# define SUCESS_S		0
 # define HEREDOC_FILE	"/tmp/.heredoc"
-
-// **cmd; // aqui comando e flags
-// **cmd_args; // aqui str
-// **heredoc; // heredoc e seu delimitador/palavra
-// **rdct; // lista redirect e seu arquivo
 
 typedef struct s_tk_p
 {

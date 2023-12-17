@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:47:31 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/14 20:32:12 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 19:36:03 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,12 @@ char	**get_words_three(t_token *tokens)
 	len = nb_words_three(tokens);
 	if (len < 1)
 		return (NULL);
-	words = malloc(sizeof(char *) * (len + 1));
+	words = ft_calloc(sizeof(char *), (len + 1));
 	if (!words)
 	{
 		ft_error_parse(1);
 		exit(1);
 	}
 	process_tokens(tokens, &i, words);
-	words[len] = NULL;
 	return (words);
 }

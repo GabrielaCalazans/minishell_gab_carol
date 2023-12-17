@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:37:52 by carolinekun       #+#    #+#             */
-/*   Updated: 2023/12/15 19:56:59 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:32:48 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,6 @@ int	run_redirect(t_data *data, int index, int check)
 	return (data->exit_code);
 }
 
-/*
-1. colocar sinais heredoc
-2. excluir arquivo heredoc na hora da edição e execução
-3. implementar execução de multiplos heredoc(s)
-4. implementar exit code pro heredoc
-*/
-// Criar o exit code do heredoc
 void	ft_heredoc(char	*ks, t_data *data)
 {
 	char	*str;
@@ -80,6 +73,7 @@ void	ft_heredoc(char	*ks, t_data *data)
 		while ((str != NULL) && ft_strncmp(ks, str, (ft_strlen(ks) + 1)))
 		{
 			dup2(fds[0], 1);
+			str = get_str_expand(data, str);
 			ft_printf("%s\n", str);
 			dup2(fds[1], 1);
 			free(str);

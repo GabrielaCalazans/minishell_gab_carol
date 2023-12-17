@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:10:45 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/14 20:35:38 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:39:53 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	*jump_white_spaces(t_token *tokens)
 	tmp = tokens;
 	if (tmp == NULL)
 		return (NULL);
-	while (tmp && (tmp->type == C_SPACE || tmp->type == H_TAB))
+	while (tmp && (tmp->type == SPACE_E || tmp->type == H_TAB))
 		tmp = tmp->next;
 	if (!tmp)
 		return (NULL);
@@ -57,9 +57,9 @@ char	*find_file_name(t_token *tokens)
 		return_error();
 	while (temp)
 	{
-		if (temp->type == C_SPACE || temp->type == H_TAB)
+		if (temp->type == SPACE_E || temp->type == H_TAB)
 		{
-			while (temp->type == C_SPACE || temp->type == H_TAB)
+			while (temp->type == SPACE_E || temp->type == H_TAB)
 				temp = temp->next;
 		}
 		if (temp->type == QUOTED_WORD)

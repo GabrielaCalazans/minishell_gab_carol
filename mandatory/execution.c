@@ -6,7 +6,7 @@
 /*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/15 20:21:54 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/16 19:48:58 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	execution(t_data *data)
 
 int	valid_stat(t_data *data)
 {
-	struct stat path_stat;
+	struct stat	path_stat;
+
 	if (access(data->cmd->cmd[0], F_OK) == -1)
 	{
 		ft_putendl_fd(" command not found", 2);
@@ -104,29 +105,5 @@ void	config_pipe(t_data *data)
 	{
 		pipe(&data->fd[i]);
 		i += 2;
-	}
-}
-
-void	dup_pipe(int i, int ord, t_data *data)
-{
-	if (i == 0)
-	{
-		dup2(data->fd[1], 1);
-		close_fd(data, (data->n_cmd - 1) * 2);
-		close(data->fd[1]);
-	}
-	else if (i == data->n_cmd - 1)
-	{
-		dup2(data->fd[ord - 2], 0);
-		close_fd(data, (data->n_cmd - 1) * 2);
-		close(data->fd[ord - 2]);
-	}
-	else
-	{
-		dup2(data->fd[ord - 2], 0);
-		dup2(data->fd[ord + 1], 1);
-		close_fd(data, (data->n_cmd - 1) * 2);
-		close(data->fd[ord - 2]);
-		close(data->fd[ord + 1]);
 	}
 }
