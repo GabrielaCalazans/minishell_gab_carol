@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/15 19:16:36 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/17 14:05:02 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,10 @@ char	*get_str_expand(t_data *data, char *str)
 	int		i;
 	int		flag;
 	char	*aux;
-	int		index_dolar;
 	int		j;
 
 	i = 0;
 	flag = 0;
-	index_dolar = 0;
 	while (str && str[i] != '\0')
 	{
 		check_quotes(&flag, &i, str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:44 by ckunimur          #+#    #+#             */
-/*   Updated: 2023/12/15 15:09:37 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/17 13:25:23 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ void	ft_export(t_data *data)
 		return ;
 	if (is_valid_var(data))
 	{
-		ft_putendl_fd(" not a valid identifier", 2);
-		data->exit_code = 1;
+		error_msg(data, " not a valid identifier", 2, 1);
 		return ;
 	}
 	while (tmp->cmd[i])
@@ -59,10 +58,7 @@ void	ft_export(t_data *data)
 		i++;
 	}
 	env_node = node_last(data->env_node);
-	freearray(data->env);
-	data->env = NULL;
-	ft_set_env(data);
-	data->exit_code = 0;
+	finish_node(data);
 }
 
 t_env	*have_var(t_data *data, char *arg)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:36:27 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/16 21:42:29 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/17 14:00:53 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ void		ft_set_env(t_data *data);
 t_env		*have_var(t_data *data, char *arg);
 void		change_value(t_env *env_node, char *arg);
 int			is_valid_var(t_data	*data);
+void		finish_node(t_data *data);
 
 //EXECUTION
 int			run_one_builtin(t_data *data);
@@ -179,6 +180,7 @@ void		execution(t_data *data);
 void		set_path_command(t_data *data);
 void		config_pipe(t_data *data);
 void		execute_pid(t_data *data, int i, int ord);
+void		error_msg(t_data *data, char *str, int fd, int code);
 
 //HEREDOC
 void		ft_heredoc(char	*key_str, t_data *data);

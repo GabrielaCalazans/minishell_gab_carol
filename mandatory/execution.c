@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:55:22 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/16 19:48:58 by gacalaza         ###   ########.fr       */
+/*   Updated: 2023/12/17 13:18:58 by ckunimur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int	valid_stat(t_data *data)
 
 	if (access(data->cmd->cmd[0], F_OK) == -1)
 	{
-		ft_putendl_fd(" command not found", 2);
-		data->exit_code = 127;
+		error_msg(data, " command not found", 2, 127);
 		return (0);
 	}
 	if (stat(data->cmd->cmd[0], &path_stat) != 0)
@@ -56,18 +55,46 @@ int	valid_stat(t_data *data)
 	}
 	if (S_ISDIR(path_stat.st_mode))
 	{
-		ft_putstr_fd(" Is a directory\n", 2);
-		data->exit_code = 126;
+		error_msg(data, " Is a directory\n", 2, 126);
 		return (0);
 	}
 	if (access(data->cmd->cmd[0], X_OK) == -1)
 	{
-		ft_putendl_fd(" Permission denied", 2);
-		data->exit_code = 126;
+		error_msg(data, " Permission denied", 2, 126);
 		return (0);
 	}
 	return (1);
 }
+
+// int	valid_stat(t_data *data)
+// {
+// 	struct stat	path_stat;
+
+// 	if (access(data->cmd->cmd[0], F_OK) == -1)
+// 	{
+// 		ft_putendl_fd(" command not found", 2);
+// 		data->exit_code = 127;
+// 		return (0);
+// 	}
+// 	if (stat(data->cmd->cmd[0], &path_stat) != 0)
+// 	{
+// 		perror("stat");
+// 		return (0);
+// 	}
+// 	if (S_ISDIR(path_stat.st_mode))
+// 	{
+// 		ft_putstr_fd(" Is a directory\n", 2);
+// 		data->exit_code = 126;
+// 		return (0);
+// 	}
+// 	if (access(data->cmd->cmd[0], X_OK) == -1)
+// 	{
+// 		ft_putendl_fd(" Permission denied", 2);
+// 		data->exit_code = 126;
+// 		return (0);
+// 	}
+// 	return (1);
+// }
 
 void	execute_pid(t_data *data, int i, int ord)
 {
