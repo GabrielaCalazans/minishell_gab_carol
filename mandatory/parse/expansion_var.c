@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckunimur <ckunimur@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gacalaza <gacalaza@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:42:48 by gacalaza          #+#    #+#             */
-/*   Updated: 2023/12/17 14:05:02 by ckunimur         ###   ########.fr       */
+/*   Updated: 2023/12/17 18:35:06 by gacalaza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,3 +120,32 @@ char	*get_str_expand(t_data *data, char *str)
 	}
 	return (str);
 }
+
+// char	*get_str_expand(t_data *data, char *str, char *aux)
+// {
+// 	int		i;
+// 	int		j;
+
+// 	i = -1;
+// 	while (str && str[++i] != '\0')
+// 	{
+// 		check_quotes(&i, str);
+// 		if (str[i] == '$')
+// 		{
+// 			j = i;
+// 			if (aux[++i] == '?')
+// 				str = join_strings(data, aux, &i, 1);
+// 			else if (can_expand(data, &aux[i]))
+// 				str = join_strings(data, aux, &i, 0);
+// 			else if (!aux[i])
+// 				i++;
+// 			else
+// 				str = dont_find_variable_expand(aux, &i);
+// 			if ((size_t)i > ft_strlen(str) && aux[i - 1])
+// 				i = 0;
+// 			else
+// 				i = j;
+// 		}
+// 	}
+// 	return (str);
+// }
